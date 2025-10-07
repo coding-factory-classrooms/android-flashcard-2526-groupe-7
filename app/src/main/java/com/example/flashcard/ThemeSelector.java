@@ -1,12 +1,19 @@
 package com.example.flashcard;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.flashcard.model.Level;
+import com.example.flashcard.model.json.read.IReadLevel;
+import com.example.flashcard.model.json.read.ReadLevel;
+import com.google.gson.Gson;
 
 public class ThemeSelector extends AppCompatActivity {
 
@@ -19,6 +26,18 @@ public class ThemeSelector extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        ReadLevel readLevel = new ReadLevel(this);
+
+        Level level = readLevel.getLevel();
+
+        findViewById(R.id.addXpButton).setOnClickListener(v -> {
+            level.addXp(10);
+            TextView levelTextView = findViewById(R.id.levelTextView);
+            Log.i("Theme selector", new Gson().toJson(level));
+            levelTextView.setText(String.valueOf(level.getLevel()));
+            level.updateJson(this, level);
         });
     }
 }

@@ -1,9 +1,14 @@
 package com.example.flashcard.model;
 
-public class Level {
-    int level;
-    int xp;
-    int goalXp;
+import android.content.Context;
+
+import com.example.flashcard.model.json.write.WriteLevel;
+
+public class Level implements ILevel{
+    private int level;
+    private float xp;
+    private float goalXp;
+    private final float xpMultiplicator = 1.03f;
 
     public Level(int level, int xp, int goalXp) {
         this.level = level;
@@ -15,11 +20,28 @@ public class Level {
         return level;
     }
 
-    public int getXp() {
+    public float getXp() {
         return xp;
     }
 
-    public int getGoalXp() {
+    public float getGoalXp() {
         return goalXp;
+    }
+
+    @Override
+    public void addXp(int xpToAdd) {
+        xp += xpToAdd;
+        while(xp >= goalXp){
+            xp -= goalXp;
+            level++;
+            goalXp *= xpMultiplicator;
+        }
+
+    }
+
+    @Override
+    public void updateJson(Context context, Level level) {
+        WriteLevel writeLevel = new WriteLevel();
+        writeLevel.writeLevel(context, level);
     }
 }
