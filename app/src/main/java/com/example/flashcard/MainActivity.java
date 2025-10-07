@@ -11,6 +11,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.flashcard.json.read.IReadLevel;
+import com.example.flashcard.json.read.ReadLevel;
+import com.example.flashcard.model.Level;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
@@ -37,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.aboutButton).setOnClickListener(
                 v -> navigateTo(About.class));
+
+        Level level = new Level(0, 0, 10);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        File file = new File(this.getFilesDir(), "test.json");
+        try(Writer writer = new FileWriter(file)){
+            gson.toJson(level, writer);
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        IReadLevel readLevel = new ReadLevel();
+
+        Level level2 = readLevel.readLevel(this, "test.json");
     }
 
     public void navigateTo(Class targetClass){
