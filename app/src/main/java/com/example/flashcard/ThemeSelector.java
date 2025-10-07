@@ -11,8 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.flashcard.model.Level;
-import com.example.flashcard.model.json.read.IReadLevel;
-import com.example.flashcard.model.json.read.ReadLevel;
+import com.example.flashcard.model.json.JsonLevel;
 import com.google.gson.Gson;
 
 public class ThemeSelector extends AppCompatActivity {
@@ -28,9 +27,9 @@ public class ThemeSelector extends AppCompatActivity {
             return insets;
         });
 
-        ReadLevel readLevel = new ReadLevel(this);
+        JsonLevel jsonlevel = new JsonLevel();
 
-        Level level = readLevel.getLevel();
+        Level level = jsonlevel.readLevel(this);
 
         findViewById(R.id.addXpButton).setOnClickListener(v -> {
             level.addXp(10);

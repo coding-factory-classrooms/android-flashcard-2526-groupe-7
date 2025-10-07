@@ -9,8 +9,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.flashcard.model.json.read.IReadLevel;
-import com.example.flashcard.model.json.read.ReadLevel;
 import com.example.flashcard.model.Level;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

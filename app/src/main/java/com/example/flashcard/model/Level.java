@@ -2,7 +2,7 @@ package com.example.flashcard.model;
 
 import android.content.Context;
 
-import com.example.flashcard.model.json.write.WriteLevel;
+import com.example.flashcard.model.json.JsonLevel;
 
 public class Level implements ILevel{
     private int level;
@@ -41,7 +41,7 @@ public class Level implements ILevel{
 
     @Override
     public void updateJson(Context context, Level level) {
-        WriteLevel writeLevel = new WriteLevel();
-        writeLevel.writeLevel(context, level);
+        JsonLevel jsonLevel = new JsonLevel();
+        jsonLevel.writeLevel(context, level);
     }
 }
