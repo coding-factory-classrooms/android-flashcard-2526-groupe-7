@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flashcard">
         <activity
+            android:name=".Game"
+            android:exported="false" />
+        <activity
+            android:name=".AllQuestions"
+            android:exported="false" />
+        <activity
+            android:name=".EndGameStat"
+            android:exported="false" />
+        <activity
+            android:name=".LevelSelector"
+            android:exported="false" />
+        <activity
+            android:name=".ThemeSelector"
+            android:exported="false" />
+        <activity
+            android:name=".About"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
