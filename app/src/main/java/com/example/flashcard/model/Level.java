@@ -8,7 +8,7 @@ public class Level implements ILevel{
     private int level;
     private float xp;
     private float goalXp;
-    private final float xpMultiplicator = 1.03f;
+    private final transient float xpMultiplicator = 1.03f;
 
     public Level(int level, int xp, int goalXp) {
         this.level = level;
