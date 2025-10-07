@@ -1,7 +1,9 @@
 package com.example.flashcard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Log.d(TAG, "Hello Flashcard");
+        findViewById(R.id.playButton).setOnClickListener(
+                v -> navigateTo(ThemeSelector.class));
+
+        findViewById(R.id.statButton).setOnClickListener(
+                v -> navigateTo(Statistics.class));
+
+        findViewById(R.id.allQuestionsButton).setOnClickListener(
+                v -> navigateTo(AllQuestions.class));
+
+        findViewById(R.id.aboutButton).setOnClickListener(
+                v -> navigateTo(About.class));
+    }
+
+    public void navigateTo(Class targetClass){
+        Intent intent = new Intent(this, targetClass);
+        startActivity(intent);
     }
 }
