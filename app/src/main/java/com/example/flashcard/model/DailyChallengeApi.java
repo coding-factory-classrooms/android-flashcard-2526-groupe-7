@@ -8,4 +8,12 @@ public class DailyChallengeApi {
         this.isCompleted = isCompleted;
         this.dailyChallenge = dailyChallenge;
     }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public DailyChallenge getDailyChallenge() {
+        return dailyChallenge;
+    }
 }

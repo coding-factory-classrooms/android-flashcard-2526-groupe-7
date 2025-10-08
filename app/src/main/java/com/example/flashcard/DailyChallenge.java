@@ -9,7 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcard.adapter.DailyChallengeAdapter;
+import com.example.flashcard.model.DailyChallengeApi;
 import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.google.gson.Gson;
 
@@ -31,8 +35,15 @@ public class DailyChallenge extends AppCompatActivity {
 
         JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
 
-        List<com.example.flashcard.model.DailyChallenge> dailyChallenges = jsonDailyChallenge.readDailyChallenges(this, 2);
+        List<DailyChallengeApi> dailyChallenges = jsonDailyChallenge.readDailyChallenges(this, 2);
 
         Log.i("TAG", new Gson().toJson(dailyChallenges));
+
+        DailyChallengeAdapter adapter = new DailyChallengeAdapter(dailyChallenges);
+
+        RecyclerView recyclerView = findViewById(R.id.dailyChallengeRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
     }
 }
