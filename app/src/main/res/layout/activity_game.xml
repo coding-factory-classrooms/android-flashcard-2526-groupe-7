@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/bgopen">
-
-    <RelativeLayout
+    android:background="@drawable/bgopen"> <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="16dp">
@@ -30,8 +28,7 @@
         android:layout_centerInParent="true"
         android:text="MAMA QUIZZ"
         android:textSize="22sp"
-        android:textColor="#3F51B5"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/white"  android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/scoreTextView"
@@ -41,16 +38,14 @@
         android:layout_centerVertical="true"
         android:text="0/3"
         android:textSize="18sp"
-        android:textColor="#FF9800"
-        android:textStyle="bold"
+        android:textColor="#FFC107"  android:textStyle="bold"
         android:padding="8dp"/>
 </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DCDCDC"
-        android:layout_marginBottom="24dp"/>
+        android:background="#F5F5F5"  android:layout_marginBottom="24dp"/>
 
     <TextView
         android:id="@+id/questionTextTextView"
@@ -59,8 +54,7 @@
         android:gravity="center"
         android:text="Titre question"
         android:textSize="20sp"
-        android:textColor="#333333"
-        android:textStyle="bold"
+        android:textColor="@android:color/white"  android:textStyle="bold"
         android:paddingBottom="24dp"
         android:layout_marginTop="24dp"/>
 
@@ -76,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 1"
-            android:textSize="16sp"
+            android:textColor="@android:color/white"  android:textSize="16sp"
             android:paddingVertical="12dp"
             android:layout_marginBottom="8dp"
             android:button="@null"
@@ -87,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 2"
-            android:textSize="16sp"
+            android:textColor="@android:color/white"  android:textSize="16sp"
             android:paddingVertical="12dp"
             android:layout_marginBottom="8dp"
             android:button="@null"
@@ -98,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 3"
-            android:textSize="16sp"
+            android:textColor="@android:color/white"  android:textSize="16sp"
             android:paddingVertical="12dp"
             android:layout_marginBottom="8dp"
             android:button="@null"
@@ -111,9 +105,7 @@
         android:layout_height="wrap_content"
         android:text="Valider"
         android:textSize="18sp"
-        android:textColor="@android:color/white"
-        android:backgroundTint="#4CAF50"
-        android:paddingVertical="12dp"
+        android:textColor="@android:color/black"  android:backgroundTint="#CFD8DC"  android:paddingVertical="12dp"
         android:layout_marginTop="32dp"
         android:layout_marginHorizontal="16dp"/>
 </LinearLayout>

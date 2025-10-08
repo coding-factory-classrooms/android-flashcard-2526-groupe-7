@@ -11,25 +11,29 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewKt;
 
+import com.example.flashcard.model.AnswerOption;
 import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonQuestion;
 import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
     List<Question> questions;
-
-
     private int currentIndex = 0;
     private int goodAnswer = 0;
     private TextView questionText;
@@ -37,12 +41,14 @@ public class Game extends AppCompatActivity {
     private RadioGroup optionsGroup;
     private RadioButton opt1, opt2, opt3;
     private Button validateButton;
+    private ImageButton leaveButton;
+    List<Question> ErrorQuestions;
+    int numberQuestion = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         //Setup all components
         questionText = findViewById(R.id.questionTextTextView);
         scoreText = findViewById(R.id.scoreTextView);
@@ -51,26 +57,25 @@ public class Game extends AppCompatActivity {
         opt2 = findViewById(R.id.opt2RadioButton);
         opt3 = findViewById(R.id.opt3RadioButton);
         validateButton = findViewById(R.id.validateButton);
+        leaveButton = findViewById(R.id.backButton);
+        this.ErrorQuestions = new ArrayList<>();
 
-        JsonQuizz jsonQuizz = new JsonQuizz();
-
-        List<Quizz> quizz = jsonQuizz.readQuizz(this);
-
-        Log.i("Theme selector", new Gson().toJson(quizz));
+        leaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("finish","Leave button");
+                finish();
+            }
+        });
 
         JsonQuestion jsonQuestion = new JsonQuestion();
+        questions = jsonQuestion.readQuestion(this, "questions");
 
-        questions = jsonQuestion.readQuestion(this);
+        // Shuffle question for rng
+        Collections.shuffle(questions);
 
-        Log.i("Theme selector", new Gson().toJson(questions));
-
-
-            /*
-        //Create arrayList -> question Model
-        questions = new ArrayList<>();
-        questions.add(new questionModel("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));*/
+        //Take numberQuestion question only
+        questions = new ArrayList<>(questions.subList(0, numberQuestion));
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());
@@ -107,9 +112,15 @@ public class Game extends AppCompatActivity {
                 scoreText.setText(goodAnswer + "/" + questions.size());
                 showGoodAnswerPopup();
                 Advance();
+
             }
             else{
-                showWrongAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex], new Runnable() {
+                String correctAnswerText = questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
+                opt1.setEnabled(false);
+                opt2.setEnabled(false);
+                opt3.setEnabled(false);
+                ErrorQuestions.add(questions.get(currentIndex));
+                showWrongAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse, new Runnable() {
                     @Override
                     public void run() {
                         // This code runs AFTER the popup is dismissed
@@ -117,10 +128,6 @@ public class Game extends AppCompatActivity {
                     }
                 });
             }
-
-
-            // Next question if not finish
-
         });
     }
 
@@ -196,11 +203,24 @@ public class Game extends AppCompatActivity {
     }
 
     private void showQuestion() {
+        //Clear radio checked
+        optionsGroup.clearCheck();
+
         Question question = questions.get(currentIndex);
         questionText.setText(question.questionTitle);
-        opt1.setText(question.answerOptions[0]);
-        opt2.setText(question.answerOptions[1]);
-        opt3.setText(question.answerOptions[2]);
-        optionsGroup.clearCheck();
+
+        // Create list option response for shuffle
+        List<AnswerOption>  optionList = Arrays.asList(question.answerOptions);
+        //Shuffle option list for RNG
+        Collections.shuffle(optionList);
+        //Set option in select
+        opt1.setText(optionList.get(0).reponse);
+        opt2.setText(optionList.get(1).reponse);
+        opt3.setText(optionList.get(2).reponse);
+        //Active select for play
+        opt1.setEnabled(true);
+        opt2.setEnabled(true);
+        opt3.setEnabled(true);
+
     }
 }

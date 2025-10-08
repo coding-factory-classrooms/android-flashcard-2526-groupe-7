@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.playButton).setOnClickListener(
-                v -> navigateTo(Game.class));
+                v -> navigateTo(ThemeSelector.class));
 
         findViewById(R.id.statButton).setOnClickListener(
                 v -> navigateTo(Profil.class));
