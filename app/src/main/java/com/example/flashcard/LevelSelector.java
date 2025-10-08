@@ -1,10 +1,10 @@
 package com.example.flashcard;
-
+import static com.example.flashcard.MainActivity.TAG;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioGroup;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -23,19 +23,21 @@ public class LevelSelector extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Intent intent = new Intent(this, Game.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         Button easyLevel = findViewById(R.id.easyRadio);
         Button mediumLevel = findViewById(R.id.mediumRadio);
         Button hardLevel = findViewById(R.id.hardRadio);
-        RadioGroup radioGroup =findViewById(R.id.radioGroup);
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
         Button fiveQuestionsRadio = findViewById(R.id.fiveQuestionsRadio);
         Button tenQuestionsRadio = findViewById(R.id.tenQuestionsRadio);
         Button fiveteenQuestionsRadio = findViewById(R.id.fiveteenQuestionsRadio);
-        RadioGroup radioGroupQuestions =findViewById(R.id.radioGroupNumber);
-        Button play= findViewById(R.id.playButton);
-        int selectId = radioGroup.getCheckedRadioButtonId();
+        RadioGroup radioGroupQuestions = findViewById(R.id.radioGroupNumber);
+        Button play = findViewById(R.id.playButton);
 
+        play.setOnClickListener (view -> {
+            int selectId = radioGroup.getCheckedRadioButtonId();
+            int selectedQuestionsId = radioGroupQuestions.getCheckedRadioButtonId();
         //User can choose the difficulty
         String level = "";
         if (selectId == R.id.easyRadio) {
@@ -48,20 +50,18 @@ public class LevelSelector extends AppCompatActivity {
 
         //User can chose the number of questions
         String questions = "";
-        if (selectId == R.id.fiveQuestionsRadio) {
+        if (selectedQuestionsId == R.id.fiveQuestionsRadio) {
             questions = "five";
-        } else if (selectId == R.id.tenQuestionsRadio) {
+        } else if (selectedQuestionsId == R.id.tenQuestionsRadio) {
             questions = "ten";
-        } else if (selectId == R.id.fiveteenQuestionsRadio) {
+        } else if (selectedQuestionsId == R.id.fiveteenQuestionsRadio) {
             questions = "fiveteen";
         }
-
-        playButton.setOnClickListener view -> {
             intent.putExtra("LEVEL_KEY", level);
-            intent.putExtra("LEVEL_KEY", questions);
+            intent.putExtra("Questions_KEY", questions);
             startActivity(intent);
-        }
+        });
+    }
+}
 
-    }
-    }
 

@@ -8,6 +8,16 @@
     android:background="@drawable/bghome"
     tools:context=".LevelSelector">
 
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Jouer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupNumber" />
+
     <TextView
         android:id="@+id/levelTextView"
         android:layout_width="wrap_content"
