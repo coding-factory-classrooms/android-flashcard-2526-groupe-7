@@ -3,6 +3,7 @@ package com.example.flashcard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -84,6 +85,14 @@ public class EndGameStats extends AppCompatActivity {
         // Replace missing xp to level up
         TextView nextLevelXpTextView = findViewById(R.id.nextLevelXpTextView);
         nextLevelXpTextView.setText("Prochain niveau dans: " + level.getMissingXpToLevelUp() + " xp");
+
+
+        String formatedShareMessage = "J'ai eu " + score + "/" + numberOfQuestions + " au quiz " + difficulty + " sur l'app Mama";
+        findViewById(R.id.shareButton).setOnClickListener(v -> {
+            shareGame(formatedShareMessage);
+        });
+
+
     }
 
     /**
@@ -93,5 +102,16 @@ public class EndGameStats extends AppCompatActivity {
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
+    }
+
+    public void shareGame(String quizInfo){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, quizInfo);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+
     }
 }

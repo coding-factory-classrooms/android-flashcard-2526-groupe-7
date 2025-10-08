@@ -196,4 +196,14 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/retryErrorButton"
         app:layout_constraintTop_toBottomOf="@+id/xpCard" />
+
+    <Button
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintStart_toStartOf="@+id/retryErrorButton"
+        app:layout_constraintTop_toBottomOf="@+id/retryErrorButton" />
 </androidx.constraintlayout.motion.widget.MotionLayout>
