@@ -4,9 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.flashcard.model.Level;
+import com.example.flashcard.model.Question;
 import com.example.flashcard.model.Quizz;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class JsonQuizz implements IJsonQuizz{
@@ -28,7 +31,9 @@ public class JsonQuizz implements IJsonQuizz{
 
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             Log.i(TAG, "Récupération des quiz réussie");
-            quizz = gson.fromJson(reader, List.class);
+
+            Type quizzListType = new TypeToken<List<Quizz>>(){}.getType();
+            quizz = gson.fromJson(reader, quizzListType);
             return quizz;
         } catch (IOException e) {
             throw new RuntimeException(e);

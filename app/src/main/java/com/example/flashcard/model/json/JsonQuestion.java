@@ -3,6 +3,7 @@ package com.example.flashcard.model.json;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.flashcard.R;
 import com.example.flashcard.model.Question;
 import com.example.flashcard.model.Quizz;
 import com.google.gson.Gson;
@@ -24,8 +25,10 @@ public class JsonQuestion implements IJsonQuestion{
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<Question> questions;
     @Override
-    public List<Question> readQuestion(Context context) {
-        InputStream inputStream = context.getResources().openRawResource(IJsonQuestion.jsonQuestionFileLink);
+    public List<Question> readQuestion(Context context, String jsonFile) {
+        InputStream inputStream = context.getResources().openRawResource(
+            context.getResources().getIdentifier(jsonFile, "raw", context.getPackageName())
+        );
 
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             Log.i(TAG, "Récupération des questions réussie");

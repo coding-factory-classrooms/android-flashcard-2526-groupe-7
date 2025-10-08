@@ -58,7 +58,7 @@ public class Game extends AppCompatActivity {
 
         JsonQuestion jsonQuestion = new JsonQuestion();
 
-        questions = jsonQuestion.readQuestion(this);
+        questions = jsonQuestion.readQuestion(this, "questions");
 
         Log.i("Theme selector", new Gson().toJson(questions));
 

@@ -9,6 +9,5 @@ import com.example.flashcard.model.Quizz;
 import java.util.List;
 
 public interface IJsonQuestion {
-    public final int jsonQuestionFileLink = R.raw.questions;
-    public List<Question> readQuestion(Context context);
+    public List<Question> readQuestion(Context context, String jsonFile);
 }
