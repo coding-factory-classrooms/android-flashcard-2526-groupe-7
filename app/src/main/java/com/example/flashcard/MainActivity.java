@@ -12,6 +12,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.flashcard.model.Level;
+import com.example.flashcard.model.QuizStatistic;
+import com.example.flashcard.model.Statistic;
+import com.example.flashcard.model.json.JsonStatistic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -57,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 statButton.setVisibility(View.GONE);
             }
         });
+
+        JsonStatistic jsonStatistic = new JsonStatistic();
+
+        Statistic statistic = jsonStatistic.readStatistic(this);
+        statistic.updateStatistic(this, new QuizStatistic(3.45f, 3, 9));
     }
 
     public void navigateTo(Class targetClass){
