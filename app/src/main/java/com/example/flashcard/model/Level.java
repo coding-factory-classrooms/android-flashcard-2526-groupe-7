@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.flashcard.model.json.JsonLevel;
 
+import java.text.DecimalFormat;
+
 public class Level implements ILevel{
     private int level;
     private float xp;
@@ -24,8 +26,20 @@ public class Level implements ILevel{
         return xp;
     }
 
+    public String getStringXpToFixed(){
+        return new DecimalFormat("0.00").format(xp);
+    }
+
     public float getGoalXp() {
         return goalXp;
+    }
+
+    public String getStringGoalXpToFixed(){
+        return new DecimalFormat("0.00").format(goalXp);
+    }
+
+    public int getProgress(){
+        return (int) ((xp / goalXp) * 100);
     }
 
     @Override
