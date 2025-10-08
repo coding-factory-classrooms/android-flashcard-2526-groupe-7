@@ -32,7 +32,6 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
         JsonQuizz jsonQuizz = new JsonQuizz();
         quizz = jsonQuizz.readQuizz(this);
 
-
         RecyclerView recyclerView = findViewById(R.id.themeRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -40,7 +39,9 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
         recyclerView.setAdapter(adapter);
     }
     public void onItemClick(String quizzName) {
-        Intent intent = new Intent(this, Game.class);
+        Log.d("quizzname :",quizzName);
+        Intent intent = new Intent(this, LevelSelector.class);
+        intent.putExtra("name",quizzName);
         startActivity(intent);
     }
 }

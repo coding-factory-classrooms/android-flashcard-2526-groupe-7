@@ -73,7 +73,6 @@ public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Notifie l'Activity du clic
                 listener.onItemClick(linkQuizz);
             }
         });

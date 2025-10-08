@@ -1,9 +1,11 @@
 package com.example.flashcard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,7 +48,11 @@ public class Game extends AppCompatActivity {
     private Button validateButton;
     private ImageButton leaveButton;
     List<Question> ErrorQuestions;
-    int numberQuestion = 1;
+    int nbQuestion;
+    String difficultQuestionnary;
+    private List<AnswerOption>currentShuffledOptions;
+
+    private int correctOptionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,12 @@ public class Game extends AppCompatActivity {
         leaveButton = findViewById(R.id.backButton);
         this.ErrorQuestions = new ArrayList<>();
 
+        Intent srcIntent = getIntent();
+        String nameQuestionnary = srcIntent.getStringExtra("name");
+        difficultQuestionnary = srcIntent.getStringExtra("difficult");
+        nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
+
+        //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,14 +83,15 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //Logic for read Json and load question
         JsonQuestion jsonQuestion = new JsonQuestion();
-        questions = jsonQuestion.readQuestion(this, "questions");
+        questions = jsonQuestion.readQuestion(this, nameQuestionnary);
 
         // Shuffle question for rng
         Collections.shuffle(questions);
 
         //Take numberQuestion question only
-        questions = new ArrayList<>(questions.subList(0, numberQuestion));
+        questions = new ArrayList<>(questions.subList(0,nbQuestion));
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());
@@ -89,6 +103,7 @@ public class Game extends AppCompatActivity {
         validateButton.setOnClickListener(v -> {
             int checkedId = optionsGroup.getCheckedRadioButtonId();
             int selectedIndex = -1;
+            int selectedOptionId = -1;
 
             //Logic for find what answer as checked
             if (checkedId == R.id.opt1RadioButton) {
@@ -100,14 +115,15 @@ public class Game extends AppCompatActivity {
             else if (checkedId == R.id.opt3RadioButton){
                 selectedIndex = 2;
             }
-
             // If logic bug go retrun no crash
             if (selectedIndex == -1){
                 return;
             }
 
+            selectedOptionId = currentShuffledOptions.get(selectedIndex).id;
+
             // Logic for win
-            if (selectedIndex == questions.get(currentIndex).answerCorrectIndex) {
+            if (selectedOptionId == correctOptionId) {
                 //Increment score
                 goodAnswer++;
                 //Draw new score
@@ -117,11 +133,15 @@ public class Game extends AppCompatActivity {
 
             }
             else{
+                // Get correct answer for message error
                 String correctAnswerText = questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
                 opt1.setEnabled(false);
                 opt2.setEnabled(false);
                 opt3.setEnabled(false);
+                validateButton.setEnabled(false);
+                // Stock question in ErrorQuestion[]
                 ErrorQuestions.add(questions.get(currentIndex));
+                // Show error PopUp
                 showWrongAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse, new Runnable() {
                     @Override
                     public void run() {
@@ -185,7 +205,6 @@ public class Game extends AppCompatActivity {
                 }
             }
         });
-
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
 
@@ -201,6 +220,13 @@ public class Game extends AppCompatActivity {
             opt2.setEnabled(false);
             opt3.setEnabled(false);
             validateButton.setEnabled(false);
+
+            Intent intent = new Intent(this, EndGameStats.class);
+            intent.putExtra("score",goodAnswer);
+            intent.putExtra("nbQuestion",nbQuestion);
+            intent.putExtra("difficult",difficultQuestionnary);
+            intent.putExtra("errorQuestion", (Serializable) ErrorQuestions);
+            startActivity(intent);
         }
     }
 
@@ -215,6 +241,9 @@ public class Game extends AppCompatActivity {
         List<AnswerOption>  optionList = Arrays.asList(question.answerOptions);
         //Shuffle option list for RNG
         Collections.shuffle(optionList);
+
+        currentShuffledOptions = optionList;
+
         //Set option in select
         opt1.setText(optionList.get(0).reponse);
         opt2.setText(optionList.get(1).reponse);
@@ -223,13 +252,19 @@ public class Game extends AppCompatActivity {
         opt1.setEnabled(true);
         opt2.setEnabled(true);
         opt3.setEnabled(true);
+        validateButton.setEnabled(true);
 
-        Context context = getApplicationContext(); // or your Activity context
+        // Get context
+        Context context = getApplicationContext();
+
+        // Stock correct Answer id
+        correctOptionId = question.getAnswerCorrectIndex();
+
+        // Logic for load image (@drawable)
         int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
         if (resID != 0) {
             ImageView imageView = findViewById(R.id.imageView);
             imageView.setImageResource(resID);
-            Log.e("oui","oui");
         } else {
             Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
         }

@@ -1,7 +1,12 @@
 [
   {
     "name": "test",
-    "link": "tata",
+    "link": "questions",
+    "picture":"bgopen"
+  },
+  {
+    "name": "pokemon",
+    "link": "pokemon",
     "picture":"bgopen"
   }
 ]
