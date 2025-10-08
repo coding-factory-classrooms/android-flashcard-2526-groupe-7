@@ -1,8 +1,14 @@
 package com.example.flashcard;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,6 +26,7 @@ import java.util.List;
 
 public class Game extends AppCompatActivity {
     List<Question> questions;
+
 
     private int currentIndex = 0;
     private int goodAnswer = 0;
@@ -56,12 +63,12 @@ public class Game extends AppCompatActivity {
         Log.i("Theme selector", new Gson().toJson(questions));
 
 
-        /*
+            /*
         //Create arrayList -> question Model
         questions = new ArrayList<>();
-        questions.add(new Question("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
-        questions.add(new Question("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
-        questions.add(new Question("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));*/
+        questions.add(new questionModel("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
+        questions.add(new questionModel("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
+        questions.add(new questionModel("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));*/
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());
@@ -96,22 +103,65 @@ public class Game extends AppCompatActivity {
                 goodAnswer++;
                 //Draw new score
                 scoreText.setText(goodAnswer + "/" + questions.size());
+                Advance();
+
+            }
+            else{
+                showCorrectAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex], new Runnable() {
+                    @Override
+                    public void run() {
+                        // This code runs AFTER the popup is dismissed
+                        Advance();
+                    }
+                });
             }
 
+
             // Next question if not finish
-            currentIndex++;
-            if (currentIndex < questions.size()) {
-                showQuestion();
-            } else {
-                //Logic for finish
-                questionText.setText("Quiz terminé !");
-                optionsGroup.clearCheck();
-                opt1.setEnabled(false);
-                opt2.setEnabled(false);
-                opt3.setEnabled(false);
-                validateButton.setEnabled(false);
+
+        });
+    }
+    public void showCorrectAnswerPopup(String correctAnswer, Runnable afterDismiss) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_correct_answer, null);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        TextView answerTextView = popupView.findViewById(R.id.textViewAnswer);
+        Button closeButton = popupView.findViewById(R.id.buttonClose);
+
+        answerTextView.setText(correctAnswer);
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                if (afterDismiss != null) {
+                    afterDismiss.run(); // this is where your "next" logic goes
+                }
             }
         });
+
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+    }
+    private void Advance() {
+        currentIndex++;
+        if (currentIndex < questions.size()) {
+            showQuestion();
+        } else {
+            //Logic for finish
+            questionText.setText("Quiz terminé !");
+            optionsGroup.clearCheck();
+            opt1.setEnabled(false);
+            opt2.setEnabled(false);
+            opt3.setEnabled(false);
+            validateButton.setEnabled(false);
+        }
     }
 
     private void showQuestion() {
