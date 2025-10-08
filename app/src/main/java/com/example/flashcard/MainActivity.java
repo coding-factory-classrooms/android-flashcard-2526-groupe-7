@@ -2,8 +2,8 @@ package com.example.flashcard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button playButton = findViewById(R.id.playButton);
+        Button statButton = findViewById(R.id.statButton);
+        Button aboutButton = findViewById(R.id.aboutButton);
+        Button allQuestionsButton = findViewById(R.id.allQuestionsButton);
+        Button parameters = findViewById(R.id.parameters);
+
         findViewById(R.id.playButton).setOnClickListener(
                 v -> navigateTo(ThemeSelector.class));
 
@@ -37,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.aboutButton).setOnClickListener(
                 v -> navigateTo(About.class));
-    }
 
+        parameters.setOnClickListener(v -> {
+            if (aboutButton.getVisibility() == View.GONE) {
+                aboutButton.setVisibility(View.VISIBLE);
+                statButton.setVisibility(View.VISIBLE);
+            } else {
+                aboutButton.setVisibility(View.GONE);
+                statButton.setVisibility(View.GONE);
+            }
+        });
+    }
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
