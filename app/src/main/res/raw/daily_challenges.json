@@ -1,0 +1,140 @@
+[
+  {
+    "challengeName": "Défi du jour : Capitales",
+    "numberOfQuestions": "3",
+    "difficulty": "Facile",
+    "latestDateAppears": null,
+    "questions": [
+      {
+        "questionTitle": "Quelle est la capitale de la France ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "Paris" },
+          { "id": 2, "answerText": "Lyon" },
+          { "id": 3, "answerText": "Marseille" },
+          { "id": 4, "answerText": "Bordeaux" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "paris_image",
+        "questionSong": "song1.mp3",
+        "difficulty": "Facile",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Quelle est la capitale de l’Espagne ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "Madrid" },
+          { "id": 2, "answerText": "Barcelone" },
+          { "id": 3, "answerText": "Valence" },
+          { "id": 4, "answerText": "Séville" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "madrid_image",
+        "questionSong": "song2.mp3",
+        "difficulty": "Facile",
+        "questionTime": 25
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi culture générale",
+    "numberOfQuestions": "2",
+    "difficulty": "Moyen",
+    "latestDateAppears": "2025-09-30",
+    "questions": [
+      {
+        "questionTitle": "Qui a peint la Joconde ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "Léonard de Vinci" },
+          { "id": 2, "answerText": "Michel-Ange" },
+          { "id": 3, "answerText": "Raphaël" },
+          { "id": 4, "answerText": "Donatello" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "mona_lisa",
+        "questionSong": "song3.mp3",
+        "difficulty": "Moyen",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "Combien de continents y a-t-il sur Terre ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "5" },
+          { "id": 2, "answerText": "6" },
+          { "id": 3, "answerText": "7" },
+          { "id": 4, "answerText": "8" }
+        ],
+        "answerCorrectIndex": 2,
+        "questionImage": "earth",
+        "questionSong": "song4.mp3",
+        "difficulty": "Moyen",
+        "questionTime": 25
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Histoire",
+    "numberOfQuestions": "3",
+    "difficulty": "Difficile",
+    "latestDateAppears": "2025-08-15",
+    "questions": [
+      {
+        "questionTitle": "En quelle année la Seconde Guerre mondiale a-t-elle commencé ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "1939" },
+          { "id": 2, "answerText": "1945" },
+          { "id": 3, "answerText": "1914" },
+          { "id": 4, "answerText": "1920" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "ww2_image",
+        "questionSong": "song5.mp3",
+        "difficulty": "Difficile",
+        "questionTime": 40
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Science",
+    "numberOfQuestions": "2",
+    "difficulty": "Moyen",
+    "latestDateAppears": "2025-07-20",
+    "questions": [
+      {
+        "questionTitle": "Quel est l’élément chimique dont le symbole est O ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "Or" },
+          { "id": 2, "answerText": "Oxygène" },
+          { "id": 3, "answerText": "Osmium" },
+          { "id": 4, "answerText": "Ozone" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "oxygen",
+        "questionSong": "song6.mp3",
+        "difficulty": "Moyen",
+        "questionTime": 30
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Mathématiques",
+    "numberOfQuestions": "2",
+    "difficulty": "Facile",
+    "latestDateAppears": "2025-06-10",
+    "questions": [
+      {
+        "questionTitle": "Combien font 8 × 7 ?",
+        "answerOptions": [
+          { "id": 1, "answerText": "54" },
+          { "id": 2, "answerText": "56" },
+          { "id": 3, "answerText": "64" },
+          { "id": 4, "answerText": "49" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "maths",
+        "questionSong": "song7.mp3",
+        "difficulty": "Facile",
+        "questionTime": 15
+      }
+    ]
+  }
+]

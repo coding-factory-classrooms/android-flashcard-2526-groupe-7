@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.aboutButton).setOnClickListener(
                 v -> navigateTo(About.class));
 
+        findViewById(R.id.dailyChallengeButton).setOnClickListener(v ->
+                navigateTo(DailyChallenge.class));
+
         parameters.setOnClickListener(v -> {
             if (aboutButton.getVisibility() == View.GONE) {
                 aboutButton.setVisibility(View.VISIBLE);
