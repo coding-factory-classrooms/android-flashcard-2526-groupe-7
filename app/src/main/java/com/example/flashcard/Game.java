@@ -45,7 +45,7 @@ public class Game extends AppCompatActivity {
     private Button validateButton;
     private ImageButton leaveButton;
     List<Question> ErrorQuestions;
-    int numberQuestion = 5;
+    int numberQuestion = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +223,16 @@ public class Game extends AppCompatActivity {
         opt1.setEnabled(true);
         opt2.setEnabled(true);
         opt3.setEnabled(true);
+
+        Context context = getApplicationContext(); // or your Activity context
+        int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
+        if (resID != 0) {
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageResource(resID);
+            Log.e("oui","oui");
+        } else {
+            Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
+        }
 
     }
 }
