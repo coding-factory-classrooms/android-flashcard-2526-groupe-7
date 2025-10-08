@@ -3,9 +3,10 @@ package com.example.flashcard.model.json;
 import android.content.Context;
 
 import com.example.flashcard.model.DailyChallenge;
+import com.example.flashcard.model.DailyChallengeApi;
 
 import java.util.List;
 
 public interface IJsonDailyChallenge {
-    public List<DailyChallenge> readDailyChallenges(Context context, int numberToPick);
+    public List<DailyChallengeApi> readDailyChallenges(Context context, int numberToPick);
 }

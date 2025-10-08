@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.flashcard.R;
 import com.example.flashcard.model.DailyChallenge;
+import com.example.flashcard.model.DailyChallengeApi;
 import com.example.flashcard.model.Question;
 import com.example.flashcard.utils.DateComparaison;
 import com.google.gson.Gson;
@@ -32,7 +33,7 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
     private List<DailyChallenge> challenges;
 
     @Override
-    public List<DailyChallenge> readDailyChallenges(Context context, int numberToPick) {
+    public List<DailyChallengeApi> readDailyChallenges(Context context, int numberToPick) {
         InputStream inputStream = context.getResources().openRawResource(R.raw.daily_challenges);
 
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
@@ -47,16 +48,18 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
             Random random = new Random(seed);
             Date todayDate = new Date();
 
-
-            List<DailyChallenge> filteredChallenges = new ArrayList<>();
+            List<DailyChallengeApi> filteredChallenges = new ArrayList<>();
 
             for(DailyChallenge challenge : challenges){
                 // If the daily challenge never appears before then add it
                 if(challenge.getLatestDateAppears() == null ){
-                    filteredChallenges.add(challenge);
+                    filteredChallenges.add(new DailyChallengeApi(false, challenge));
                 }
                 else if(DateComparaison.isAtLeastOneMonthApart(todayDate, challenge.getLatestDateAppears())){
-                    filteredChallenges.add(challenge);
+                    filteredChallenges.add(new DailyChallengeApi(false, challenge));
+                }
+                else if(DateComparaison.isSameDay(todayDate, challenge.getLatestDateAppears())){
+                    filteredChallenges.add(new DailyChallengeApi(true, challenge));
                 }
             }
 

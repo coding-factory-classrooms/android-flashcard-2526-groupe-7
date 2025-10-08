@@ -10,4 +10,11 @@ public class DateComparaison {
         long daysDiff = diffInMillis / (1000 * 60 * 60 * 24);
         return daysDiff >= 30;
     }
+
+    public static boolean isSameDay(Date date1, Date date2){
+        if (date1 == null || date2 == null) return false;
+        long diffInMillis = Math.abs(date2.getTime() - date1.getTime());
+        long daysDiff = diffInMillis / (1000 * 60 * 60 * 24);
+        return daysDiff == 0;
+    }
 }
