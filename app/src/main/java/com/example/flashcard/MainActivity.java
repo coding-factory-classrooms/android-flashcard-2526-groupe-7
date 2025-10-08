@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 v -> navigateTo(Game.class));
 
         findViewById(R.id.statButton).setOnClickListener(
-                v -> navigateTo(Statistics.class));
+                v -> navigateTo(Profil.class));
 
         findViewById(R.id.allQuestionsButton).setOnClickListener(
                 v -> navigateTo(AllQuestions.class));
