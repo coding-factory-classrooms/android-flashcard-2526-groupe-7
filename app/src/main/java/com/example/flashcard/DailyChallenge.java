@@ -1,5 +1,6 @@
 package com.example.flashcard;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,9 +28,10 @@ public class DailyChallenge extends AppCompatActivity {
             return insets;
         });
 
+
         JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
 
-        List<com.example.flashcard.model.DailyChallenge> dailyChallenges = jsonDailyChallenge.readRandomDailyChallenges(this, 2);
+        List<com.example.flashcard.model.DailyChallenge> dailyChallenges = jsonDailyChallenge.readDailyChallenges(this, 2);
 
         Log.i("TAG", new Gson().toJson(dailyChallenges));
     }

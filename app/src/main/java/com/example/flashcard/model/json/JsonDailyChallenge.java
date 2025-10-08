@@ -17,10 +17,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class JsonDailyChallenge implements IJsonDailyChallenge{
 
@@ -29,32 +32,25 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
     private List<DailyChallenge> challenges;
 
     @Override
-    public List<DailyChallenge> readDailyChallenges(Context context) {
+    public List<DailyChallenge> readDailyChallenges(Context context, int numberToPick) {
         InputStream inputStream = context.getResources().openRawResource(R.raw.daily_challenges);
 
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             Log.i(TAG, "Récupération des challenges du jour réussie");
             Type questionListType = new TypeToken<List<DailyChallenge>>(){}.getType();
             challenges = gson.fromJson(reader, questionListType);
-            return challenges;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @Override
-    public List<DailyChallenge> readRandomDailyChallenges(Context context, int numberToPick) {
-        InputStream inputStream = context.getResources().openRawResource(R.raw.daily_challenges);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+            String today = sdf.format(new Date());
 
-        try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
-            Log.i(TAG, "Récupération des challenges du jour réussie");
-            Type questionListType = new TypeToken<List<DailyChallenge>>(){}.getType();
-            List<DailyChallenge> allChallenges = gson.fromJson(reader, questionListType);
-
-            List<DailyChallenge> filteredChallenges = new ArrayList<>();
+            long seed = today.hashCode();
+            Random random = new Random(seed);
             Date todayDate = new Date();
 
-            for(DailyChallenge challenge : allChallenges){
+
+            List<DailyChallenge> filteredChallenges = new ArrayList<>();
+
+            for(DailyChallenge challenge : challenges){
                 // If the daily challenge never appears before then add it
                 if(challenge.getLatestDateAppears() == null ){
                     filteredChallenges.add(challenge);
@@ -64,10 +60,9 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
                 }
             }
 
-            Collections.shuffle(filteredChallenges);
+            Collections.shuffle(filteredChallenges, random);
 
-            // Return random filtered challenges
-            return filteredChallenges.subList(0, numberToPick);
+            return filteredChallenges.subList(0, Math.min(numberToPick, filteredChallenges.size()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
