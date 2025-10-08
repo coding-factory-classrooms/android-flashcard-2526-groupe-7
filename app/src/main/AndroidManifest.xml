@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flashcard">
         <activity
+            android:name=".Profil"
+            android:exported="false" />
+        <activity
             android:name=".Statistics"
             android:exported="false" />
         <activity

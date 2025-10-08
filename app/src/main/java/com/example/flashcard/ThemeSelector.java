@@ -30,36 +30,5 @@ public class ThemeSelector extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        JsonLevel jsonlevel = new JsonLevel();
-
-        Level level = jsonlevel.readLevel(this);
-
-        findViewById(R.id.addXpButton).setOnClickListener(v -> {
-            level.addXp(10);
-            TextView levelTextView = findViewById(R.id.levelTextView);
-            Log.i("Theme selector", new Gson().toJson(level));
-            levelTextView.setText(String.valueOf(level.getLevel()));
-            level.updateJson(this, level);
-        });
-
-        findViewById(R.id.dialogUserInfoButton).setOnClickListener(v -> {
-            BottomSheetDialog dialog = new BottomSheetDialog(this);
-            dialog.setContentView(R.layout.dialog_user_info);
-
-            TextView levelTextView = dialog.findViewById(R.id.levelTextView);
-            levelTextView.setText("Niveau " +  String.valueOf(level.getLevel()));
-
-            TextView xpTextView = dialog.findViewById(R.id.xpTextView);
-            xpTextView.setText(level.getStringXpToFixed());
-
-            TextView goalXpTextView = dialog.findViewById(R.id.goalXpTextView);
-            goalXpTextView.setText(level.getStringGoalXpToFixed());
-
-            LinearProgressIndicator progressBar = dialog.findViewById(R.id.progressBar);
-            progressBar.setProgress(level.getProgress());
-
-            dialog.show();
-        });
     }
 }
