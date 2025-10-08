@@ -58,4 +58,9 @@ public class Level implements ILevel{
         JsonLevel jsonLevel = new JsonLevel();
         jsonLevel.writeLevel(context, level);
     }
+
+    @Override
+    public int getMissingXpToLevelUp() {
+        return (int) (goalXp - xp);
+    }
 }

@@ -6,4 +6,6 @@ public interface ILevel {
     public void addXp(int xpToAdd);
 
     public void updateJson(Context context, Level level);
+
+    public int getMissingXpToLevelUp();
 }

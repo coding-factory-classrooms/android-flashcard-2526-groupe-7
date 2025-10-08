@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
                 v -> navigateTo(Game.class));
 
         findViewById(R.id.statButton).setOnClickListener(
-                v -> navigateTo(Profil.class));
+                v -> navigateTo(EndGameStats.class));
 
         findViewById(R.id.allQuestionsButton).setOnClickListener(
-                v -> navigateTo(AllQuestions.class));
+                v -> navigateTo(EndGameStats.class));
 
         findViewById(R.id.aboutButton).setOnClickListener(
                 v -> navigateTo(About.class));
