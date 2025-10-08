@@ -60,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 statButton.setVisibility(View.GONE);
             }
         });
-
-        JsonStatistic jsonStatistic = new JsonStatistic();
-
-        Statistic statistic = jsonStatistic.readStatistic(this);
-        statistic.updateStatistic(this, new QuizStatistic(3.45f, 3, 9));
     }
 
     public void navigateTo(Class targetClass){

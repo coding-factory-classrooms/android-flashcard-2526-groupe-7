@@ -32,6 +32,7 @@ public class EndGameStats extends AppCompatActivity {
         });
 
 
+        // Get buttons
         findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(MainActivity.class));
         findViewById(R.id.retryErrorButton).setOnClickListener(v -> navigateTo(Game.class));
 
@@ -49,32 +50,46 @@ public class EndGameStats extends AppCompatActivity {
         int xpToAdd = 20;
         //
 
+        // Replace score text
         TextView scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText(score + "/" + numberOfQuestions);
 
+        // Replace difficulty text
         TextView difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulté: " + difficulty);
 
+        // Replace percentage winning text
         TextView percentageTextView = findViewById(R.id.percentageTextView);
         int successRate = (score * 100) / numberOfQuestions;
         percentageTextView.setText("Taux de réussite: " + successRate + "%");
 
+        // New instance of json level
         JsonLevel jsonLevel = new JsonLevel();
 
+        // fetch data from local level.json
         Level level = jsonLevel.readLevel(this);
+
+        // add xp to level class and write in json
         level.addXp(xpToAdd);
         level.updateJson(this, level);
 
+        // Replace xp gained
         TextView xpTextView = findViewById(R.id.xpTextView);
         xpTextView.setText("+ " + xpToAdd + " xp");
 
+        // Replace user level
         TextView levelTextView = findViewById(R.id.levelTextView);
         levelTextView.setText("Niveau: " + level.getLevel());
 
+        // Replace missing xp to level up
         TextView nextLevelXpTextView = findViewById(R.id.nextLevelXpTextView);
         nextLevelXpTextView.setText("Prochain niveau dans: " + level.getMissingXpToLevelUp() + " xp");
     }
 
+    /**
+     * function to navigate to activity
+     * @param targetClass
+     */
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);

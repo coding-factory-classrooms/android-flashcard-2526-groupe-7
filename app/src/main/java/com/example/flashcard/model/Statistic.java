@@ -36,4 +36,24 @@ public class Statistic implements IStatistic{
 
         jsonStatistic.writeStatistic(context, new Statistic(totalGamesPlayed, totalCorrectAnswers, totalWrongAnswers, totalTimePlayed, averageTimeGame));
     }
+
+    public int getTotalCorrectAnswers() {
+        return totalCorrectAnswers;
+    }
+
+    public int getTotalGamesPlayed() {
+        return totalGamesPlayed;
+    }
+
+    public int getTotalWrongAnswers() {
+        return totalWrongAnswers;
+    }
+
+    public float getTotalTimePlayed() {
+        return totalTimePlayed;
+    }
+
+    public float getAverageTimeGame() {
+        return averageTimeGame;
+    }
 }
