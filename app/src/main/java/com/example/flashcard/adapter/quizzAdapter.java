@@ -1,4 +1,4 @@
-package com.example.flashcard.quizz;
+package com.example.flashcard.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.R;
+import com.example.flashcard.model.Quizz;
 
 import java.util.List;
 
 public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.listView> {
 
-    private final List<quizzModel> quizz;
+    private final List<Quizz> quizz;
 
 
-    public quizzAdapter(List<quizzModel> quizz) {
+    public quizzAdapter(List<Quizz> quizz) {
         this.quizz = quizz;
     }
 
@@ -42,7 +43,7 @@ public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.listView> {
     }
     @Override
     public void onBindViewHolder(@NonNull listView holder, int position) {
-        quizzModel uniqueQuizz = quizz.get(position);
+        Quizz uniqueQuizz = quizz.get(position);
 
         holder.nameTextView.setText(uniqueQuizz.getName());
         holder.pictureImageView.setImageResource(uniqueQuizz.getPicture());

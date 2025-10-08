@@ -1,6 +1,7 @@
 package com.example.flashcard;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -8,14 +9,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.flashcard.question.questionModel;
+import com.example.flashcard.model.Quizz;
+import com.example.flashcard.model.json.JsonQuestion;
+import com.example.flashcard.model.json.JsonQuizz;
+import com.example.flashcard.model.Question;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
+    List<Question> questions;
 
-    private List<questionModel> questions;
     private int currentIndex = 0;
     private int goodAnswer = 0;
     private TextView questionText;
@@ -38,12 +43,25 @@ public class Game extends AppCompatActivity {
         opt3 = findViewById(R.id.opt3RadioButton);
         validateButton = findViewById(R.id.validateButton);
 
+        JsonQuizz jsonQuizz = new JsonQuizz();
 
+        List<Quizz> quizz = jsonQuizz.readQuizz(this);
+
+        Log.i("Theme selector", new Gson().toJson(quizz));
+
+        JsonQuestion jsonQuestion = new JsonQuestion();
+
+        questions = jsonQuestion.readQuestion(this);
+
+        Log.i("Theme selector", new Gson().toJson(questions));
+
+
+        /*
         //Create arrayList -> question Model
         questions = new ArrayList<>();
-        questions.add(new questionModel("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));
+        questions.add(new Question("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
+        questions.add(new Question("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
+        questions.add(new Question("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));*/
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());
@@ -97,7 +115,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        questionModel question = questions.get(currentIndex);
+        Question question = questions.get(currentIndex);
         questionText.setText(question.questionTitle);
         opt1.setText(question.answerOptions[0]);
         opt2.setText(question.answerOptions[1]);
