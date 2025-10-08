@@ -5,6 +5,91 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bghome"
     tools:context=".LevelSelector">
+
+    <TextView
+        android:id="@+id/levelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="626dp"
+        android:text="Chosi la difficulté"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levelTextView"
+        app:layout_constraintVertical_bias="0.215">
+
+        <RadioButton
+            android:id="@+id/easyRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Facile"
+            android:textColor="#FAF9F9" />
+
+        <RadioButton
+            android:id="@+id/mediumRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moyen"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/hardRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Difficile"
+            android:textColor="#FFFFFF" />
+    </RadioGroup>
+
+
+    <RadioGroup
+        android:id="@+id/radioGroupNumber"
+        android:layout_width="185dp"
+        android:layout_height="181dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.703"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levelTextView"
+        app:layout_constraintVertical_bias="0.629">
+
+        <RadioButton
+            android:id="@+id/fiveQuestionsRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 Questions"
+            android:textColor="#FAF9F9" />
+
+        <RadioButton
+            android:id="@+id/tenQuestionsRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 Questions"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/fiveteenQuestionsRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 Questions"
+            android:textColor="#FFFFFF" />
+    </RadioGroup>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
