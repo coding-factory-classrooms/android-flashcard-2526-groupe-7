@@ -5,33 +5,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:elevation="8dp"
-    android:gravity="center">
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@android:color/transparent">
 
     <TextView
         android:id="@+id/textViewCorrectAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:text="Bonne Réponse:"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewAnswer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="La réponse est 2"
+        android:text="Bonne Réponse !"
         android:textColor="@android:color/holo_green_dark"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/buttonClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Putain" />
-
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="8dp"/>
 </LinearLayout>

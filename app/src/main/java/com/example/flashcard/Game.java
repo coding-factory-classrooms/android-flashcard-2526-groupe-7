@@ -2,11 +2,14 @@ package com.example.flashcard;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -21,7 +24,6 @@ import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
@@ -103,11 +105,11 @@ public class Game extends AppCompatActivity {
                 goodAnswer++;
                 //Draw new score
                 scoreText.setText(goodAnswer + "/" + questions.size());
+                showGoodAnswerPopup();
                 Advance();
-
             }
             else{
-                showCorrectAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex], new Runnable() {
+                showWrongAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex], new Runnable() {
                     @Override
                     public void run() {
                         // This code runs AFTER the popup is dismissed
@@ -121,9 +123,13 @@ public class Game extends AppCompatActivity {
 
         });
     }
-    public void showCorrectAnswerPopup(String correctAnswer, Runnable afterDismiss) {
+
+    public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_correct_answer, null);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
+
+        View popupView = inflater.inflate(R.layout.popup_good_answer, null);
+        popupView.startAnimation(fadeIn);
 
         PopupWindow popupWindow = new PopupWindow(
                 popupView,
@@ -131,7 +137,31 @@ public class Game extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 true
         );
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setTouchable(false);
+        popupWindow.setFocusable(false);
+        popupWindow.showAtLocation(popupView, Gravity.TOP, 0, 175);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.dismiss();
+            }
+        }, 1000); // 1.5 seconds
+    }
 
+    public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View popupView = inflater.inflate(R.layout.popup_wrong_answer, null);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(false);
         TextView answerTextView = popupView.findViewById(R.id.textViewAnswer);
         Button closeButton = popupView.findViewById(R.id.buttonClose);
 
@@ -149,6 +179,7 @@ public class Game extends AppCompatActivity {
 
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
+
     private void Advance() {
         currentIndex++;
         if (currentIndex < questions.size()) {
