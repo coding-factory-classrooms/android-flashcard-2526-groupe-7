@@ -34,6 +34,7 @@ public class ThemeSelector extends AppCompatActivity {
         setContentView(R.layout.activity_theme_selector);
 
         List<quizzModel> listeDesPays = new ArrayList<>();
+
         listeDesPays.add(new quizzModel("Test", "Https",R.drawable.ic_launcher_background));
         listeDesPays.add(new quizzModel("Test", "Https",R.drawable.ic_launcher_background));
         listeDesPays.add(new quizzModel("Test", "Https",R.drawable.ic_launcher_background));
