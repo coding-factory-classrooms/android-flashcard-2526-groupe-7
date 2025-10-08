@@ -22,6 +22,7 @@ import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
@@ -35,6 +36,8 @@ public class Game extends AppCompatActivity {
     private RadioGroup optionsGroup;
     private RadioButton opt1, opt2, opt3;
     private Button validateButton;
+
+    int numberQuestion = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +53,11 @@ public class Game extends AppCompatActivity {
         opt3 = findViewById(R.id.opt3RadioButton);
         validateButton = findViewById(R.id.validateButton);
 
-        JsonQuizz jsonQuizz = new JsonQuizz();
-
-        List<Quizz> quizz = jsonQuizz.readQuizz(this);
-
-        Log.i("Theme selector", new Gson().toJson(quizz));
 
         JsonQuestion jsonQuestion = new JsonQuestion();
+        questions = jsonQuestion.readQuestion(this, "questions");
 
-        questions = jsonQuestion.readQuestion(this, "avatar");
-
-        Log.i("Theme selector", new Gson().toJson(questions));
-
-
-            /*
-        //Create arrayList -> question Model
-        questions = new ArrayList<>();
-        questions.add(new questionModel("Capitale de la France ?", new String[]{"Paris", "Rome", "Madrid"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Allemagne ?", new String[]{"Berlin", "Munich", "Hambourg"}, 0,"http","http",20,"song"));
-        questions.add(new questionModel("Capitale de l'Espagne ?", new String[]{"Madrid", "Barcelone", "Valence"}, 0,"http","http",20,"song"));*/
+        Collections.shuffle(questions);
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());
@@ -107,18 +96,14 @@ public class Game extends AppCompatActivity {
 
             }
             else{
-                showCorrectAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex], new Runnable() {
+                String correctAnswerText = questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
+                showCorrectAnswerPopup(correctAnswerText, new Runnable() {
                     @Override
                     public void run() {
-                        // This code runs AFTER the popup is dismissed
                         Advance();
                     }
                 });
             }
-
-
-            // Next question if not finish
-
         });
     }
     public void showCorrectAnswerPopup(String correctAnswer, Runnable afterDismiss) {
@@ -167,9 +152,9 @@ public class Game extends AppCompatActivity {
     private void showQuestion() {
         Question question = questions.get(currentIndex);
         questionText.setText(question.questionTitle);
-        opt1.setText(question.answerOptions[0]);
-        opt2.setText(question.answerOptions[1]);
-        opt3.setText(question.answerOptions[2]);
+        opt1.setText(question.answerOptions[0].reponse);
+        opt2.setText(question.answerOptions[1].reponse);
+        opt3.setText(question.answerOptions[2].reponse);
         optionsGroup.clearCheck();
     }
 }
