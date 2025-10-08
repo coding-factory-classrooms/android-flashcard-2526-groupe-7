@@ -133,8 +133,6 @@ public class Game extends AppCompatActivity {
 
             }
             else{
-                // Get correct answer for message error
-                String correctAnswerText = questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
                 opt1.setEnabled(false);
                 opt2.setEnabled(false);
                 opt3.setEnabled(false);
@@ -191,8 +189,8 @@ public class Game extends AppCompatActivity {
         );
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(false);
-        TextView answerTextView = popupView.findViewById(R.id.textViewAnswer);
-        Button closeButton = popupView.findViewById(R.id.buttonClose);
+        TextView answerTextView = popupView.findViewById(R.id.textViewActualCorrectAnswer);
+        Button closeButton = popupView.findViewById(R.id.buttonCloseError);
 
         answerTextView.setText(correctAnswer);
 
