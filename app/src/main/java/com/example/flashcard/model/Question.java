@@ -4,9 +4,9 @@ public class Question {
     public String questionTitle;
     public String[] answerOptions;
     public int answerCorrectIndex;
-    String questionImage;
-    String questionSong;
-    String difficult;
+    public String questionImage;
+    public String questionSong;
+    public String difficult;
     int questionTime;
 
     public Question(String questionText, String[] options, int correctIndex, String questionImage, String difficult, int questionTime, String questionSong) {

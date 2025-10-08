@@ -1,6 +1,7 @@
 package com.example.flashcard;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -202,5 +204,13 @@ public class Game extends AppCompatActivity {
         opt2.setText(question.answerOptions[1]);
         opt3.setText(question.answerOptions[2]);
         optionsGroup.clearCheck();
+        Context context = getApplicationContext(); // or your Activity context
+        int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
+        if (resID != 0) {
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageResource(resID);
+        } else {
+            Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
+        }
     }
 }
