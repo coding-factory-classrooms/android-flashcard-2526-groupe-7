@@ -1,6 +1,6 @@
 package com.example.flashcard.model;
 
-public class Question {
+public class Question{
     public String questionTitle;
     public AnswerOption[] answerOptions;
     public int answerCorrectIndex;
@@ -18,5 +18,33 @@ public class Question {
         this.difficult = difficult;
         this.questionTime = questionTime;
 
+    }
+
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public AnswerOption[] getAnswerOptions() {
+        return answerOptions;
+    }
+
+    public int getAnswerCorrectIndex() {
+        return answerCorrectIndex;
+    }
+
+    public String getQuestionImage() {
+        return questionImage;
+    }
+
+    public String getQuestionSong() {
+        return questionSong;
+    }
+
+    public String getDifficult() {
+        return difficult;
+    }
+
+    public int getQuestionTime() {
+        return questionTime;
     }
 }
