@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Button parameters = findViewById(R.id.parameters);
 
         findViewById(R.id.playButton).setOnClickListener(
-                v -> navigateTo(LevelSelector.class));
+                v -> navigateTo(ThemeSelector.class));
 
         findViewById(R.id.statButton).setOnClickListener(
                 v -> navigateTo(Statistics.class));
