@@ -21,7 +21,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     // Method called to create a new ViewHolder when the RecyclerView needs a new view
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_currency, parent, false);
+                .inflate(R.layout.activity_all_question_items, parent, false);
         return new QuestionViewHolder(view);
     }
 
