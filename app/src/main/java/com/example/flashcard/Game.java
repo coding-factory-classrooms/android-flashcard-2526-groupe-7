@@ -2,10 +2,13 @@ package com.example.flashcard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,6 +174,14 @@ public class Game extends AppCompatActivity {
                 });
             }
         });
+        ImageButton imageView = findViewById(R.id.imageButton);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("finish","Leave button");
+                showImgPopup();
+            }
+        });
     }
 
     public void showGoodAnswerPopup() {
@@ -249,7 +260,49 @@ public class Game extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    public void showImgPopup() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View popupView = inflater.inflate(R.layout.popup_img, null);
 
+        // Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+
+        // Set image size to 80% of screen width and height
+        ImageView imgView = popupView.findViewById(R.id.popupimg);
+        ViewGroup.LayoutParams layoutParams = imgView.getLayoutParams();
+        layoutParams.width = (int) (screenWidth * 0.8);
+        layoutParams.height = (int) (screenHeight * 0.8);
+        imgView.setLayoutParams(layoutParams);
+
+        // Set the image (from drawable resource name)
+        int resID = getResources().getIdentifier("bggame", "drawable", getPackageName());
+        if (resID != 0) {
+            imgView.setImageResource(resID);
+        }
+
+        // Create full-screen popup
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                true
+        );
+
+        // Dismiss when clicking outside (on the dim background)
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Optional: dismiss popup when tapping anywhere
+        popupView.setOnClickListener(v -> popupWindow.dismiss());
+
+        // Show popup
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+    }
     private void showQuestion() {
         //Clear radio checked
         optionsGroup.clearCheck();
@@ -273,9 +326,38 @@ public class Game extends AppCompatActivity {
         currentShuffledOptions = optionList;
 
         //Set option in select
-        opt1.setText(optionList.get(0).reponse);
-        opt2.setText(optionList.get(1).reponse);
-        opt3.setText(optionList.get(2).reponse);
+        boolean dyslexia = false;
+        if (dyslexia){
+            RadioButton[] opts = new RadioButton[]{opt1,opt2,opt3};
+            String[] strs = new  String[]{optionList.get(0).reponse,optionList.get(1).reponse,optionList.get(2).reponse};
+            StringBuilder shuffled = new StringBuilder();
+            List<Character> characters = new ArrayList<>();
+            for (int i =0; i<3; i++)
+            {
+                shuffled = new StringBuilder();
+                characters = new ArrayList<>();
+                // Convert the string to a list of characters
+                for (char c : strs[i].toCharArray()) {
+                    characters.add(c);
+                }
+                // Shuffle the list
+                Collections.shuffle(characters);
+
+                // Build the shuffled string
+                for (char c : characters) {
+                    shuffled.append(c);
+                }
+                opts[i].setText(  shuffled.toString());
+
+            }
+
+        }
+        else{
+            opt1.setText(optionList.get(0).reponse);
+            opt2.setText(optionList.get(1).reponse);
+            opt3.setText(optionList.get(2).reponse);
+        }
+
         //Active select for play
         opt1.setEnabled(true);
         opt2.setEnabled(true);
@@ -291,7 +373,7 @@ public class Game extends AppCompatActivity {
         // Logic for load image (@drawable)
         int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
         if (resID != 0) {
-            ImageView imageView = findViewById(R.id.imageView);
+            ImageButton imageView = findViewById(R.id.imageButton);
             imageView.setImageResource(resID);
         } else {
             Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
