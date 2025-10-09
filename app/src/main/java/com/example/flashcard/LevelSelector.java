@@ -29,12 +29,16 @@ public class LevelSelector extends AppCompatActivity {
         Button fiveQuestionsRadio = findViewById(R.id.fiveQuestionsRadio);
         Button tenQuestionsRadio = findViewById(R.id.tenQuestionsRadio);
         Button fiveteenQuestionsRadio = findViewById(R.id.fiveteenQuestionsRadio);
+        Button timerRadio = findViewById(R.id.timerRadio);
+        RadioGroup radioGroupTimer = findViewById(R.id.radioGroupTimer);
         RadioGroup radioGroupQuestions = findViewById(R.id.radioGroupNumber);
         Button play = findViewById(R.id.playButton);
 
         play.setOnClickListener (view -> {
             int selectId = radioGroup.getCheckedRadioButtonId();
             int selectedQuestionsId = radioGroupQuestions.getCheckedRadioButtonId();
+            int selectedTimerId = radioGroupTimer.getCheckedRadioButtonId();
+
         //User can choose the difficulty
         String level = "";
         if (selectId == R.id.easyRadio) {
@@ -54,10 +58,17 @@ public class LevelSelector extends AppCompatActivity {
         } else if (selectedQuestionsId == R.id.fiveteenQuestionsRadio) {
             questions = 15;
         }
+
+        String timer = "";
+        if (selectedTimerId == R.id.timerRadio){
+            timer = "on";
+            }
+
             Intent intent = new Intent(this, Game.class);
             intent.putExtra("difficult", level);
             intent.putExtra("nbQuestion", questions);
             intent.putExtra("name",nameQuestionnary);
+            intent.putExtra("time",timer);
             startActivity(intent);
         });
     }
