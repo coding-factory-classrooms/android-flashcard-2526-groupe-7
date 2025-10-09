@@ -1,8 +1,8 @@
 package com.example.flashcard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,18 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.adapter.quizzAdapter;
-import com.example.flashcard.model.Question;
-import com.example.flashcard.model.Quizz;
-import com.example.flashcard.model.json.JsonQuestion;
+import com.example.flashcard.model.QuizModel;
+import com.example.flashcard.model.api.ApiQuiz;
+import com.example.flashcard.model.callback.QuizCallback;
 import com.example.flashcard.model.json.JsonQuizz;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnItemClickListener  {
 
-    List<Quizz> quizz;
+    List<QuizModel> quizModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +38,32 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
             }
         });
 
-        JsonQuizz jsonQuizz = new JsonQuizz();
-        quizz = jsonQuizz.readQuizz(this);
-
-        RecyclerView recyclerView = findViewById(R.id.themeRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        quizzAdapter adapter = new quizzAdapter(quizz, this);
-        recyclerView.setAdapter(adapter);
+        fetchAllThemes(this);
     }
     public void onItemClick(String quizzName) {
         Log.d("quizzname :",quizzName);
         Intent intent = new Intent(this, LevelSelector.class);
         intent.putExtra("name",quizzName);
         startActivity(intent);
+    }
+
+    public void fetchAllThemes(Context context){
+        ApiQuiz apiQuiz = new ApiQuiz();
+        apiQuiz.fetchAllApiQuiz(new QuizCallback() {
+            @Override
+            public void onSuccess(List<QuizModel> quizModels) {
+
+                RecyclerView recyclerView = findViewById(R.id.themeRecyclerView);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+                quizzAdapter adapter = new quizzAdapter(quizModels, ThemeSelector.this::onItemClick);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+        });
     }
 }

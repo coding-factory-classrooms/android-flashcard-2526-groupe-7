@@ -5,9 +5,7 @@ import android.util.Log;
 
 import com.example.flashcard.R;
 import com.example.flashcard.model.DailyChallenge;
-import com.example.flashcard.model.DailyChallengeApi;
-import com.example.flashcard.model.Level;
-import com.example.flashcard.model.Question;
+import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.utils.DateComparaison;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,7 +35,7 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
     private List<DailyChallenge> challenges;
 
     @Override
-    public List<DailyChallengeApi> readApiDailyChallenges(Context context, int numberToPick) {
+    public List<DailyChallengeApiModel> readApiDailyChallenges(Context context, int numberToPick) {
         InputStream inputStream = context.getResources().openRawResource(R.raw.daily_challenges);
 
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
@@ -52,24 +50,24 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
             Random random = new Random(seed);
             Date todayDate = new Date();
 
-            List<DailyChallengeApi> filteredChallenges = new ArrayList<>();
+            List<DailyChallengeApiModel> filteredChallenges = new ArrayList<>();
 
             for(DailyChallenge challenge : challenges){
                 // If the daily challenge never appears before then add it
                 if(challenge.getLatestDateAppears() == null ){
-                    filteredChallenges.add(new DailyChallengeApi(false, challenge));
+                    filteredChallenges.add(new DailyChallengeApiModel(false, challenge));
                 }
                 else if(DateComparaison.isAtLeastOneMonthApart(todayDate, challenge.getLatestDateAppears())){
-                    filteredChallenges.add(new DailyChallengeApi(false, challenge));
+                    filteredChallenges.add(new DailyChallengeApiModel(false, challenge));
                 }
                 else if(DateComparaison.isSameDay(todayDate, challenge.getLatestDateAppears())){
-                    filteredChallenges.add(new DailyChallengeApi(true, challenge));
+                    filteredChallenges.add(new DailyChallengeApiModel(true, challenge));
                 }
             }
 
             Collections.shuffle(filteredChallenges, random);
 
-            List<DailyChallengeApi> selectedFilteredDailyChallenges = filteredChallenges.subList(0, Math.min(numberToPick, filteredChallenges.size()));
+            List<DailyChallengeApiModel> selectedFilteredDailyChallenges = filteredChallenges.subList(0, Math.min(numberToPick, filteredChallenges.size()));
 
             writeDailyChallenge(context, selectedFilteredDailyChallenges);
 
@@ -80,7 +78,7 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
     }
 
     @Override
-    public List<DailyChallengeApi> readLocalDailyChallenges(Context context) {
+    public List<DailyChallengeApiModel> readLocalDailyChallenges(Context context) {
         File file = new File(context.getFilesDir(), IJsonDailyChallenge.jsonDailyChallengeFileName);
 
         createLocalJson(context, file);
@@ -89,8 +87,8 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
             Log.i(TAG, "Récupération des defis journalier en local réussie");
 
             com.google.gson.JsonElement jsonElement = com.google.gson.JsonParser.parseReader(reader);
-            Type dailyChallengeApiTypeList = new TypeToken<List<DailyChallengeApi>>(){}.getType();
-            List<DailyChallengeApi> challengeApis = gson.fromJson(reader, dailyChallengeApiTypeList);
+            Type dailyChallengeApiTypeList = new TypeToken<List<DailyChallengeApiModel>>(){}.getType();
+            List<DailyChallengeApiModel> challengeApis = gson.fromJson(reader, dailyChallengeApiTypeList);
 
 
             if(challengeApis == null){
@@ -113,7 +111,7 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
     }
 
     @Override
-    public void writeDailyChallenge(Context context, List<DailyChallengeApi> challenges) {
+    public void writeDailyChallenge(Context context, List<DailyChallengeApiModel> challenges) {
         File file = new File(context.getFilesDir(), IJsonDailyChallenge.jsonDailyChallengeFileName);
 
         createLocalJson(context, file);

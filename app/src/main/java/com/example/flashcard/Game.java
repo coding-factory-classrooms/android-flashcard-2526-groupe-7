@@ -25,12 +25,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewKt;
 
 import com.example.flashcard.model.AnswerOption;
-import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonQuestion;
-import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
@@ -57,6 +54,7 @@ public class Game extends AppCompatActivity {
     private String correctResponse;
     private int correctOptionId;
     private boolean replay;
+    private boolean isDailyChallenge;
     private boolean oneQuestion;
 
     @Override
@@ -80,12 +78,16 @@ public class Game extends AppCompatActivity {
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
+        isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
+        Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
+
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("finish","Leave button");
                 finish();
             }
         });
@@ -101,7 +103,14 @@ public class Game extends AppCompatActivity {
             Object questionObject  = srcIntent.getSerializableExtra("oneQuestion");
             if (questionObject instanceof List<?>) {
                 questions = (List<Question>) questionObject;
-
+            }
+            else{
+                Log.e("Error","Error during error question list recuperation");
+            }
+        } else if (isDailyChallenge){
+            if(dailyChallengeQuestions instanceof List<?>){
+                questions = (List<Question>) dailyChallengeQuestions;
+                Log.i("Questions", new Gson().toJson(questions));
             }else{
                 Log.e("Error","Error during error question list recuperation");
             }

@@ -2,8 +2,7 @@ package com.example.flashcard.model.json;
 
 import android.content.Context;
 
-import com.example.flashcard.model.DailyChallenge;
-import com.example.flashcard.model.DailyChallengeApi;
+import com.example.flashcard.model.DailyChallengeApiModel;
 
 import java.io.File;
 import java.util.List;
@@ -11,11 +10,11 @@ import java.util.List;
 public interface IJsonDailyChallenge {
 
     public final String jsonDailyChallengeFileName = "daily_challenges.json";
-    public List<DailyChallengeApi> readApiDailyChallenges(Context context, int numberToPick);
+    public List<DailyChallengeApiModel> readApiDailyChallenges(Context context, int numberToPick);
 
-    public List<DailyChallengeApi> readLocalDailyChallenges(Context context);
+    public List<DailyChallengeApiModel> readLocalDailyChallenges(Context context);
 
-    public void writeDailyChallenge(Context context, List<DailyChallengeApi> challenges);
+    public void writeDailyChallenge(Context context, List<DailyChallengeApiModel> challenges);
 
     public void createLocalJson(Context context, File file);
 }

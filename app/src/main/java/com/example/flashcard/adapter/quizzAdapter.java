@@ -1,7 +1,6 @@
 package com.example.flashcard.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.R;
-import com.example.flashcard.model.Quizz;
+import com.example.flashcard.model.QuizModel;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHolder> {
@@ -25,14 +22,14 @@ public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHol
         void onItemClick(String quizzName);
     }
 
-    private final List<Quizz> quizz;
+    private final List<QuizModel> quizModels;
     private final OnItemClickListener listener;
 
     private ImageView pictureImageView;
 
 
-    public quizzAdapter(List<Quizz> quizz, OnItemClickListener listener) {
-        this.quizz = quizz;
+    public quizzAdapter(List<QuizModel> quizModels, OnItemClickListener listener) {
+        this.quizModels = quizModels;
         this.listener = listener;
     }
 
@@ -57,10 +54,10 @@ public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHol
 
     @Override
     public void onBindViewHolder(@NonNull QuizzViewHolder holder, int position) {
-        Quizz uniqueQuizz = quizz.get(position);
-        String linkQuizz = uniqueQuizz.getLink();
+        QuizModel uniqueQuizModel = quizModels.get(position);
+        String linkQuizz = uniqueQuizModel.getLink();
         // Set name quizz
-        holder.nameQuizzTextView.setText(uniqueQuizz.getName());
+        holder.nameQuizzTextView.setText(uniqueQuizModel.getName());
 
         Context context = holder.itemView.getContext();
         int id = context.getResources().getIdentifier("bgopen", "drawable", context.getPackageName());
@@ -79,7 +76,7 @@ public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHol
     }
     @Override
     public int getItemCount() {
-        return quizz.size();
+        return quizModels.size();
     }
 
 }

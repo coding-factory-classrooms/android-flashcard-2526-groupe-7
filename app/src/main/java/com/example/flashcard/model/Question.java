@@ -1,15 +1,18 @@
 package com.example.flashcard.model;
-import java.io.Serializable;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Question implements Serializable{
+import androidx.annotation.NonNull;
+
+public class Question implements Parcelable {
     public String questionTitle;
     public AnswerOption[] answerOptions;
     public int answerCorrectIndex;
     public String questionImage;
     public String questionSong;
     public String difficult;
-    int questionTime;
+    public int questionTime;
 
     public Question(String questionText, AnswerOption[] options, int correctIndex, String questionImage, String difficult, int questionTime, String questionSong) {
         this.questionTitle = questionText;
@@ -19,34 +22,45 @@ public class Question implements Serializable{
         this.questionSong = questionSong;
         this.difficult = difficult;
         this.questionTime = questionTime;
-
     }
 
-    public String getQuestionTitle() {
-        return questionTitle;
+    protected Question(Parcel in) {
+        questionTitle = in.readString();
+        answerOptions = in.createTypedArray(AnswerOption.CREATOR);
+        answerCorrectIndex = in.readInt();
+        questionImage = in.readString();
+        questionSong = in.readString();
+        difficult = in.readString();
+        questionTime = in.readInt();
     }
 
-    public AnswerOption[] getAnswerOptions() {
-        return answerOptions;
+    public int getAnswerCorrectIndex() { return answerCorrectIndex; }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int flags) {
+        parcel.writeString(questionTitle);
+        parcel.writeTypedArray(answerOptions, flags);
+        parcel.writeInt(answerCorrectIndex);
+        parcel.writeString(questionImage);
+        parcel.writeString(questionSong);
+        parcel.writeString(difficult);
+        parcel.writeInt(questionTime);
     }
 
-    public int getAnswerCorrectIndex() {
-        return answerCorrectIndex;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getQuestionImage() {
-        return questionImage;
-    }
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
 
-    public String getQuestionSong() {
-        return questionSong;
-    }
-
-    public String getDifficult() {
-        return difficult;
-    }
-
-    public int getQuestionTime() {
-        return questionTime;
-    }
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 }
