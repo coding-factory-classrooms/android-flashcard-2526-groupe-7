@@ -15,6 +15,9 @@
             android:name=".Currency"
             android:exported="false" />
         <activity
+            android:name=".DailyChallenge"
+            android:exported="false" />
+        <activity
             android:name=".EndGameStats"
             android:exported="false" />
         <activity

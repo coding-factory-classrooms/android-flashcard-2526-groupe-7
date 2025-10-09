@@ -19,57 +19,67 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.listView> {
+public class quizzAdapter extends RecyclerView.Adapter<quizzAdapter.QuizzViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(String quizzName);
+    }
 
     private final List<Quizz> quizz;
+    private final OnItemClickListener listener;
 
     private ImageView pictureImageView;
 
 
-    public quizzAdapter(List<Quizz> quizz) {
+    public quizzAdapter(List<Quizz> quizz, OnItemClickListener listener) {
         this.quizz = quizz;
+        this.listener = listener;
     }
 
-    public static class listView extends RecyclerView.ViewHolder{
-        public TextView nameTextView;
-        public ImageView pictureImageView;
-        public listView(View itemView) {
+    public static class QuizzViewHolder extends RecyclerView.ViewHolder {
+        public ImageView pictureQuizzImageView;
+        public TextView nameQuizzTextView;
+
+        public QuizzViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.nameQuizzTextView);
-            pictureImageView = itemView.findViewById(R.id.pictureQuizzImageView);
+            pictureQuizzImageView = itemView.findViewById(R.id.pictureQuizzImageView);
+            nameQuizzTextView = itemView.findViewById(R.id.nameQuizzTextView);
         }
     }
 
+
     @NonNull
     @Override
-    public listView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.quizz_item, parent, false);
-
-        return new listView(view);
+    public QuizzViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quizz_item, parent, false);
+        return new QuizzViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull listView holder, int position) {
+    public void onBindViewHolder(@NonNull QuizzViewHolder holder, int position) {
         Quizz uniqueQuizz = quizz.get(position);
-
+        String linkQuizz = uniqueQuizz.getLink();
         // Set name quizz
-        holder.nameTextView.setText(uniqueQuizz.getName());
+        holder.nameQuizzTextView.setText(uniqueQuizz.getName());
 
         Context context = holder.itemView.getContext();
         int id = context.getResources().getIdentifier("bgopen", "drawable", context.getPackageName());
         if(id != 0){
-            Log.d("Image","oui");
-            holder.pictureImageView.setImageResource(id);
+            holder.pictureQuizzImageView.setImageResource(id);
         }else {
-            Log.d("Image","non");
+            Log.d("Find quizz image", "Error");
         }
 
-
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(linkQuizz);
+            }
+        });
     }
     @Override
     public int getItemCount() {
         return quizz.size();
     }
+
 }

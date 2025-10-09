@@ -1,6 +1,8 @@
 package com.example.flashcard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +19,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThemeSelector extends AppCompatActivity {
+public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnItemClickListener  {
 
-    List<Quizz> listeDesPays;
+    List<Quizz> quizz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +29,19 @@ public class ThemeSelector extends AppCompatActivity {
         setContentView(R.layout.activity_theme_selector);
 
 
-
         JsonQuizz jsonQuizz = new JsonQuizz();
-        listeDesPays = jsonQuizz.readQuizz(this);
-
-        listeDesPays.add(new Quizz("Test", "Https","bgopen"));
-
+        quizz = jsonQuizz.readQuizz(this);
 
         RecyclerView recyclerView = findViewById(R.id.themeRecyclerView);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        quizzAdapter adapter = new quizzAdapter(listeDesPays);
+        quizzAdapter adapter = new quizzAdapter(quizz, this);
         recyclerView.setAdapter(adapter);
+    }
+    public void onItemClick(String quizzName) {
+        Log.d("quizzname :",quizzName);
+        Intent intent = new Intent(this, LevelSelector.class);
+        intent.putExtra("name",quizzName);
+        startActivity(intent);
     }
 }

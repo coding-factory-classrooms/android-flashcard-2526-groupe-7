@@ -18,12 +18,9 @@ public class LevelSelector extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_level_selector);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_quiz), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent srcIntent = getIntent();
+        String nameQuestionnary = srcIntent.getStringExtra("name");
+
 
         Button easyLevel = findViewById(R.id.easyRadio);
         Button mediumLevel = findViewById(R.id.mediumRadio);
@@ -49,16 +46,18 @@ public class LevelSelector extends AppCompatActivity {
         }
 
         //User can chose the number of questions
-        String questions = "";
+        int questions = 0;
         if (selectedQuestionsId == R.id.fiveQuestionsRadio) {
-            questions = "five";
+            questions = 5;
         } else if (selectedQuestionsId == R.id.tenQuestionsRadio) {
-            questions = "ten";
+            questions = 10;
         } else if (selectedQuestionsId == R.id.fiveteenQuestionsRadio) {
-            questions = "fiveteen";
+            questions = 15;
         }
-            intent.putExtra("LEVEL_KEY", level);
-            intent.putExtra("Questions_KEY", questions);
+            Intent intent = new Intent(this, Game.class);
+            intent.putExtra("difficult", level);
+            intent.putExtra("nbQuestion", questions);
+            intent.putExtra("name",nameQuestionnary);
             startActivity(intent);
         });
     }

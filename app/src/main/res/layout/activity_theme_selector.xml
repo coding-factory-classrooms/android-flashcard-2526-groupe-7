@@ -5,29 +5,30 @@
     android:id="@+id/activity_quiz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThemeSelector">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/themeRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:clipToPadding="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/quizz_item" />
+    android:background="@drawable/bghome" tools:context=".ThemeSelector">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="THEMES"
-        android:textSize="48sp"
+        android:layout_marginTop="50dp" android:text="THÈMES"
+        android:textColor="#FFFFFF" android:textSize="48sp"
         android:textStyle="bold"
+        android:shadowColor="#000000" android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/themeRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp" android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp" android:scrollbars="vertical" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/quizz_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
