@@ -4,20 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.flashcard.model.AnswerOption;
 import com.example.flashcard.model.Level;
 import com.example.flashcard.model.Question;
-import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonLevel;
-
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.List;

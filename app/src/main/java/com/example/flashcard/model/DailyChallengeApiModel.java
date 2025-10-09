@@ -1,10 +1,10 @@
 package com.example.flashcard.model;
 
-public class DailyChallengeApi {
+public class DailyChallengeApiModel {
     private boolean isCompleted;
     private DailyChallenge dailyChallenge;
 
-    public DailyChallengeApi(boolean isCompleted, DailyChallenge dailyChallenge) {
+    public DailyChallengeApiModel(boolean isCompleted, DailyChallenge dailyChallenge) {
         this.isCompleted = isCompleted;
         this.dailyChallenge = dailyChallenge;
     }

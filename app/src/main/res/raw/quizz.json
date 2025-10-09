@@ -1,12 +1,12 @@
 [
   {
-    "name": "test",
-    "link": "questions",
+    "name": "Culture génerale",
+    "link": "cultureg",
     "picture":"bgopen"
   },
   {
-    "name": "pokemon",
-    "link": "pokemon",
+    "name": "Histoire",
+    "link": "war",
     "picture":"bgopen"
   }
 ]

@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.R;
-import com.example.flashcard.model.DailyChallengeApi;
+import com.example.flashcard.model.DailyChallengeApiModel;
 
 import java.util.List;
 
 public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAdapter.ViewHolder>{
-    private List<DailyChallengeApi> dailyChallenges;
+    private List<DailyChallengeApiModel> dailyChallenges;
     private setOnClickListener setOnClickListener;
 
-    public DailyChallengeAdapter(List<DailyChallengeApi> dailyChallenges) {
+    public DailyChallengeAdapter(List<DailyChallengeApiModel> dailyChallenges) {
         this.dailyChallenges = dailyChallenges;
     }
 
@@ -46,7 +46,7 @@ public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DailyChallengeApi dailyChallenge = dailyChallenges.get(position);
+        DailyChallengeApiModel dailyChallenge = dailyChallenges.get(position);
         holder.challengeNameTextView.setText("Défi du jour: " + dailyChallenge.getDailyChallenge().getChallengeName());
         holder.numberOfQuestionsTextView.setText(dailyChallenge.getDailyChallenge().getNumberOfQuestions() + " questions");
         holder.difficultyTextView.setText("• " + dailyChallenge.getDailyChallenge().getDifficulty());
@@ -64,7 +64,7 @@ public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAd
     }
 
     public interface setOnClickListener{
-        void onClick(int position, DailyChallengeApi dailyChallengeApi);
+        void onClick(int position, DailyChallengeApiModel dailyChallengeApiModel);
     }
 
 }

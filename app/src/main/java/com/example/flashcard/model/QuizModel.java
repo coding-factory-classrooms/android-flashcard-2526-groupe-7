@@ -1,12 +1,12 @@
 package com.example.flashcard.model;
 
-public class Quizz {
+public class QuizModel {
     private String name;
     private String link;
     private String picture;
 
     // Constructeur
-    public Quizz(String name, String link, String picture ) {
+    public QuizModel(String name, String link, String picture ) {
         this.name = name;
         this.link = link;
         this.picture = picture;

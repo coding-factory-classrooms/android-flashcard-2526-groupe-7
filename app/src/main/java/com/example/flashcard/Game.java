@@ -2,10 +2,8 @@ package com.example.flashcard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewKt;
 
 import com.example.flashcard.model.AnswerOption;
-import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonQuestion;
-import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
