@@ -323,8 +323,7 @@ public class Game extends AppCompatActivity {
         currentShuffledOptions = optionList;
 
         //Set option in select
-        boolean dyslexia = false;
-        if (dyslexia){
+        if (difficultQuestionnary.equals("hardcore")){
             RadioButton[] opts = new RadioButton[]{opt1,opt2,opt3};
             String[] strs = new  String[]{optionList.get(0).reponse,optionList.get(1).reponse,optionList.get(2).reponse};
             StringBuilder shuffled = new StringBuilder();

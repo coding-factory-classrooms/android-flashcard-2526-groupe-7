@@ -1,15 +1,10 @@
 package com.example.flashcard;
-import static com.example.flashcard.MainActivity.TAG;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class LevelSelector extends AppCompatActivity {
 
@@ -25,7 +20,8 @@ public class LevelSelector extends AppCompatActivity {
         Button easyLevel = findViewById(R.id.easyRadio);
         Button mediumLevel = findViewById(R.id.mediumRadio);
         Button hardLevel = findViewById(R.id.hardRadio);
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        Button hardcoreLevel = findViewById(R.id.hardcoreRadio);
+        RadioGroup radioGroup = findViewById(R.id.radioGroupDifficulty);
         Button fiveQuestionsRadio = findViewById(R.id.fiveQuestionsRadio);
         Button tenQuestionsRadio = findViewById(R.id.tenQuestionsRadio);
         Button fiveteenQuestionsRadio = findViewById(R.id.fiveteenQuestionsRadio);
@@ -43,6 +39,8 @@ public class LevelSelector extends AppCompatActivity {
             level = "medium";
         } else if (selectId == R.id.hardRadio) {
             level = "hard";
+        }else {
+            level = "hardcore";
         }
 
         //User can chose the number of questions

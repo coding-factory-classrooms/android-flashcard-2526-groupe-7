@@ -48,22 +48,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="Sélectionnez la difficulté"
                     android:textColor="#333333"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/radioGroupDifficulty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <RadioButton
                         android:id="@+id/easyRadio"
                         android:layout_width="wrap_content"
@@ -83,6 +84,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Difficile"
+                        android:textColor="#000000" />
+
+                    <RadioButton
+                        android:id="@+id/hardcoreRadio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hardcore"
                         android:textColor="#000000" />
                 </RadioGroup>
             </LinearLayout>
