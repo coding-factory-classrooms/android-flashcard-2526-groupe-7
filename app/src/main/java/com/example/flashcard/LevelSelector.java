@@ -27,7 +27,8 @@ public class LevelSelector extends AppCompatActivity {
         Button easyLevel = findViewById(R.id.easyRadio);
         Button mediumLevel = findViewById(R.id.mediumRadio);
         Button hardLevel = findViewById(R.id.hardRadio);
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        Button hardcoreLevel = findViewById(R.id.hardcoreRadio);
+        RadioGroup radioGroup = findViewById(R.id.radioGroupDifficulty);
         Button fiveQuestionsRadio = findViewById(R.id.fiveQuestionsRadio);
         Button tenQuestionsRadio = findViewById(R.id.tenQuestionsRadio);
         Button fiveteenQuestionsRadio = findViewById(R.id.fiveteenQuestionsRadio);
@@ -56,6 +57,8 @@ public class LevelSelector extends AppCompatActivity {
             level = "medium";
         } else if (selectId == R.id.hardRadio) {
             level = "hard";
+        }else {
+            level = "hardcore";
         }
 
         //User can chose the number of questions
