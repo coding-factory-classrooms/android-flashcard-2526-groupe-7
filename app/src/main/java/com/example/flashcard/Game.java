@@ -382,7 +382,6 @@ public class Game extends AppCompatActivity {
             }
         }
 
-
         // Create list option response for shuffle
         List<AnswerOption>  optionList = Arrays.asList(question.answerOptions);
         //Shuffle option list for RNG
