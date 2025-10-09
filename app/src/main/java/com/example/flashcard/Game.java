@@ -151,6 +151,7 @@ public class Game extends AppCompatActivity {
 
         // Logic for validate button
         validateButton.setOnClickListener(v -> {
+            stopTimer();
             int checkedId = optionsGroup.getCheckedRadioButtonId();
             int selectedIndex = -1;
             int selectedOptionId = -1;
@@ -227,6 +228,7 @@ public class Game extends AppCompatActivity {
                     timerRunning = false;
                     validateButton.setEnabled(false);
                     new Handler().postDelayed(() -> Advance(), 1000);
+                    showTempsEcoulePopup();
                 }
             }
         };
@@ -244,7 +246,30 @@ public class Game extends AppCompatActivity {
         String timeFormatted = String.format("%d:%02d", minutes, seconds);
         timeTextView.setText(timeFormatted);
     }
+    public void showTempsEcoulePopup() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
 
+        View popupView = inflater.inflate(R.layout.popup_temps_ecoule, null);
+        popupView.startAnimation(fadeIn);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setTouchable(false);
+        popupWindow.setFocusable(false);
+        popupWindow.showAtLocation(popupView, Gravity.TOP, 0, 0);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.dismiss();
+            }
+        }, 1000);
+    }
 
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
