@@ -53,8 +53,8 @@ public class Game extends AppCompatActivity {
     private List<AnswerOption>currentShuffledOptions;
     private String correctResponse;
     private int correctOptionId;
-
     private boolean replay;
+    private boolean oneQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,8 @@ public class Game extends AppCompatActivity {
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
+        oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
+
 
 
         //Logic for leaving button
@@ -95,7 +97,15 @@ public class Game extends AppCompatActivity {
             }else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        }else {
+        } else if (oneQuestion) {
+            Object questionObject  = srcIntent.getSerializableExtra("oneQuestion");
+            if (questionObject instanceof List<?>) {
+                questions = (List<Question>) questionObject;
+
+            }else{
+                Log.e("Error","Error during error question list recuperation");
+            }
+        } else {
             //Logic for read Json and load question
             JsonQuestion jsonQuestion = new JsonQuestion();
             questions = jsonQuestion.readQuestion(this, nameQuestionnary);
