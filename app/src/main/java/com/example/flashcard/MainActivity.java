@@ -1,7 +1,11 @@
 package com.example.flashcard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.flashcard.model.Level;
+import com.example.flashcard.model.QuizStatistic;
+import com.example.flashcard.model.Statistic;
+import com.example.flashcard.model.json.JsonStatistic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,6 +24,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,27 +37,72 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_quiz), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        Button playButton = findViewById(R.id.playButton);
+        Button statButton = findViewById(R.id.statButton);
+        Button aboutButton = findViewById(R.id.aboutButton);
+        Button allQuestionsButton = findViewById(R.id.allQuestionsButton);
+        ImageButton parameters = findViewById(R.id.parameters);
 
         findViewById(R.id.playButton).setOnClickListener(
-                v -> navigateTo(Game.class));
+                v -> navigateTo(ThemeSelector.class));
 
         findViewById(R.id.statButton).setOnClickListener(
-                v -> navigateTo(Profil.class));
+                v -> navigateTo(Statistics.class));
 
         findViewById(R.id.allQuestionsButton).setOnClickListener(
                 v -> navigateTo(AllQuestions.class));
 
         findViewById(R.id.aboutButton).setOnClickListener(
-                v -> navigateTo(About.class));
+                v -> navigateTo(DailyChallenge.class));
+
+//        findViewById(R.id.dailyChallengeButton).setOnClickListener(v ->
+//                navigateTo(DailyChallenge.class));
+
+        parameters.setOnClickListener(v -> {
+            if (aboutButton.getVisibility() == View.GONE) {
+                aboutButton.setVisibility(View.VISIBLE);
+                statButton.setVisibility(View.VISIBLE);
+            } else {
+                aboutButton.setVisibility(View.GONE);
+                statButton.setVisibility(View.GONE);
+            }
+        });
+
+        checkLastLoginDate();
     }
 
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
+    }
+
+    public void saveLastLoginDate(){
+        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Stock the current date to format yyyy-MM-dd
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String todayDate = sdf.format(new Date());
+
+        editor.putString("lastLoginDate", todayDate);
+        editor.apply();
+    }
+
+    public void checkLastLoginDate(){
+        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+        String lastLogin = prefs.getString("lastLoginDate", null);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String today = sdf.format(new Date());
+
+        if(lastLogin == null || !lastLogin.equals(today)){
+            saveLastLoginDate();
+
+            prefs.edit().putBoolean("isNewday", true).apply();
+        }
+        else{
+            prefs.edit().putBoolean("isNewday", false).apply();
+        }
     }
 }

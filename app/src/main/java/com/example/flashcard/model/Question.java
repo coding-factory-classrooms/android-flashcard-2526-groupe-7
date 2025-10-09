@@ -1,12 +1,14 @@
 package com.example.flashcard.model;
+import java.io.Serializable;
 
-public class Question {
+
+public class Question implements Serializable{
     public String questionTitle;
     public AnswerOption[] answerOptions;
     public int answerCorrectIndex;
-    String questionImage;
-    String questionSong;
-    String difficult;
+    public String questionImage;
+    public String questionSong;
+    public String difficult;
     int questionTime;
 
     public Question(String questionText, AnswerOption[] options, int correctIndex, String questionImage, String difficult, int questionTime, String questionSong) {
@@ -18,5 +20,33 @@ public class Question {
         this.difficult = difficult;
         this.questionTime = questionTime;
 
+    }
+
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public AnswerOption[] getAnswerOptions() {
+        return answerOptions;
+    }
+
+    public int getAnswerCorrectIndex() {
+        return answerCorrectIndex;
+    }
+
+    public String getQuestionImage() {
+        return questionImage;
+    }
+
+    public String getQuestionSong() {
+        return questionSong;
+    }
+
+    public String getDifficult() {
+        return difficult;
+    }
+
+    public int getQuestionTime() {
+        return questionTime;
     }
 }

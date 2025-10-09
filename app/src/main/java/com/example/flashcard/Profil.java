@@ -29,19 +29,15 @@ public class Profil extends AppCompatActivity {
             return insets;
         });
 
+        // New instance of json level
         JsonLevel jsonlevel = new JsonLevel();
 
+        // fetch data level from level.json
         Level level = jsonlevel.readLevel(this);
 
-        /*findViewById(R.id.addXpButton).setOnClickListener(v -> {
-            level.addXp(10);
-            TextView levelTextView = findViewById(R.id.levelTextView);
-            Log.i("Theme selector", new Gson().toJson(level));
-            levelTextView.setText(String.valueOf(level.getLevel()));
-            level.updateJson(this, level);
-        });*/
-
+        // Define on click to display user info
         findViewById(R.id.dialogUserInfoButton).setOnClickListener(v -> {
+            // new instance of bottom sheet dialog
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             dialog.setContentView(R.layout.dialog_user_info);
 
@@ -57,6 +53,7 @@ public class Profil extends AppCompatActivity {
             LinearProgressIndicator progressBar = dialog.findViewById(R.id.progressBar);
             progressBar.setProgress(level.getProgress());
 
+            // show the dialog
             dialog.show();
         });
     }
