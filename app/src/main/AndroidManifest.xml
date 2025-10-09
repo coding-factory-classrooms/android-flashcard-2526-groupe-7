@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flashcard">
         <activity
+            android:name=".DailyChallenge"
+            android:exported="false" />
+        <activity
             android:name=".EndGameStats"
             android:exported="false" />
         <activity
