@@ -48,8 +48,14 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
 
             com.google.gson.JsonElement jsonElement = com.google.gson.JsonParser.parseReader(reader);
             Type dailyChallengeApiTypeList = new TypeToken<List<DailyChallengeApiModel>>(){}.getType();
-            challengeDatas = gson.fromJson(reader, dailyChallengeApiTypeList);
 
+            Log.i(TAG, "readLocalDailyChallenges: " + new Gson().toJson(reader));
+
+            if (jsonElement.isJsonArray()) {
+                challengeDatas = gson.fromJson(jsonElement, dailyChallengeApiTypeList);
+            }
+
+            Log.i(TAG, "readLocalDailyChallenges: " + new Gson().toJson(challengeDatas));
 
             if(challengeDatas == null){
                 ApiDailyChallenge apiDailyChallenge = new ApiDailyChallenge();
@@ -67,15 +73,7 @@ public class JsonDailyChallenge implements IJsonDailyChallenge{
                 });
             }
 
-            if (jsonElement.isJsonArray()) {
-                challengeDatas = gson.fromJson(jsonElement, dailyChallengeApiTypeList);
-            } else {
-                challengeDatas = gson.fromJson(
-                        jsonElement.getAsJsonObject().getAsJsonArray("dailyChallenges"),
-                        dailyChallengeApiTypeList
-                );
-            }
-
+            Log.i(TAG, "readLocalDailyChallenges end: " + challengeDatas);
             return challengeDatas;
         } catch (IOException e) {
             throw new RuntimeException(e);

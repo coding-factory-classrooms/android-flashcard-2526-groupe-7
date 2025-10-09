@@ -55,7 +55,10 @@ public class DailyChallenge extends AppCompatActivity {
 
         Log.i("TAG", String.valueOf(isNewDay));
 
-        if(isNewDay){
+        List<DailyChallengeApiModel> testDailychallenges =
+                dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
+
+        if(isNewDay || dailyChallenges == null){
             apiDailyChallenge.fetchApiAllDailyChallenge(context,"", new DailyChallengeCallback() {
                 @Override
                 public void onSuccess(List<DailyChallengeApiModel> challengeApis) {
@@ -90,6 +93,7 @@ public class DailyChallenge extends AppCompatActivity {
             intent.putExtra("nbQuestion", Integer.valueOf(dailyChallengeApi.getDailyChallenge().getNumberOfQuestions()));
             intent.putExtra("isDailyChallenge", true);
             intent.putExtra("questions", (Serializable) dailyChallengeApi.getDailyChallenge().getQuestions());
+            intent.putExtra("quizIndex", position);
             startActivity(intent);
         });
 

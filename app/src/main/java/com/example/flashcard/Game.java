@@ -52,6 +52,7 @@ public class Game extends AppCompatActivity {
     private int correctOptionId;
     private boolean replay;
     private boolean isDailyChallenge;
+    private int quizIndex;
     private boolean oneQuestion;
     private String timer;
     private int remainingTime = 0;
@@ -94,6 +95,7 @@ public class Game extends AppCompatActivity {
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
         isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
+        quizIndex = srcIntent.getIntExtra("quizIndex", 0);
         Object questionsFromQuiz = srcIntent.getSerializableExtra("questions");
 
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
@@ -314,7 +316,10 @@ public class Game extends AppCompatActivity {
             intent.putExtra("score",goodAnswer);
             intent.putExtra("nbQuestion",nbQuestion);
             intent.putExtra("difficult",difficultQuestionnary);
+            intent.putExtra("isDailyChallenge", isDailyChallenge);
             intent.putExtra("errorQuestion", (Serializable) ErrorQuestions);
+            Log.i("TAG", "Advance: " + new Gson().toJson(questions));
+            intent.putExtra("quizIndex", quizIndex);
             startActivity(intent);
         }
     }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.R;
@@ -26,11 +27,14 @@ public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAd
         private final TextView challengeNameTextView;
         private final TextView numberOfQuestionsTextView;
         private final TextView difficultyTextView;
+
+        private final CardView dailyChallengeItem;
         public ViewHolder(View view) {
             super(view);
             challengeNameTextView = view.findViewById(R.id.challengeNameTextView);
             numberOfQuestionsTextView = view.findViewById(R.id.numberOfQuestionsTextView);
             difficultyTextView = view.findViewById(R.id.difficultyTextView);
+            dailyChallengeItem = view.findViewById(R.id.dailyChallengeItem);
 
         }
     }
@@ -51,7 +55,12 @@ public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAd
         holder.numberOfQuestionsTextView.setText(dailyChallenge.getDailyChallenge().getNumberOfQuestions() + " questions");
         holder.difficultyTextView.setText("• " + dailyChallenge.getDailyChallenge().getDifficulty());
 
-        holder.itemView.setOnClickListener(v -> setOnClickListener.onClick(position, dailyChallenge));
+        if(dailyChallenge.isCompleted()){
+            holder.dailyChallengeItem.setAlpha(0.5f);
+        }
+        else{
+            holder.itemView.setOnClickListener(v -> setOnClickListener.onClick(position, dailyChallenge));
+        }
     }
 
     @Override

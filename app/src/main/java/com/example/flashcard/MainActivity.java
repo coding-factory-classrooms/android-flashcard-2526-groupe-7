@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 v -> navigateTo(AllQuestions.class));
 
         findViewById(R.id.aboutButton).setOnClickListener(
-                v -> navigateTo(DailyChallenge.class));
+                v -> navigateTo(About.class));
 
         findViewById(R.id.dailyChallengeButton).setOnClickListener(v ->
                 navigateTo(DailyChallenge.class));
