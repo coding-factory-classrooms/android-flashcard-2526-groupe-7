@@ -61,11 +61,30 @@ public class MainActivity extends AppCompatActivity {
 
         parameters.setOnClickListener(v -> {
             if (aboutButton.getVisibility() == View.GONE) {
-                aboutButton.setVisibility(View.VISIBLE);
+                // Appear of statbutton and after aboutbutton
+                statButton.setAlpha(0f);
                 statButton.setVisibility(View.VISIBLE);
+                statButton.animate()
+                        .alpha(1f)
+                        .setDuration(300)
+                        .withEndAction(() -> {
+                            aboutButton.setAlpha(0f);
+                            aboutButton.setVisibility(View.VISIBLE);
+                            aboutButton.animate().alpha(1f).setDuration(300).start();
+                        }).start();
             } else {
-                aboutButton.setVisibility(View.GONE);
-                statButton.setVisibility(View.GONE);
+                // Disappear of aboutbutton and after statbutton
+                aboutButton.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction(() -> {
+                            aboutButton.setVisibility(View.GONE);
+                            statButton.animate()
+                                    .alpha(0f)
+                                    .setDuration(300)
+                                    .withEndAction(() -> statButton.setVisibility(View.GONE))
+                                    .start();
+                        }).start();
             }
         });
 

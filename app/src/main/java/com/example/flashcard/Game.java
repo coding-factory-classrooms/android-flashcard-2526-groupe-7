@@ -56,6 +56,12 @@ public class Game extends AppCompatActivity {
     private boolean replay;
     private boolean isDailyChallenge;
     private boolean oneQuestion;
+    private String timer;
+    private int remainingTime = 0;
+    private TextView timeTextView;
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable;
+    private boolean timerRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +76,19 @@ public class Game extends AppCompatActivity {
         opt3 = findViewById(R.id.opt3RadioButton);
         validateButton = findViewById(R.id.validateButton);
         leaveButton = findViewById(R.id.backButton);
+        timeTextView = findViewById(R.id.timeTextView);
         this.ErrorQuestions = new ArrayList<>();
+
+
+        RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if ("on".equals(timer)) {
+                    startTimer(15);
+                }
+            }
+        };
+        optionsGroup.setOnCheckedChangeListener(listener);
 
 
         Intent srcIntent = getIntent();
@@ -82,6 +100,8 @@ public class Game extends AppCompatActivity {
         Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
 
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
+
+        timer = srcIntent.getStringExtra("time");
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +212,43 @@ public class Game extends AppCompatActivity {
         });
     }
 
+    //Function to start the timer (15 seconds here)
+    private void startTimer(int seconds) {
+        remainingTime = seconds;
+        timerRunning = true;
+        updateTimerDisplay();
+
+        timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                remainingTime--;
+                updateTimerDisplay();
+
+                if (remainingTime > 0) {
+                    timerHandler.postDelayed(this, 1500);
+                } else {
+                    timerRunning = false;
+                    validateButton.setEnabled(false);
+                    new Handler().postDelayed(() -> Advance(), 1500);
+                }
+            }
+        };
+        timerHandler.postDelayed(timerRunnable, 1000);
+    }
+
+    private void stopTimer() {
+        timerRunning = false;
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    private void updateTimerDisplay() {
+        int minutes = remainingTime / 60;
+        int seconds = remainingTime % 60;
+        String timeFormatted = String.format("%d:%02d", minutes, seconds);
+        timeTextView.setText(timeFormatted);
+    }
+
+
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
@@ -214,7 +271,7 @@ public class Game extends AppCompatActivity {
             public void run() {
                 popupWindow.dismiss();
             }
-        }, 1000); // 1.5 seconds
+        }, 1000);
     }
 
     public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
