@@ -1,10 +1,12 @@
 package com.example.flashcard.model.api;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.flashcard.model.DailyChallenge;
 import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.model.callback.DailyChallengeCallback;
+import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.example.flashcard.utils.DateComparaison;
 import com.google.gson.Gson;
 
@@ -26,7 +28,7 @@ public class ApiDailyChallenge implements IApiDailyChallenge{
 
 
     @Override
-    public void fetchApiAllDailyChallenge(String difficulty, DailyChallengeCallback callback) {
+    public void fetchApiAllDailyChallenge(Context context, String difficulty, DailyChallengeCallback callback) {
 
         Retrofit retrofit =new Retrofit.Builder()
                 .baseUrl("https://students.gryt.tech/api/L2/")
@@ -73,6 +75,9 @@ public class ApiDailyChallenge implements IApiDailyChallenge{
                     Collections.shuffle(filteredChallenges, random);
 
                     List<DailyChallengeApiModel> selectedFilteredDailyChallenges = filteredChallenges.subList(0, Math.min(2, filteredChallenges.size()));
+
+                    JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
+                    jsonDailyChallenge.writeDailyChallenge(context, selectedFilteredDailyChallenges);
 
                     callback.onSuccess(selectedFilteredDailyChallenges);
                 }

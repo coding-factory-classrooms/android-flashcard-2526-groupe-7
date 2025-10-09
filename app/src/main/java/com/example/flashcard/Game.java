@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,7 +25,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flashcard.model.AnswerOption;
-import com.example.flashcard.model.json.JsonQuestion;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
@@ -38,7 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
-    List<Question> questions;
+    List<Question> questions = new ArrayList<>();
     private int currentIndex = 0;
     private int goodAnswer = 0;
     private TextView questionText;
@@ -97,7 +94,7 @@ public class Game extends AppCompatActivity {
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
         isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
-        Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
+        Object questionsFromQuiz = srcIntent.getSerializableExtra("questions");
 
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
 
@@ -127,24 +124,20 @@ public class Game extends AppCompatActivity {
             else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        } else if (isDailyChallenge){
-            if(dailyChallengeQuestions instanceof List<?>){
-                questions = (List<Question>) dailyChallengeQuestions;
+        } else{
+            if(questionsFromQuiz instanceof List<?>){
+                questions = (List<Question>) questionsFromQuiz;
                 Log.i("Questions", new Gson().toJson(questions));
             }else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        } else {
-            //Logic for read Json and load question
-            JsonQuestion jsonQuestion = new JsonQuestion();
-            questions = jsonQuestion.readQuestion(this, nameQuestionnary);
-
-            // Shuffle question for rng
-            Collections.shuffle(questions);
-
-            //Take numberQuestion question only
-            questions = new ArrayList<>(questions.subList(0,nbQuestion));
         }
+
+        // Shuffle question for rng
+        Collections.shuffle(questions);
+
+        //Take numberQuestion question only
+        questions = new ArrayList<>(questions.subList(0,nbQuestion));
 
         // Setup score to 0/question number
         scoreText.setText(currentIndex + "/" + questions.size());

@@ -15,7 +15,6 @@ import com.example.flashcard.adapter.quizzAdapter;
 import com.example.flashcard.model.QuizModel;
 import com.example.flashcard.model.api.ApiQuiz;
 import com.example.flashcard.model.callback.QuizCallback;
-import com.example.flashcard.model.json.JsonQuizz;
 
 import java.util.List;
 
@@ -28,8 +27,6 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_selector);
         ImageButton arrowBack = findViewById(R.id.backButton);
-
-
 
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
