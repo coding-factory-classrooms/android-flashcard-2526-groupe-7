@@ -7,9 +7,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.flashcard.model.Quizz;
+import com.example.flashcard.model.json.JsonQuestion;
+import com.example.flashcard.model.json.JsonQuizz;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class AllQuestions extends AppCompatActivity {
+
+    List<Quizz> quizz;
+    List<Question> questions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +29,12 @@ public class AllQuestions extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.questionRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Add to list following questions
-        ArrayList<Question> questions = new ArrayList<>();
-        questions.add(new Question("cacaoooaoaoaoa"));
-        questions.add(new Question("acaoacaocoac"));
-        questions.add(new Question("efegegegegegeg"));
-        questions.add(new Question("egegegegegegegegeg"));
+        JsonQuestion jsonQuestion = new JsonQuestion();
+        questions = jsonQuestion.readQuestion(this, "questions");
+
+        JsonQuizz jsonQuizz = new JsonQuizz();
+        quizz = jsonQuizz.readQuizz(this);
+
 
         //link questions to recyclerview
         com.example.flashcard.QuestionAdapter adapter = new com.example.flashcard.QuestionAdapter(questions);
