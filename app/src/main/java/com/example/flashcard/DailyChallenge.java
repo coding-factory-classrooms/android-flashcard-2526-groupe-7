@@ -70,7 +70,6 @@ public class DailyChallenge extends AppCompatActivity {
                     Log.e("API", "Erreur API", t);
                 }
             });
-
         }
         else {
             dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);

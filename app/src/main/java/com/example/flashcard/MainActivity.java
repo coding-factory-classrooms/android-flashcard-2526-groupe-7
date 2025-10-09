@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.flashcard.model.Level;
 import com.example.flashcard.model.QuizStatistic;
 import com.example.flashcard.model.Statistic;
+import com.example.flashcard.model.json.JsonLevel;
 import com.example.flashcard.model.json.JsonStatistic;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Button aboutButton = findViewById(R.id.aboutButton);
         Button allQuestionsButton = findViewById(R.id.allQuestionsButton);
         ImageButton parameters = findViewById(R.id.parameters);
+        ImageButton profilButton = findViewById(R.id.profilButton);
 
         findViewById(R.id.playButton).setOnClickListener(
                 v -> navigateTo(ThemeSelector.class));
@@ -86,6 +91,33 @@ public class MainActivity extends AppCompatActivity {
                                     .start();
                         }).start();
             }
+        });
+
+        profilButton.setOnClickListener(v -> {
+            // New instance of json level
+            JsonLevel jsonlevel = new JsonLevel();
+
+            // fetch data level from level.json
+            Level level = jsonlevel.readLevel(this);
+
+            // new instance of bottom sheet dialog
+            BottomSheetDialog dialog = new BottomSheetDialog(this);
+            dialog.setContentView(R.layout.dialog_user_info);
+
+            TextView levelTextView = dialog.findViewById(R.id.levelTextView);
+            levelTextView.setText("Niveau " +  String.valueOf(level.getLevel()));
+
+            TextView xpTextView = dialog.findViewById(R.id.xpTextView);
+            xpTextView.setText(level.getStringXpToFixed());
+
+            TextView goalXpTextView = dialog.findViewById(R.id.goalXpTextView);
+            goalXpTextView.setText(level.getStringGoalXpToFixed());
+
+            LinearProgressIndicator progressBar = dialog.findViewById(R.id.progressBar);
+            progressBar.setProgress(level.getProgress());
+
+            // show the dialog
+            dialog.show();
         });
 
         checkLastLoginDate();

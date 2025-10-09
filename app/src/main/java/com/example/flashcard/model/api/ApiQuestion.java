@@ -8,6 +8,7 @@ import com.example.flashcard.model.callback.QuestionCallback;
 import com.example.flashcard.model.callback.QuizCallback;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -61,13 +62,24 @@ public class ApiQuestion implements IApiQuestion{
         apiQuiz.fetchAllApiQuiz(new QuizCallback() {
             @Override
             public void onSuccess(List<QuizModel> quizModels) {
+                List<Question> allQuestions = new ArrayList<>();
+                final int totalQuiz = quizModels.size();
+                final int[] completed = {0};
 
                 for(QuizModel quiz : quizModels){
                     questionApi.fetchQuestions(quiz.getLink()).enqueue(new Callback<List<Question>>() {
                         @Override
                         public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
-                            if(response.isSuccessful() || !response.body().isEmpty()){
-                                callback.onSuccess(response.body());
+                            completed[0]++;
+
+                            if(response.isSuccessful() && response.body() != null && !response.body().isEmpty()){
+
+                                allQuestions.addAll(response.body());
+                            }
+
+                            Log.i("Api Question ALl", "onResponse: " + completed[0] + " " + totalQuiz);
+                            if(completed[0] == totalQuiz){
+                                callback.onSuccess(allQuestions);
                             }
                         }
 

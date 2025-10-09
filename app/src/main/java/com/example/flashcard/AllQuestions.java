@@ -21,26 +21,22 @@ import java.util.List;
 
 public class AllQuestions extends AppCompatActivity implements QuestionAdapter.OnItemClickListener {
 
-    List<QuizModel> quizz;
     List<Question> questions;
-    List<Question> newQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_questions);
 
-        RecyclerView recyclerView = findViewById(R.id.questionRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         ApiQuestion apiQuestion = new ApiQuestion();
 
         apiQuestion.fetchApiAllQuestionsFromQuiz(new QuestionCallback() {
             @Override
-            public void onSuccess(List<Question> questions) {
-                Log.i("ALL QUESTIONS", new Gson().toJson(questions));
-                QuestionAdapter adapter = new QuestionAdapter(questions, AllQuestions.this::onItemClick);
-                recyclerView.setAdapter(adapter);
+            public void onSuccess(List<Question> allQuestions) {
+                questions = allQuestions;
+                if(questions != null){
+                    createRecyclerView();
+                }
             }
 
             @Override
@@ -58,5 +54,13 @@ public class AllQuestions extends AppCompatActivity implements QuestionAdapter.O
         intent.putExtra("oneQuestionBool",true);
         intent.putExtra("oneQuestion", (Serializable) question);
         startActivity(intent);
+    }
+
+    public void createRecyclerView(){
+        Log.i("ALl questions", "createRecyclerView: " + new Gson().toJson(questions));
+        QuestionAdapter adapter = new QuestionAdapter(questions, AllQuestions.this::onItemClick);
+        RecyclerView recyclerView = findViewById(R.id.questionRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 }
