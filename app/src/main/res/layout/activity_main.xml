@@ -71,26 +71,30 @@
 
     <Button
         android:id="@+id/statButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="95dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="#FFFFFF"
         android:text="STATS"
         android:textColor="#333333"
         android:textSize="14sp"
-        android:visibility="gone" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/parameters" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parameters" />
 
     <Button
         android:id="@+id/aboutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="96dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="#FFFFFF"
         android:text="À propos"
         android:textColor="#333333"
         android:textSize="14sp"
-        android:visibility="gone" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/statButton" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,4 +56,6 @@ public class AllQuestions extends AppCompatActivity {
             QuestionAdapter adapter = new QuestionAdapter(questions);
             recyclerView.setAdapter(adapter);
     }
+
+
 }
