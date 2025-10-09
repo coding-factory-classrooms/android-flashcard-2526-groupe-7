@@ -1,6 +1,16 @@
 [
   {
-    "nom": "test",
+    "nom": "test1",
+    "link": "tata",
+    "picture":"bgopen"
+  },
+  {
+    "nom": "test2",
+    "link": "tata",
+    "picture":"bgopen"
+  },
+  {
+    "nom": "test3",
     "link": "tata",
     "picture":"bgopen"
   }

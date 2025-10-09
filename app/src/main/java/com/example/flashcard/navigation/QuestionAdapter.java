@@ -14,7 +14,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     // Constructor: initializes the adapter with the list of questions
     public QuestionAdapter(List<Question> questionList) {
         this.questionList = questionList;
+
     }
+
 
     @NonNull
     @Override
