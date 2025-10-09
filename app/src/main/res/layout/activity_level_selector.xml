@@ -8,18 +8,35 @@
     android:background="@drawable/bghome"
     tools:context=".LevelSelector">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Retour"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:tint="#FFFFFF" app:tint="#FFFFFF" />
+
     <TextView
         android:id="@+id/levelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Choix du Quiz"
+
+        android:text="CHOIX DU QUIZZ"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintTop_toTopOf="@+id/backButton"       app:layout_constraintBottom_toBottomOf="@+id/backButton"  />
 
     <ScrollView
         android:layout_width="0dp"
@@ -154,7 +171,7 @@
                 android:textStyle="bold"
                 android:paddingVertical="12dp"
                 app:cornerRadius="8dp"
-              />
+                />
 
         </LinearLayout>
     </ScrollView>

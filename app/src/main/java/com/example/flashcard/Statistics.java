@@ -1,6 +1,9 @@
 package com.example.flashcard;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +29,15 @@ public class Statistics extends AppCompatActivity {
         });
 
         JsonStatistic jsonStatistic = new JsonStatistic();
+
+        ImageButton arrowBack = findViewById(R.id.backButton);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Statistic statistic = jsonStatistic.readStatistic(this);
 

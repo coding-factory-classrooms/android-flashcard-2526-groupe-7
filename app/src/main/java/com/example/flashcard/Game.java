@@ -86,7 +86,6 @@ public class Game extends AppCompatActivity {
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("finish","Leave button");
                 finish();
             }
         });

@@ -20,6 +20,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:tint="#FFFFFF" app:tint="#FFFFFF"
         />
 
     <TextView
@@ -77,110 +78,105 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        android:paddingBottom="16dp"> <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingBottom="16dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/questionCardView"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:id="@+id/questionTextTextView"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/questionCardView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="20dp"
-                android:text="Quel est le plus grand océan du monde ? (Titre question long)"
-                android:textColor="#333333"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+                android:layout_marginHorizontal="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <RadioGroup
-            android:id="@+id/optionsRadioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="267dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/questionCardView">
+                <TextView
+                    android:id="@+id/questionTextTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:text="Quel est le plus grand océan du monde ? (Titre question long)"
+                    android:textColor="#333333"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
-            <RadioButton
-                android:id="@+id/opt1RadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/radio_option_background"
-                android:buttonTint="#FF5722"
-                android:paddingVertical="14dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="16dp"
-                android:text="Option 1"
-                android:textColor="#000000"
-                android:textSize="17sp" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:layout_marginHorizontal="16dp"
 
-            <RadioButton
-                android:id="@+id/opt2RadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/radio_option_background"
-                android:buttonTint="#FF5722"
-                android:paddingVertical="14dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="16dp"
-                android:text="Option 2 (Très long pour forcer le scroll)"
-                android:textColor="#000000"
-                android:textSize="17sp" />
+                app:layout_constraintTop_toBottomOf="@+id/questionCardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.0"
 
-            <RadioButton
-                android:id="@+id/opt3RadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/radio_option_background"
-                android:buttonTint="#FF5722"
-                android:paddingVertical="14dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="16dp"
-                android:text="Option 3"
-                android:textColor="#000000"
-                android:textSize="17sp" />
-        </RadioGroup>
+                android:scaleType="fitCenter" tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageButton
+            <RadioGroup
+                android:id="@+id/optionsRadioGroup"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="16dp" android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitStart"
-            android:background="@null"
+                <RadioButton
+                    android:id="@+id/opt1RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/radio_option_background"
+                    android:buttonTint="#FF5722"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="16dp"
+                    android:text="Option 1"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
 
-            android:rotation="0"
-            app:layout_constraintBottom_toTopOf="@+id/optionsRadioGroup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionCardView"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+                <RadioButton
+                    android:id="@+id/opt2RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/radio_option_background"
+                    android:buttonTint="#FF5722"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="16dp"
+                    android:text="Option 2 (Très long pour forcer le scroll)"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    android:id="@+id/opt3RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/radio_option_background"
+                    android:buttonTint="#FF5722"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="16dp"
+                    android:text="Option 3"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

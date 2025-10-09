@@ -3,7 +3,9 @@ import static com.example.flashcard.MainActivity.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +33,14 @@ public class LevelSelector extends AppCompatActivity {
         Button fiveteenQuestionsRadio = findViewById(R.id.fiveteenQuestionsRadio);
         RadioGroup radioGroupQuestions = findViewById(R.id.radioGroupNumber);
         Button play = findViewById(R.id.playButton);
+        ImageButton arrowBack = findViewById(R.id.backButton);
 
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         play.setOnClickListener (view -> {
             int selectId = radioGroup.getCheckedRadioButtonId();
             int selectedQuestionsId = radioGroupQuestions.getCheckedRadioButtonId();
