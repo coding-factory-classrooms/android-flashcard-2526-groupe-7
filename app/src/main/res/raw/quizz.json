@@ -1,17 +1,12 @@
 [
   {
-    "nom": "test1",
-    "link": "tata",
+    "name": "pokemon",
+    "link": "pokemon",
     "picture":"bgopen"
   },
   {
-    "nom": "test2",
-    "link": "tata",
-    "picture":"bgopen"
-  },
-  {
-    "nom": "test3",
-    "link": "tata",
+    "name": "questions",
+    "link": "questions",
     "picture":"bgopen"
   }
 ]

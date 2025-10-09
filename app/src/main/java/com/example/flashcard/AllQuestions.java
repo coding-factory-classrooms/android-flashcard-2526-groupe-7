@@ -14,6 +14,7 @@ import com.example.flashcard.model.Question;
 import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonQuestion;
 import com.example.flashcard.model.json.JsonQuizz;
+import com.example.flashcard.adapter.QuestionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class AllQuestions extends AppCompatActivity {
 
     List<Quizz> quizz;
     List<Question> questions;
-
+    List<Question> newQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,39 +33,27 @@ public class AllQuestions extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.questionRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        questions = new ArrayList<>();
+
         JsonQuizz jsonQuizz = new JsonQuizz();
         JsonQuestion jsonQuestion = new JsonQuestion();
+
         quizz = jsonQuizz.readQuizz(this);
 
 
         if (quizz != null) {
-
             for (Quizz item : quizz) {
-                String quizzName = item.getName();
-                Log.d("name",quizzName);
+                // S'assurer que l'item et son nom ne sont pas null avant de logger
+                String quizzName = (item != null && item.getName() != null)
+                        ? item.getLink()
+                        : "Nom Quizz Inconnu/NULL";
 
-
-
-
+                        newQuestions = jsonQuestion.readQuestion(this, quizzName);
+                        questions.addAll(newQuestions);
             }
         } else {
         }
-
-
-
-        questions = jsonQuestion.readQuestion(this, "questions");
-
-
-
-
-
-
-
-
-
-
-//        //link questions to recyclerview
-//        com.example.flashcard.QuestionAdapter adapter = new com.example.flashcard.QuestionAdapter(questions);
-//        recyclerView.setAdapter(adapter);
+            QuestionAdapter adapter = new QuestionAdapter(questions);
+            recyclerView.setAdapter(adapter);
     }
 }
