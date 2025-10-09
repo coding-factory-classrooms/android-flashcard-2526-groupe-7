@@ -112,7 +112,6 @@ public class Game extends AppCompatActivity {
         }
 
 
-        correctResponse =questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
 
         // Shuffle question for rng
         Collections.shuffle(questions);
@@ -258,6 +257,7 @@ public class Game extends AppCompatActivity {
     private void showQuestion() {
         //Clear radio checked
         optionsGroup.clearCheck();
+        correctResponse =questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
 
         Question question = questions.get(currentIndex);
         questionText.setText(question.questionTitle);
