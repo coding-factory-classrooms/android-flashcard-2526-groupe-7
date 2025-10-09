@@ -21,6 +21,8 @@ import java.util.List;
 
 public class DailyChallenge extends AppCompatActivity {
 
+    List<DailyChallengeApi> dailyChallenges;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +34,7 @@ public class DailyChallenge extends AppCompatActivity {
             return insets;
         });
 
-
-        JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
-
-        List<DailyChallengeApi> dailyChallenges = jsonDailyChallenge.readDailyChallenges(this, 2);
+        fetchDailyChallenges();
 
         Log.i("TAG", new Gson().toJson(dailyChallenges));
 
@@ -43,7 +42,27 @@ public class DailyChallenge extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.dailyChallengeRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setOnClickListener(v -> {
+
+        });
         recyclerView.setAdapter(adapter);
+
+    }
+
+    public void fetchDailyChallenges(){
+        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Boolean isNewDay = preferences.getBoolean("isNewday", true);
+
+        JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
+
+        Log.i("TAG", String.valueOf(isNewDay));
+
+        if(isNewDay){
+            dailyChallenges = jsonDailyChallenge.readApiDailyChallenges(this, 2);
+        }
+        else {
+            dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
+        }
 
     }
 }

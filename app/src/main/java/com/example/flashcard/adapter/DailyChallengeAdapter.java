@@ -15,6 +15,7 @@ import java.util.List;
 
 public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAdapter.ViewHolder>{
     private List<DailyChallengeApi> dailyChallenges;
+    private setOnClickListener setOnClickListener;
 
     public DailyChallengeAdapter(List<DailyChallengeApi> dailyChallenges) {
         this.dailyChallenges = dailyChallenges;
@@ -50,11 +51,20 @@ public class DailyChallengeAdapter extends RecyclerView.Adapter<DailyChallengeAd
         holder.numberOfQuestionsTextView.setText(dailyChallenge.getDailyChallenge().getNumberOfQuestions() + " questions");
         holder.difficultyTextView.setText("• " + dailyChallenge.getDailyChallenge().getDifficulty());
 
+        holder.itemView.setOnClickListener(v -> setOnClickListener.onClick(position, dailyChallenge));
     }
 
     @Override
     public int getItemCount() {
         return dailyChallenges.size();
+    }
+
+    public void setOnClickListener(setOnClickListener listener){
+        this.setOnClickListener = listener;
+    }
+
+    public interface setOnClickListener{
+        void onClick(int position, DailyChallengeApi dailyChallengeApi);
     }
 
 }

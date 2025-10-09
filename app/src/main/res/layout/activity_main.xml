@@ -29,7 +29,6 @@
         android:layout_marginStart="16dp"
         android:width="10dp"
         android:background="@drawable/parameters"
-        android:backgroundTint="#00FF00"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/allQuestionsButton"
         app:layout_constraintEnd_toStartOf="@+id/imageView"

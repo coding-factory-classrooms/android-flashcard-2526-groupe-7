@@ -68,40 +68,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //checkLastLoginDate();
+        checkLastLoginDate();
     }
 
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
     }
-//
-//    public void saveLastLoginDate(){
-//        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//
-//        // Stock the current date to format yyyy-MM-dd
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        String todayDate = sdf.format(new Date());
-//
-//        editor.putString("lastLoginDate", todayDate);
-//        editor.apply();
-//    }
-//
-//    public void checkLastLoginDate(){
-//        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
-//        String lastLogin = prefs.getString("lastLoginDate", null);
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        String today = sdf.format(new Date());
-//
-//        if(lastLogin == null || !lastLogin.equals(today)){
-//            saveLastLoginDate();
-//
-//            prefs.edit().putBoolean("isNewday", true).apply();
-//        }
-//        else{
-//            prefs.edit().putBoolean("isNewday", false).apply();
-//        }
-//    }
+
+    public void saveLastLoginDate(){
+        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Stock the current date to format yyyy-MM-dd
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String todayDate = sdf.format(new Date());
+
+        editor.putString("lastLoginDate", todayDate);
+        editor.apply();
+    }
+
+    public void checkLastLoginDate(){
+        SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+        String lastLogin = prefs.getString("lastLoginDate", null);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String today = sdf.format(new Date());
+
+        if(lastLogin == null || !lastLogin.equals(today)){
+            saveLastLoginDate();
+
+            prefs.edit().putBoolean("isNewday", true).apply();
+        }
+        else{
+            prefs.edit().putBoolean("isNewday", false).apply();
+        }
+    }
 }
