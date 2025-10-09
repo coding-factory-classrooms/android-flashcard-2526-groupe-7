@@ -24,6 +24,10 @@ public class Question implements Parcelable {
         this.questionTime = questionTime;
     }
 
+    public String getQuestiontTitle(){
+        return questionTitle;
+    }
+
     protected Question(Parcel in) {
         questionTitle = in.readString();
         answerOptions = in.createTypedArray(AnswerOption.CREATOR);

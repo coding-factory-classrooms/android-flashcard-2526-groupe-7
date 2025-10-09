@@ -46,7 +46,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         Question question = questionList.get(position);
-        holder.textViewQuestion.setText(question.getQuestionTitle());
+        holder.textViewQuestion.setText(question.getQuestiontTitle());
     }
 
     //Return number of items in list

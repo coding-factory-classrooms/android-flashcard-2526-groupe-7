@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.adapter.quizzAdapter;
 import com.example.flashcard.model.Question;
-import com.example.flashcard.model.Quizz;
+import com.example.flashcard.model.QuizModel;
 import com.example.flashcard.model.json.JsonQuestion;
 import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.adapter.QuestionAdapter;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class AllQuestions extends AppCompatActivity implements QuestionAdapter.OnItemClickListener {
 
-    List<Quizz> quizz;
+    List<QuizModel> quizz;
     List<Question> questions;
     List<Question> newQuestions;
 
@@ -47,7 +47,7 @@ public class AllQuestions extends AppCompatActivity implements QuestionAdapter.O
         quizz = jsonQuizz.readQuizz(this);
 
         if (quizz != null) {
-            for (Quizz item : quizz) {
+            for (QuizModel item : quizz) {
                 String quizzLink= item.getLink();
                 newQuestions = jsonQuestion.readQuestion(this, quizzLink);
                 questions.addAll(newQuestions);
