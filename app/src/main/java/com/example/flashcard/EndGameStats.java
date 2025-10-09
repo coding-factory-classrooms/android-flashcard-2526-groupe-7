@@ -26,10 +26,6 @@ public class EndGameStats extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_end_game_stats);
 
-
-
-
-
         int numberOfQuestions;
         int score;
         String difficulty;

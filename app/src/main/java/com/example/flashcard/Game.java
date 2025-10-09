@@ -45,7 +45,6 @@ public class Game extends AppCompatActivity {
     private TextView questionText;
     private TextView scoreText;
     private RadioGroup optionsGroup;
-    private RadioButton opt1, opt2, opt3;
     private Button validateButton;
     private ImageButton leaveButton;
     List<Question> ErrorQuestions;
@@ -63,7 +62,7 @@ public class Game extends AppCompatActivity {
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable;
     private boolean timerRunning = false;
-
+    private int maxOption;
 
 
     @Override
@@ -98,10 +97,20 @@ public class Game extends AppCompatActivity {
         replay = srcIntent.getBooleanExtra("replay",false);
         isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
         Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
-
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
-
         timer = srcIntent.getStringExtra("time");
+
+        if ("easy".equals(difficultQuestionnary)){
+            maxOption = 3;
+        } else if ("medium".equals(difficultQuestionnary)) {
+            maxOption = 4;
+        } else if ("hard".equals(difficultQuestionnary)) {
+            maxOption = 5;
+        } else if ("hardcore".equals(difficultQuestionnary)){
+            maxOption = 3;
+        }else {
+            maxOption =0;
+        }
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +132,7 @@ public class Game extends AppCompatActivity {
             Object questionObject  = srcIntent.getSerializableExtra("oneQuestion");
             if (questionObject instanceof List<?>) {
                 questions = (List<Question>) questionObject;
+                maxOption = 5;
             }
             else{
                 Log.e("Error","Error during error question list recuperation");
@@ -145,6 +155,8 @@ public class Game extends AppCompatActivity {
             //Take numberQuestion question only
             questions = new ArrayList<>(questions.subList(0,nbQuestion));
         }
+
+
 
         // Setup score to 0/question number
         scoreText.setText(currentIndex + "/" + questions.size());
@@ -195,7 +207,6 @@ public class Game extends AppCompatActivity {
                 showWrongAnswerPopup(correctResponse, new Runnable() {
                     @Override
                     public void run() {
-                        // This code runs AFTER the popup is dismissed
                         Advance();
                     }
                 });
@@ -246,7 +257,6 @@ public class Game extends AppCompatActivity {
         String timeFormatted = String.format("%d:%02d", minutes, seconds);
         timeTextView.setText(timeFormatted);
     }
-
 
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -393,7 +403,7 @@ public class Game extends AppCompatActivity {
         currentShuffledOptions = optionList;
 
         boolean shuffleText = "hardcore".equals(difficultQuestionnary);
-        createRadioButtons(optionsGroup, currentShuffledOptions, shuffleText);
+        createRadioButtons(optionsGroup, currentShuffledOptions, shuffleText, correctOptionId,maxOption);
 
         validateButton.setEnabled(true);
 
@@ -414,14 +424,39 @@ public class Game extends AppCompatActivity {
 
     }
 
-    private void createRadioButtons(RadioGroup radioGroup, List<AnswerOption> optionList, boolean shuffleText) {
+    private void createRadioButtons(RadioGroup radioGroup,List<AnswerOption> initialOptionList,boolean shuffleText,int correctOptionId,int maxOptions) {
+
+        List<AnswerOption> finalOptionList = new ArrayList<>();
+        AnswerOption correctAnswer = null;
+
+        for (AnswerOption option : initialOptionList) {
+            if (option.id == correctOptionId) {
+                correctAnswer = option;
+                break;
+            }
+        }
+
+        if (correctAnswer == null) {
+            Log.e("Error Quizz", "Error good answer not find");
+            return;
+        }
+
+        finalOptionList.add(correctAnswer);
+
+        for (AnswerOption option : initialOptionList) {
+            if (option.id != correctOptionId && finalOptionList.size() < maxOptions) {
+                finalOptionList.add(option);
+            }
+        }
+
+        Collections.shuffle(finalOptionList);
         radioGroup.removeAllViews();
         Context context = radioGroup.getContext();
         final float scale = context.getResources().getDisplayMetrics().density;
 
-        for (int i = 0; i < optionList.size(); i++) {
+        for (int i = 0; i < finalOptionList.size(); i++) {
             RadioButton radioButton = new RadioButton(context);
-            String optionText = optionList.get(i).reponse;
+            String optionText = finalOptionList.get(i).reponse;
 
             if (shuffleText) {
                 StringBuilder shuffled = new StringBuilder();
@@ -435,6 +470,7 @@ public class Game extends AppCompatActivity {
                 }
                 optionText = shuffled.toString();
             }
+
             radioButton.setText(optionText);
 
             RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
@@ -443,35 +479,27 @@ public class Game extends AppCompatActivity {
             );
             int marginBottomPx = (int) (12 * scale + 0.5f);
             params.bottomMargin = marginBottomPx;
-
             radioButton.setLayoutParams(params);
-
-
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 radioButton.setId(View.generateViewId());
             } else {
                 radioButton.setId(i + 1000);
             }
-
             radioButton.setBackgroundResource(R.drawable.radio_option_background);
-
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 radioButton.setButtonTintList(
                         ColorStateList.valueOf(Color.parseColor("#FF5722"))
                 );
             }
-
             int paddingVerticalPx = (int) (14 * scale + 0.5f);
             int paddingStartPx = (int) (20 * scale + 0.5f);
             int paddingEndPx = (int) (16 * scale + 0.5f);
             radioButton.setPaddingRelative(paddingStartPx, paddingVerticalPx, paddingEndPx, paddingVerticalPx);
-
             radioButton.setTextColor(Color.BLACK);
             radioButton.setTextSize(17);
-
             radioGroup.addView(radioButton);
-
             radioButton.setEnabled(true);
         }
+        currentShuffledOptions = finalOptionList;
     }
 }
