@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.flashcard.model.AnswerOption;
 import com.example.flashcard.model.Level;
@@ -20,6 +19,7 @@ import com.example.flashcard.model.json.JsonLevel;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class EndGameStats extends AppCompatActivity {
@@ -31,9 +31,9 @@ public class EndGameStats extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_end_game_stats);
 
-        // Get buttons
-        findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(MainActivity.class));
-        findViewById(R.id.retryErrorButton).setOnClickListener(v -> navigateTo(Game.class));
+
+
+
 
         int numberOfQuestions;
         int score;
@@ -51,6 +51,24 @@ public class EndGameStats extends AppCompatActivity {
         }else{
             Log.e("Error","Error during error question list recuperation");
         }
+
+        findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(MainActivity.class));
+        findViewById(R.id.retryErrorButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(errorQuestionsList.size() <1){
+                    navigateTo(MainActivity.class);
+                }
+                Intent intent = new Intent(view.getContext(), Game.class);
+                intent.putExtra("difficult", difficulty);
+                intent.putExtra("nbQuestion", errorQuestionsList.size());
+                intent.putExtra("name","replay");
+                intent.putExtra("replay",true);
+                intent.putExtra("replayQuestion", (Serializable) errorQuestionsList);
+                startActivity(intent);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         if(difficulty.equals("easy")){
             xpToAdd = 20;

@@ -51,8 +51,10 @@ public class Game extends AppCompatActivity {
     int nbQuestion;
     String difficultQuestionnary;
     private List<AnswerOption>currentShuffledOptions;
-
+    private String correctResponse;
     private int correctOptionId;
+
+    private boolean replay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,13 @@ public class Game extends AppCompatActivity {
         leaveButton = findViewById(R.id.backButton);
         this.ErrorQuestions = new ArrayList<>();
 
+
         Intent srcIntent = getIntent();
         String nameQuestionnary = srcIntent.getStringExtra("name");
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
+        replay = srcIntent.getBooleanExtra("replay",false);
+
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +88,21 @@ public class Game extends AppCompatActivity {
             }
         });
 
-        //Logic for read Json and load question
-        JsonQuestion jsonQuestion = new JsonQuestion();
-        questions = jsonQuestion.readQuestion(this, nameQuestionnary);
+        if(replay){
+            Object questionObject  = srcIntent.getSerializableExtra("replayQuestion");
+            if (questionObject instanceof List<?>) {
+                questions = (List<Question>) questionObject;
+            }else{
+                Log.e("Error","Error during error question list recuperation");
+            }
+        }else {
+            //Logic for read Json and load question
+            JsonQuestion jsonQuestion = new JsonQuestion();
+            questions = jsonQuestion.readQuestion(this, nameQuestionnary);
+        }
+
+
+        correctResponse =questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
 
         // Shuffle question for rng
         Collections.shuffle(questions);
@@ -140,7 +157,7 @@ public class Game extends AppCompatActivity {
                 // Stock question in ErrorQuestion[]
                 ErrorQuestions.add(questions.get(currentIndex));
                 // Show error PopUp
-                showWrongAnswerPopup(questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse, new Runnable() {
+                showWrongAnswerPopup(correctResponse, new Runnable() {
                     @Override
                     public void run() {
                         // This code runs AFTER the popup is dismissed
