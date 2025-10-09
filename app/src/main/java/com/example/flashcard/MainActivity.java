@@ -1,24 +1,25 @@
 package com.example.flashcard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.flashcard.model.Level;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Button parameters = findViewById(R.id.parameters);
 
         findViewById(R.id.playButton).setOnClickListener(
-                v -> navigateTo(LevelSelector.class));
+                v -> navigateTo(Game.class));
 
         findViewById(R.id.statButton).setOnClickListener(
                 v -> navigateTo(Statistics.class));
@@ -57,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 statButton.setVisibility(View.GONE);
             }
         });
+
     }
+
 
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);

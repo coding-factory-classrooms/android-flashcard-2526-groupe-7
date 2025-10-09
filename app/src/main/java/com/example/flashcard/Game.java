@@ -1,9 +1,12 @@
 package com.example.flashcard;
 
+import android.animation.Animator;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +23,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewKt;
 
 import com.example.flashcard.model.AnswerOption;
-import com.example.flashcard.model.Quizz;
 import com.example.flashcard.model.json.JsonQuestion;
-import com.example.flashcard.model.json.JsonQuizz;
 import com.example.flashcard.model.Question;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +34,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game extends AppCompatActivity {
+    private Animator currentAnimator;
+    private int shortAnimationDuration;
+
     List<Question> questions;
     private int currentIndex = 0;
     private int goodAnswer = 0;
@@ -130,9 +132,72 @@ public class Game extends AppCompatActivity {
                     }
                 });
             }
-        });
-    }
+            ImageButton imgbtn = findViewById(R.id.imgQuestion);
+            imgbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showImgPopup();
+                    Log.d("finish","Leave button");
+                }
+            });
+            Context context = getApplicationContext(); // or your Activity context
 
+            int resID = context.getResources().getIdentifier("bggame", "drawable", context.getPackageName());
+            if (resID != 0) {
+                imgbtn.setImageResource(resID);
+                Log.e("oui","oui");
+            } else {
+            }
+        });
+
+        setContentView(R.layout.activity_game);
+
+        // find your views
+
+    }
+    public void showImgPopup() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View popupView = inflater.inflate(R.layout.popup_img, null);
+
+        // Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+
+        // Set image size to 80% of screen width and height
+        ImageView imgView = popupView.findViewById(R.id.popupimg);
+        ViewGroup.LayoutParams layoutParams = imgView.getLayoutParams();
+        layoutParams.width = (int) (screenWidth * 0.8);
+        layoutParams.height = (int) (screenHeight * 0.8);
+        imgView.setLayoutParams(layoutParams);
+
+        // Set the image (from drawable resource name)
+        int resID = getResources().getIdentifier("bggame", "drawable", getPackageName());
+        if (resID != 0) {
+            imgView.setImageResource(resID);
+        }
+
+        // Create full-screen popup
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                true
+        );
+
+        // Dismiss when clicking outside (on the dim background)
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Optional: dismiss popup when tapping anywhere
+        popupView.setOnClickListener(v -> popupWindow.dismiss());
+
+        // Show popup
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+    }
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
@@ -156,6 +221,22 @@ public class Game extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         }, 1000); // 1.5 seconds
+        ImageButton imgbtn = findViewById(R.id.imgQuestion);
+        //imgbtn.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        showImgPopup();
+        //        Log.d("finish","Leave button");
+        //    }
+        //});
+        Context context = getApplicationContext(); // or your Activity context
+
+        int resID = context.getResources().getIdentifier("bggame", "drawable", context.getPackageName());
+        if (resID != 0) {
+            imgbtn.setImageResource(resID);
+            Log.e("oui","oui");
+        } else {
+        }
     }
 
     public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
@@ -227,8 +308,8 @@ public class Game extends AppCompatActivity {
         Context context = getApplicationContext(); // or your Activity context
         int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
         if (resID != 0) {
-            ImageView imageView = findViewById(R.id.imageView);
-            imageView.setImageResource(resID);
+            ImageButton imgQuestion = findViewById(R.id.imgQuestion);
+            imgQuestion.setImageResource(resID);
             Log.e("oui","oui");
         } else {
             Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
