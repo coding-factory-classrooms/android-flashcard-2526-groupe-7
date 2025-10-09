@@ -156,11 +156,6 @@ public class Game extends AppCompatActivity {
             questions = new ArrayList<>(questions.subList(0,nbQuestion));
         }
 
-
-
-        // Setup score to 0/question number
-        scoreText.setText(currentIndex + "/" + questions.size());
-
         //Show first question
         showQuestion();
 
@@ -182,13 +177,11 @@ public class Game extends AppCompatActivity {
             } else {
                 return;
             }
-
             // Logic for win
             if (selectedOptionId == correctOptionId) {
                 //Increment score
                 goodAnswer++;
                 //Draw new score
-                scoreText.setText(goodAnswer + "/" + questions.size());
                 showGoodAnswerPopup();
                 Advance();
 
@@ -280,7 +273,7 @@ public class Game extends AppCompatActivity {
             public void run() {
                 popupWindow.dismiss();
             }
-        }, 1000);
+        }, 1500);
     }
 
     public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
@@ -382,6 +375,7 @@ public class Game extends AppCompatActivity {
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
     private void showQuestion() {
+        scoreText.setText(currentIndex + "/" + questions.size());
         //Clear radio checked
         optionsGroup.clearCheck();
         Question question = questions.get(currentIndex);

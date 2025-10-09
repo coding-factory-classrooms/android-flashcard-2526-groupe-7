@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,14 @@ public class AllQuestions extends AppCompatActivity implements QuestionAdapter.O
         } else {
             return;
         }
+        ImageButton arrowBack = findViewById(R.id.backButton);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
             QuestionAdapter adapter = new QuestionAdapter(questions, this);
             recyclerView.setAdapter(adapter);
     }

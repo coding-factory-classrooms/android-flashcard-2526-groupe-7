@@ -5,17 +5,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
     android:gravity="center"
-    android:background="@android:color/transparent">
+
+    android:background="@drawable/bg_correct_answer_popup"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="12dp">
 
     <TextView
         android:id="@+id/textViewCorrectAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bonne Réponse !"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="20sp"
+        android:text="BONNE RÉPONSE !"
+
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:padding="8dp"/>
+
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:letterSpacing="0.05" />
 </LinearLayout>

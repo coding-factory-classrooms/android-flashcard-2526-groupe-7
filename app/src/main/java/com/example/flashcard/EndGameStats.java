@@ -50,14 +50,16 @@ public class EndGameStats extends AppCompatActivity {
                 if(errorQuestionsList.size() <1){
                     navigateTo(MainActivity.class);
                 }
-                Intent intent = new Intent(view.getContext(), Game.class);
-                intent.putExtra("difficult", difficulty);
-                intent.putExtra("nbQuestion", errorQuestionsList.size());
-                intent.putExtra("name","replay");
-                intent.putExtra("replay",true);
-                intent.putExtra("replayQuestion", (Serializable) errorQuestionsList);
-                startActivity(intent);
-                view.getContext().startActivity(intent);
+                else {
+                    Intent intent = new Intent(view.getContext(), Game.class);
+                    intent.putExtra("difficult", difficulty);
+                    intent.putExtra("nbQuestion", errorQuestionsList.size());
+                    intent.putExtra("name", "replay");
+                    intent.putExtra("replay", true);
+                    intent.putExtra("replayQuestion", (Serializable) errorQuestionsList);
+                    startActivity(intent);
+                    view.getContext().startActivity(intent);
+                }
             }
         });
 

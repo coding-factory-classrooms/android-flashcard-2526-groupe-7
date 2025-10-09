@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +45,14 @@ public class DailyChallenge extends AppCompatActivity {
         fetchDailyChallenges(this);
 
         Log.i("TAG", new Gson().toJson(dailyChallenges));
+        ImageButton arrowBack = findViewById(R.id.backButton);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
