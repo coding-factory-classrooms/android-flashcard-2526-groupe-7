@@ -313,9 +313,38 @@ public class Game extends AppCompatActivity {
         currentShuffledOptions = optionList;
 
         //Set option in select
-        opt1.setText(optionList.get(0).reponse);
-        opt2.setText(optionList.get(1).reponse);
-        opt3.setText(optionList.get(2).reponse);
+        boolean dyslexia = false;
+        if (dyslexia){
+            RadioButton[] opts = new RadioButton[]{opt1,opt2,opt3};
+            String[] strs = new  String[]{optionList.get(0).reponse,optionList.get(1).reponse,optionList.get(2).reponse};
+            StringBuilder shuffled = new StringBuilder();
+            List<Character> characters = new ArrayList<>();
+            for (int i =0; i<3; i++)
+            {
+                shuffled = new StringBuilder();
+                characters = new ArrayList<>();
+                // Convert the string to a list of characters
+                for (char c : strs[i].toCharArray()) {
+                    characters.add(c);
+                }
+                // Shuffle the list
+                Collections.shuffle(characters);
+
+                // Build the shuffled string
+                for (char c : characters) {
+                    shuffled.append(c);
+                }
+                opts[i].setText(  shuffled.toString());
+
+            }
+
+        }
+        else{
+            opt1.setText(optionList.get(0).reponse);
+            opt2.setText(optionList.get(1).reponse);
+            opt3.setText(optionList.get(2).reponse);
+        }
+
         //Active select for play
         opt1.setEnabled(true);
         opt2.setEnabled(true);
