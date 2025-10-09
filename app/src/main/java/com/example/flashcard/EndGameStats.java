@@ -3,6 +3,7 @@ package com.example.flashcard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,7 @@ public class EndGameStats extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_end_game_stats);
 
+        // Get buttons
         findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(MainActivity.class));
         findViewById(R.id.retryErrorButton).setOnClickListener(v -> navigateTo(Game.class));
 
@@ -61,34 +63,67 @@ public class EndGameStats extends AppCompatActivity {
         }
 
 
+        // Replace score text
         TextView scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText(score + "/" + numberOfQuestions);
 
+        // Replace difficulty text
         TextView difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulté: " + difficulty);
 
+        // Replace percentage winning text
         TextView percentageTextView = findViewById(R.id.percentageTextView);
         int successRate = (score * 100) / numberOfQuestions;
         percentageTextView.setText("Taux de réussite: " + successRate + "%");
 
+        // New instance of json level
         JsonLevel jsonLevel = new JsonLevel();
 
+        // fetch data from local level.json
         Level level = jsonLevel.readLevel(this);
+
+        // add xp to level class and write in json
         level.addXp(xpToAdd);
         level.updateJson(this, level);
 
+        // Replace xp gained
         TextView xpTextView = findViewById(R.id.xpTextView);
         xpTextView.setText("+ " + xpToAdd + " xp");
 
+        // Replace user level
         TextView levelTextView = findViewById(R.id.levelTextView);
         levelTextView.setText("Niveau: " + level.getLevel());
 
+        // Replace missing xp to level up
         TextView nextLevelXpTextView = findViewById(R.id.nextLevelXpTextView);
         nextLevelXpTextView.setText("Prochain niveau dans: " + level.getMissingXpToLevelUp() + " xp");
+
+
+        String formatedShareMessage = "J'ai eu " + score + "/" + numberOfQuestions + " au quiz " + difficulty + " sur l'app Mama";
+        findViewById(R.id.shareButton).setOnClickListener(v -> {
+            shareGame(formatedShareMessage);
+        });
+
+
     }
 
+    /**
+     * function to navigate to activity
+     * @param targetClass
+     */
     public void navigateTo(Class targetClass){
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
+    }
+
+    public void shareGame(String quizInfo){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, quizInfo);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+
     }
 }

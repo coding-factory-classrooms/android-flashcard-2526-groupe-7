@@ -13,6 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.flashcard.model.Level;
+import com.example.flashcard.model.QuizStatistic;
+import com.example.flashcard.model.Statistic;
+import com.example.flashcard.model.json.JsonStatistic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
