@@ -1,5 +1,7 @@
 package com.example.flashcard;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -63,9 +65,11 @@ public class Game extends AppCompatActivity {
     private Runnable timerRunnable;
     private boolean timerRunning = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_game);
         //Setup all components
         questionText = findViewById(R.id.questionTextTextView);
@@ -108,6 +112,7 @@ public class Game extends AppCompatActivity {
                 finish();
             }
         });
+        redOverlay = findViewById(R.id.red_overlay);
 
         if(replay){
             Object questionObject  = srcIntent.getSerializableExtra("replayQuestion");
@@ -210,6 +215,26 @@ public class Game extends AppCompatActivity {
         });
     }
 
+    private  TextView timerText;
+    private boolean pulsing = false;
+    private View  redOverlay;
+    private ObjectAnimator pulseAnimator ;
+
+    private void startPulsingRedOverlay() {
+        redOverlay.setVisibility(View.VISIBLE);
+        pulseAnimator = ObjectAnimator.ofFloat(redOverlay, "alpha", 0f, 0.5f, 0f) ;
+        pulseAnimator.setDuration(1000);
+        pulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        pulseAnimator.setRepeatMode(ValueAnimator.RESTART);
+        pulseAnimator.start();
+    }
+
+    private void stopPulsingRedOverlay() {
+        pulseAnimator.cancel();
+        pulseAnimator = null;
+        redOverlay.setAlpha(0f);
+    }
+
     //Function to start the timer (15 seconds here)
     private void startTimer(int seconds) {
         remainingTime = seconds;
@@ -221,25 +246,28 @@ public class Game extends AppCompatActivity {
             public void run() {
                 remainingTime--;
                 updateTimerDisplay();
-
-                if (remainingTime > 0) {
+                if (remainingTime ==4 ){
+                    timerHandler.postDelayed(this, 1000);
+                    startPulsingRedOverlay();
+                }else if (remainingTime > -1) {
                     timerHandler.postDelayed(this, 1000);
                 } else {
                     timerRunning = false;
                     validateButton.setEnabled(false);
                     new Handler().postDelayed(() -> Advance(), 1000);
                     showTempsEcoulePopup();
+                    stopPulsingRedOverlay();
+
                 }
             }
         };
-        timerHandler.postDelayed(timerRunnable, 1000);
+            timerHandler.postDelayed(timerRunnable, 1000);
     }
 
     private void stopTimer() {
         timerRunning = false;
         timerHandler.removeCallbacks(timerRunnable);
     }
-
     private void updateTimerDisplay() {
         int minutes = remainingTime / 60;
         int seconds = remainingTime % 60;
@@ -270,7 +298,6 @@ public class Game extends AppCompatActivity {
             }
         }, 1000);
     }
-
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
@@ -295,7 +322,6 @@ public class Game extends AppCompatActivity {
             }
         }, 1000);
     }
-
     public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -325,7 +351,6 @@ public class Game extends AppCompatActivity {
         });
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
-
     private void Advance() {
         currentIndex++;
         if (currentIndex < questions.size()) {
