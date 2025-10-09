@@ -2,6 +2,7 @@ package com.example.flashcard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -63,6 +64,8 @@ public class Game extends AppCompatActivity {
     private Runnable timerRunnable;
     private boolean timerRunning = false;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +74,6 @@ public class Game extends AppCompatActivity {
         questionText = findViewById(R.id.questionTextTextView);
         scoreText = findViewById(R.id.scoreTextView);
         optionsGroup = findViewById(R.id.optionsRadioGroup);
-        opt1 = findViewById(R.id.opt1RadioButton);
-        opt2 = findViewById(R.id.opt2RadioButton);
-        opt3 = findViewById(R.id.opt3RadioButton);
         validateButton = findViewById(R.id.validateButton);
         leaveButton = findViewById(R.id.backButton);
         timeTextView = findViewById(R.id.timeTextView);
@@ -158,22 +158,18 @@ public class Game extends AppCompatActivity {
             int selectedIndex = -1;
             int selectedOptionId = -1;
 
-            //Logic for find what answer as checked
-            if (checkedId == R.id.opt1RadioButton) {
-                selectedIndex = 0;
-            }
-            else if (checkedId == R.id.opt2RadioButton){
-                selectedIndex = 1;
-            }
-            else if (checkedId == R.id.opt3RadioButton){
-                selectedIndex = 2;
-            }
-            // If logic bug go retrun no crash
-            if (selectedIndex == -1){
+            if (checkedId == -1){
                 return;
             }
 
-            selectedOptionId = currentShuffledOptions.get(selectedIndex).id;
+            RadioButton checkedRadioButton = findViewById(checkedId);
+            int selected = optionsGroup.indexOfChild(checkedRadioButton);
+
+            if (selected != -1) {
+                selectedOptionId = currentShuffledOptions.get(selected).id;
+            } else {
+                return;
+            }
 
             // Logic for win
             if (selectedOptionId == correctOptionId) {
@@ -186,9 +182,12 @@ public class Game extends AppCompatActivity {
 
             }
             else{
-                opt1.setEnabled(false);
-                opt2.setEnabled(false);
-                opt3.setEnabled(false);
+                for (int i = 0; i < optionsGroup.getChildCount(); i++) {
+                    View child = optionsGroup.getChildAt(i);
+                    if (child instanceof RadioButton) {
+                        child.setEnabled(false);
+                    }
+                }
                 validateButton.setEnabled(false);
                 // Stock question in ErrorQuestion[]
                 ErrorQuestions.add(questions.get(currentIndex));
@@ -312,9 +311,13 @@ public class Game extends AppCompatActivity {
             //Logic for finish
             questionText.setText("Quiz terminé !");
             optionsGroup.clearCheck();
-            opt1.setEnabled(false);
-            opt2.setEnabled(false);
-            opt3.setEnabled(false);
+
+            for (int i = 0; i < optionsGroup.getChildCount(); i++) {
+                View child = optionsGroup.getChildAt(i);
+                if (child instanceof RadioButton) {
+                    child.setEnabled(false);
+                }
+            }
             validateButton.setEnabled(false);
 
             Intent intent = new Intent(this, EndGameStats.class);
@@ -389,49 +392,16 @@ public class Game extends AppCompatActivity {
 
         currentShuffledOptions = optionList;
 
-        //Set option in select
-        if (difficultQuestionnary.equals("hardcore")){
-            RadioButton[] opts = new RadioButton[]{opt1,opt2,opt3};
-            String[] strs = new  String[]{optionList.get(0).reponse,optionList.get(1).reponse,optionList.get(2).reponse};
-            StringBuilder shuffled = new StringBuilder();
-            List<Character> characters = new ArrayList<>();
-            for (int i =0; i<3; i++)
-            {
-                shuffled = new StringBuilder();
-                characters = new ArrayList<>();
-                // Convert the string to a list of characters
-                for (char c : strs[i].toCharArray()) {
-                    characters.add(c);
-                }
-                // Shuffle the list
-                Collections.shuffle(characters);
+        boolean shuffleText = "hardcore".equals(difficultQuestionnary);
+        createRadioButtons(optionsGroup, currentShuffledOptions, shuffleText);
 
-                // Build the shuffled string
-                for (char c : characters) {
-                    shuffled.append(c);
-                }
-                opts[i].setText(  shuffled.toString());
-
-            }
-
-        }
-        else{
-            opt1.setText(optionList.get(0).reponse);
-            opt2.setText(optionList.get(1).reponse);
-            opt3.setText(optionList.get(2).reponse);
-        }
-
-        //Active select for play
-        opt1.setEnabled(true);
-        opt2.setEnabled(true);
-        opt3.setEnabled(true);
         validateButton.setEnabled(true);
 
         // Get context
         Context context = getApplicationContext();
 
         // Stock correct Answer id
-        correctOptionId = question.getAnswerCorrectIndex();
+//        correctOptionId = question.getAnswerCorrectIndex();
 
         // Logic for load image (@drawable)
         int resID = context.getResources().getIdentifier(question.questionImage, "drawable", context.getPackageName());
@@ -442,5 +412,66 @@ public class Game extends AppCompatActivity {
             Log.e("ImageLoad", "Image resource not found: " + question.questionImage);
         }
 
+    }
+
+    private void createRadioButtons(RadioGroup radioGroup, List<AnswerOption> optionList, boolean shuffleText) {
+        radioGroup.removeAllViews();
+        Context context = radioGroup.getContext();
+        final float scale = context.getResources().getDisplayMetrics().density;
+
+        for (int i = 0; i < optionList.size(); i++) {
+            RadioButton radioButton = new RadioButton(context);
+            String optionText = optionList.get(i).reponse;
+
+            if (shuffleText) {
+                StringBuilder shuffled = new StringBuilder();
+                List<Character> characters = new ArrayList<>();
+                for (char c : optionText.toCharArray()) {
+                    characters.add(c);
+                }
+                Collections.shuffle(characters);
+                for (char c : characters) {
+                    shuffled.append(c);
+                }
+                optionText = shuffled.toString();
+            }
+            radioButton.setText(optionText);
+
+            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.MATCH_PARENT,
+                    RadioGroup.LayoutParams.WRAP_CONTENT
+            );
+            int marginBottomPx = (int) (12 * scale + 0.5f);
+            params.bottomMargin = marginBottomPx;
+
+            radioButton.setLayoutParams(params);
+
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                radioButton.setId(View.generateViewId());
+            } else {
+                radioButton.setId(i + 1000);
+            }
+
+            radioButton.setBackgroundResource(R.drawable.radio_option_background);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                radioButton.setButtonTintList(
+                        ColorStateList.valueOf(Color.parseColor("#FF5722"))
+                );
+            }
+
+            int paddingVerticalPx = (int) (14 * scale + 0.5f);
+            int paddingStartPx = (int) (20 * scale + 0.5f);
+            int paddingEndPx = (int) (16 * scale + 0.5f);
+            radioButton.setPaddingRelative(paddingStartPx, paddingVerticalPx, paddingEndPx, paddingVerticalPx);
+
+            radioButton.setTextColor(Color.BLACK);
+            radioButton.setTextSize(17);
+
+            radioGroup.addView(radioButton);
+
+            radioButton.setEnabled(true);
+        }
     }
 }
