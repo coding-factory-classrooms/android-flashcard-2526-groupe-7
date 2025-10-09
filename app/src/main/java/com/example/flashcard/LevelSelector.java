@@ -68,7 +68,7 @@ public class LevelSelector extends AppCompatActivity {
             questions = 15;
         }
 
-        String timer = "";
+        String timer = "off";
         if (selectedTimerId == R.id.timerRadio){
             timer = "on";
             }
@@ -77,7 +77,7 @@ public class LevelSelector extends AppCompatActivity {
             intent.putExtra("difficult", level);
             intent.putExtra("nbQuestion", questions);
             intent.putExtra("name",nameQuestionnary);
-            intent.putExtra("time",timer);
+            intent.putExtra("timer",timer);
             startActivity(intent);
         });
     }

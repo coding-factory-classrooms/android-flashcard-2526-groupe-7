@@ -78,20 +78,19 @@ public class Game extends AppCompatActivity {
         leaveButton = findViewById(R.id.backButton);
         timeTextView = findViewById(R.id.timeTextView);
         this.ErrorQuestions = new ArrayList<>();
+        Intent srcIntent = getIntent();
+
+        timer = srcIntent.getStringExtra("timer");
 
 
-        RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 if ("on".equals(timer)) {
                     startTimer(15);
                 }
-            }
-        };
-        optionsGroup.setOnCheckedChangeListener(listener);
+
+        //optionsGroup.setOnCheckedChangeListener(listener);
 
 
-        Intent srcIntent = getIntent();
         String nameQuestionnary = srcIntent.getStringExtra("name");
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
@@ -100,8 +99,6 @@ public class Game extends AppCompatActivity {
         Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
 
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
-
-        timer = srcIntent.getStringExtra("time");
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
@@ -225,11 +222,11 @@ public class Game extends AppCompatActivity {
                 updateTimerDisplay();
 
                 if (remainingTime > 0) {
-                    timerHandler.postDelayed(this, 1500);
+                    timerHandler.postDelayed(this, 1000);
                 } else {
                     timerRunning = false;
                     validateButton.setEnabled(false);
-                    new Handler().postDelayed(() -> Advance(), 1500);
+                    new Handler().postDelayed(() -> Advance(), 1000);
                 }
             }
         };
@@ -308,6 +305,11 @@ public class Game extends AppCompatActivity {
         currentIndex++;
         if (currentIndex < questions.size()) {
             showQuestion();
+            if ("on".equals(timer)) {
+                stopTimer();
+                startTimer(15);
+            }
+
         } else {
             //Logic for finish
             questionText.setText("Quiz terminé !");
