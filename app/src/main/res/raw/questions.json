@@ -1,15 +1,185 @@
 [
-  {
-    "questionTitle": "Quel est le plus grand pokemon du monde",
-    "answerOptions": [
-      { "id": 0, "reponse": "Océan Atlantique" },
-      { "id": 1, "reponse": "Océan Pacifique" },
-      { "id": 2, "reponse": "Océan Indien" }
-    ],
-    "answerCorrectIndex": 1,
-    "questionImage": "bgopen",
-    "questionSong": "Null",
-    "difficult": "Facile",
-    "questionTime": 15
-  }
+    {
+      "questionTitle": "Qui a été assassiné le 28 juin 1914 à Sarajevo, déclenchant la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Le tsar Nicolas II" },
+        { "id": 1, "reponse": "L'archiduc François-Ferdinand" },
+        { "id": 2, "reponse": "Le prince héritier Guillaume" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Facile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel pays a rejoint la Triple-Entente en 1915 ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "L'Italie" },
+        { "id": 1, "reponse": "Les États-Unis" },
+        { "id": 2, "reponse": "Le Japon" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Moyenne",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Où a eu lieu la bataille la plus meurtrière de la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "À Verdun" },
+        { "id": 1, "reponse": "À la Somme" },
+        { "id": 2, "reponse": "À Ypres" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Difficile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel type de guerre caractérisait le Front de l'Ouest pendant la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Guerre de mouvement" },
+        { "id": 1, "reponse": "Guerre de tranchées" },
+        { "id": 2, "reponse": "Guerre aérienne" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Moyenne",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel gaz toxique a été utilisé pour la première fois lors de la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Le phosgène" },
+        { "id": 1, "reponse": "Le chlore" },
+        { "id": 2, "reponse": "Le sarin" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Difficile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel est le nom du traité qui a mis fin à la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Le traité de Versailles" },
+        { "id": 1, "reponse": "Le traité de Paris" },
+        { "id": 2, "reponse": "Le traité de Saint-Germain" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Facile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel événement a marqué l'entrée des États-Unis dans la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "L'attaque de Pearl Harbor" },
+        { "id": 1, "reponse": "Le télégramme Zimmermann" },
+        { "id": 2, "reponse": "Le naufrage du Lusitania" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Moyenne",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel pays a quitté la Triple-Alliance pour rejoindre la Triple-Entente en 1915 ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "L'Italie" },
+        { "id": 1, "reponse": "L'Autriche-Hongrie" },
+        { "id": 2, "reponse": "L'Empire ottoman" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Facile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel était le surnom des soldats français pendant la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Les Poilus" },
+        { "id": 1, "reponse": "Les Zouaves" },
+        { "id": 2, "reponse": "Les Tirailleurs" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Facile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel navire britannique a été coulé par un sous-marin allemand en 1915, provoquant la mort de 1 198 personnes ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Le Titanic" },
+        { "id": 1, "reponse": "Le Lusitania" },
+        { "id": 2, "reponse": "Le Britannic" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Moyenne",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel était le nom de l'armée allemande pendant la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "La Wehrmacht" },
+        { "id": 1, "reponse": "La Kaiserliche Armee" },
+        { "id": 2, "reponse": "La Reichswehr" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Difficile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel est le nom du général français qui a dirigé les forces alliées lors de la bataille de la Marne ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "Philippe Pétain" },
+        { "id": 1, "reponse": "Joseph Joffre" },
+        { "id": 2, "reponse": "Ferdinand Foch" }
+      ],
+      "answerCorrectIndex": 1,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Moyenne",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel était le nom de la ligne de défense fortifiée construite par la France le long de sa frontière avec l'Allemagne ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "La ligne Maginot" },
+        { "id": 1, "reponse": "La ligne Siegfried" },
+        { "id": 2, "reponse": "La ligne Hindenburg" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Difficile",
+      "questionTime": 15
+    },
+    {
+      "questionTitle": "Quel événement a marqué la fin de la Première Guerre mondiale ?",
+      "answerOptions": [
+        { "id": 0, "reponse": "La signature de l'armistice le 11 novembre 1918" },
+        { "id": 1, "reponse": "La signature du traité de Versailles en 1919" },
+        { "id": 2, "reponse": "La chute de l'Empire ottoman" }
+      ],
+      "answerCorrectIndex": 0,
+      "questionImage": "bgopen",
+      "questionSong": "Null",
+      "difficult": "Facile",
+      "questionTime": 15
+    }
+
 ]
