@@ -79,8 +79,6 @@ public class Game extends AppCompatActivity {
         replay = srcIntent.getBooleanExtra("replay",false);
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
 
-
-
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,18 +107,16 @@ public class Game extends AppCompatActivity {
             //Logic for read Json and load question
             JsonQuestion jsonQuestion = new JsonQuestion();
             questions = jsonQuestion.readQuestion(this, nameQuestionnary);
+
+            // Shuffle question for rng
+            Collections.shuffle(questions);
+
+            //Take numberQuestion question only
+            questions = new ArrayList<>(questions.subList(0,nbQuestion));
         }
 
-
-
-        // Shuffle question for rng
-        Collections.shuffle(questions);
-
-        //Take numberQuestion question only
-        questions = new ArrayList<>(questions.subList(0,nbQuestion));
-
         // Setup score to 0/question number
-        scoreText.setText(goodAnswer + "/" + questions.size());
+        scoreText.setText(currentIndex + "/" + questions.size());
 
         //Show first question
         showQuestion();
@@ -257,10 +253,17 @@ public class Game extends AppCompatActivity {
     private void showQuestion() {
         //Clear radio checked
         optionsGroup.clearCheck();
-        correctResponse =questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
-
         Question question = questions.get(currentIndex);
         questionText.setText(question.questionTitle);
+        correctOptionId = question.getAnswerCorrectIndex();
+
+        for (AnswerOption option : question.answerOptions) {
+            if (option.id == correctOptionId) {
+                correctResponse = option.reponse;
+                break;
+            }
+        }
+
 
         // Create list option response for shuffle
         List<AnswerOption>  optionList = Arrays.asList(question.answerOptions);
