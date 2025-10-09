@@ -55,6 +55,7 @@ public class Game extends AppCompatActivity {
     private int correctOptionId;
 
     private boolean replay;
+    private boolean isDailyChallenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,8 @@ public class Game extends AppCompatActivity {
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
+        isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
+        Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
 
 
         //Logic for leaving button
@@ -95,20 +98,31 @@ public class Game extends AppCompatActivity {
             }else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        }else {
+        }
+        else if(!isDailyChallenge){
             //Logic for read Json and load question
             JsonQuestion jsonQuestion = new JsonQuestion();
             questions = jsonQuestion.readQuestion(this, nameQuestionnary);
+            Log.i("Questions", new Gson().toJson(questions));
         }
-
-
-        correctResponse =questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
+        else {
+            if(dailyChallengeQuestions instanceof List<?>){
+                questions = (List<Question>) dailyChallengeQuestions;
+                Log.i("Questions", new Gson().toJson(questions));
+            }else{
+                Log.e("Error","Error during error question list recuperation");
+            }
+        }
 
         // Shuffle question for rng
         Collections.shuffle(questions);
 
-        //Take numberQuestion question only
-        questions = new ArrayList<>(questions.subList(0,nbQuestion));
+        correctResponse = questions.get(currentIndex).answerOptions[questions.get(currentIndex).answerCorrectIndex].reponse;
+
+        if(!isDailyChallenge){
+            //Take numberQuestion question only
+            questions = new ArrayList<>(questions.subList(0,nbQuestion));
+        }
 
         // Setup score to 0/question number
         scoreText.setText(goodAnswer + "/" + questions.size());

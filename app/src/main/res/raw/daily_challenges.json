@@ -1,139 +1,439 @@
 [
   {
-    "challengeName": "Défi du jour : Capitales",
-    "numberOfQuestions": "3",
-    "difficulty": "Facile",
-    "latestDateAppears": null,
-    "questions": [
-      {
-        "questionTitle": "Quelle est la capitale de la France ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "Paris" },
-          { "id": 2, "answerText": "Lyon" },
-          { "id": 3, "answerText": "Marseille" },
-          { "id": 4, "answerText": "Bordeaux" }
-        ],
-        "answerCorrectIndex": 0,
-        "questionImage": "paris_image",
-        "questionSong": "song1.mp3",
-        "difficulty": "Facile",
-        "questionTime": 20
-      },
-      {
-        "questionTitle": "Quelle est la capitale de l’Espagne ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "Madrid" },
-          { "id": 2, "answerText": "Barcelone" },
-          { "id": 3, "answerText": "Valence" },
-          { "id": 4, "answerText": "Séville" }
-        ],
-        "answerCorrectIndex": 0,
-        "questionImage": "madrid_image",
-        "questionSong": "song2.mp3",
-        "difficulty": "Facile",
-        "questionTime": 25
-      }
-    ]
-  },
-  {
-    "challengeName": "Défi culture générale",
-    "numberOfQuestions": "2",
-    "difficulty": "Moyen",
-    "latestDateAppears": "2025-09-30",
-    "questions": [
-      {
-        "questionTitle": "Qui a peint la Joconde ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "Léonard de Vinci" },
-          { "id": 2, "answerText": "Michel-Ange" },
-          { "id": 3, "answerText": "Raphaël" },
-          { "id": 4, "answerText": "Donatello" }
-        ],
-        "answerCorrectIndex": 0,
-        "questionImage": "mona_lisa",
-        "questionSong": "song3.mp3",
-        "difficulty": "Moyen",
-        "questionTime": 30
-      },
-      {
-        "questionTitle": "Combien de continents y a-t-il sur Terre ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "5" },
-          { "id": 2, "answerText": "6" },
-          { "id": 3, "answerText": "7" },
-          { "id": 4, "answerText": "8" }
-        ],
-        "answerCorrectIndex": 2,
-        "questionImage": "earth",
-        "questionSong": "song4.mp3",
-        "difficulty": "Moyen",
-        "questionTime": 25
-      }
-    ]
-  },
-  {
-    "challengeName": "Défi Histoire",
-    "numberOfQuestions": "3",
-    "difficulty": "Difficile",
-    "latestDateAppears": "2025-08-15",
-    "questions": [
-      {
-        "questionTitle": "En quelle année la Seconde Guerre mondiale a-t-elle commencé ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "1939" },
-          { "id": 2, "answerText": "1945" },
-          { "id": 3, "answerText": "1914" },
-          { "id": 4, "answerText": "1920" }
-        ],
-        "answerCorrectIndex": 0,
-        "questionImage": "ww2_image",
-        "questionSong": "song5.mp3",
-        "difficulty": "Difficile",
-        "questionTime": 40
-      }
-    ]
-  },
-  {
-    "challengeName": "Défi Science",
-    "numberOfQuestions": "2",
-    "difficulty": "Moyen",
-    "latestDateAppears": "2025-07-20",
-    "questions": [
-      {
-        "questionTitle": "Quel est l’élément chimique dont le symbole est O ?",
-        "answerOptions": [
-          { "id": 1, "answerText": "Or" },
-          { "id": 2, "answerText": "Oxygène" },
-          { "id": 3, "answerText": "Osmium" },
-          { "id": 4, "answerText": "Ozone" }
-        ],
-        "answerCorrectIndex": 1,
-        "questionImage": "oxygen",
-        "questionSong": "song6.mp3",
-        "difficulty": "Moyen",
-        "questionTime": 30
-      }
-    ]
-  },
-  {
     "challengeName": "Défi Mathématiques",
-    "numberOfQuestions": "2",
-    "difficulty": "Facile",
+    "numberOfQuestions": "5",
+    "difficulty": "easy",
     "latestDateAppears": "2025-06-10",
     "questions": [
       {
         "questionTitle": "Combien font 8 × 7 ?",
         "answerOptions": [
-          { "id": 1, "answerText": "54" },
-          { "id": 2, "answerText": "56" },
-          { "id": 3, "answerText": "64" },
-          { "id": 4, "answerText": "49" }
+          { "id": 0, "reponse": "54" },
+          { "id": 1, "reponse": "56" },
+          { "id": 2, "reponse": "64" }
         ],
         "answerCorrectIndex": 1,
-        "questionImage": "maths",
-        "questionSong": "song7.mp3",
-        "difficulty": "Facile",
+        "questionImage": "maths1",
+        "questionSong": "song21.mp3",
+        "difficult": "easy",
         "questionTime": 15
+      },
+      {
+        "questionTitle": "Combien font 12 + 15 ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "27" },
+          { "id": 1, "reponse": "28" },
+          { "id": 2, "reponse": "30" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "maths2",
+        "questionSong": "song22.mp3",
+        "difficult": "easy",
+        "questionTime": 15
+      },
+      {
+        "questionTitle": "Combien font 9 × 6 ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "54" },
+          { "id": 1, "reponse": "52" },
+          { "id": 2, "reponse": "48" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "maths3",
+        "questionSong": "song23.mp3",
+        "difficult": "easy",
+        "questionTime": 15
+      },
+      {
+        "questionTitle": "Combien font 15 - 7 ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "7" },
+          { "id": 1, "reponse": "8" },
+          { "id": 2, "reponse": "9" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "maths4",
+        "questionSong": "song24.mp3",
+        "difficult": "easy",
+        "questionTime": 15
+      },
+      {
+        "questionTitle": "Combien font 5 × 5 ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "25" },
+          { "id": 1, "reponse": "20" },
+          { "id": 2, "reponse": "30" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "maths5",
+        "questionSong": "song25.mp3",
+        "difficult": "easy",
+        "questionTime": 15
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Géographie",
+    "numberOfQuestions": "5",
+    "difficulty": "medium",
+    "latestDateAppears": "2025-07-15",
+    "questions": [
+      {
+        "questionTitle": "Quel est le plus grand pays du monde ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Canada" },
+          { "id": 1, "reponse": "Russie" },
+          { "id": 2, "reponse": "Chine" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "russia",
+        "questionSong": "song26.mp3",
+        "difficult": "medium",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "Quel est le plus long fleuve du monde ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Nil" },
+          { "id": 1, "reponse": "Amazon" },
+          { "id": 2, "reponse": "Yangtsé" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "amazon",
+        "questionSong": "song27.mp3",
+        "difficult": "medium",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "Quelle est la capitale de l’Australie ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Sydney" },
+          { "id": 1, "reponse": "Canberra" },
+          { "id": 2, "reponse": "Melbourne" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "canberra",
+        "questionSong": "song28.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Quel pays a la plus grande population ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Inde" },
+          { "id": 1, "reponse": "Chine" },
+          { "id": 2, "reponse": "USA" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "china",
+        "questionSong": "song29.mp3",
+        "difficult": "medium",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "Quel est le plus haut sommet du monde ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Mont Everest" },
+          { "id": 1, "reponse": "K2" },
+          { "id": 2, "reponse": "Kangchenjunga" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "everest",
+        "questionSong": "song30.mp3",
+        "difficult": "medium",
+        "questionTime": 30
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Histoire Moderne",
+    "numberOfQuestions": "5",
+    "difficulty": "hard",
+    "latestDateAppears": "2025-08-01",
+    "questions": [
+      {
+        "questionTitle": "En quelle année a eu lieu la Révolution française ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "1789" },
+          { "id": 1, "reponse": "1792" },
+          { "id": 2, "reponse": "1804" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "revolution_fr",
+        "questionSong": "song31.mp3",
+        "difficult": "hard",
+        "questionTime": 40
+      },
+      {
+        "questionTitle": "Qui était le chef de l’Allemagne nazie ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Adolf Hitler" },
+          { "id": 1, "reponse": "Benito Mussolini" },
+          { "id": 2, "reponse": "Joseph Staline" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "hitler",
+        "questionSong": "song32.mp3",
+        "difficult": "hard",
+        "questionTime": 35
+      },
+      {
+        "questionTitle": "Quel mur a séparé Berlin Est et Berlin Ouest ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Le mur de Berlin" },
+          { "id": 1, "reponse": "Le mur de Chine" },
+          { "id": 2, "reponse": "Le mur d’Hadrian" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "berlin_wall",
+        "questionSong": "song33.mp3",
+        "difficult": "hard",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "En quelle année a eu lieu le débarquement en Normandie ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "1944" },
+          { "id": 1, "reponse": "1940" },
+          { "id": 2, "reponse": "1945" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "d_day",
+        "questionSong": "song34.mp3",
+        "difficult": "hard",
+        "questionTime": 35
+      },
+      {
+        "questionTitle": "Quel traité a mis fin à la Première Guerre mondiale ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Traité de Versailles" },
+          { "id": 1, "reponse": "Traité de Paris" },
+          { "id": 2, "reponse": "Traité de Rome" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "versailles",
+        "questionSong": "song35.mp3",
+        "difficult": "hard",
+        "questionTime": 40
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Sport",
+    "numberOfQuestions": "5",
+    "difficulty": "medium",
+    "latestDateAppears": "2025-09-01",
+    "questions": [
+      {
+        "questionTitle": "Combien de joueurs dans une équipe de football ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "9" },
+          { "id": 1, "reponse": "11" },
+          { "id": 2, "reponse": "10" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "football",
+        "questionSong": "song36.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Combien de points pour un touchdown au football américain ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "3" },
+          { "id": 1, "reponse": "6" },
+          { "id": 2, "reponse": "7" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "touchdown",
+        "questionSong": "song37.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Quel pays a remporté la Coupe du Monde 2018 ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Brésil" },
+          { "id": 1, "reponse": "France" },
+          { "id": 2, "reponse": "Allemagne" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "worldcup2018",
+        "questionSong": "song38.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Quel sport se joue avec un volant ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Badminton" },
+          { "id": 1, "reponse": "Tennis" },
+          { "id": 2, "reponse": "Ping-pong" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "badminton",
+        "questionSong": "song39.mp3",
+        "difficult": "medium",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Combien de sets pour gagner un match de tennis ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "2" },
+          { "id": 1, "reponse": "3" },
+          { "id": 2, "reponse": "5" }
+        ],
+        "answerCorrectIndex": 1,
+        "questionImage": "tennis",
+        "questionSong": "song40.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Musique",
+    "numberOfQuestions": "5",
+    "difficulty": "easy",
+    "latestDateAppears": "2025-09-10",
+    "questions": [
+      {
+        "questionTitle": "Qui est le chanteur de 'Thriller' ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Michael Jackson" },
+          { "id": 1, "reponse": "Elvis Presley" },
+          { "id": 2, "reponse": "Prince" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "thriller",
+        "questionSong": "song41.mp3",
+        "difficult": "easy",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Quel est le groupe qui a chanté 'Bohemian Rhapsody' ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Queen" },
+          { "id": 1, "reponse": "The Beatles" },
+          { "id": 2, "reponse": "ABBA" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "queen",
+        "questionSong": "song42.mp3",
+        "difficult": "easy",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Qui est connu comme 'Le roi du rock' ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Elvis Presley" },
+          { "id": 1, "reponse": "Michael Jackson" },
+          { "id": 2, "reponse": "Freddie Mercury" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "elvis",
+        "questionSong": "song43.mp3",
+        "difficult": "easy",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Quel instrument a des touches noires et blanches ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Piano" },
+          { "id": 1, "reponse": "Guitare" },
+          { "id": 2, "reponse": "Violon" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "piano",
+        "questionSong": "song44.mp3",
+        "difficult": "easy",
+        "questionTime": 20
+      },
+      {
+        "questionTitle": "Quel est l’instrument principal dans un quatuor à cordes ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Violon" },
+          { "id": 1, "reponse": "Piano" },
+          { "id": 2, "reponse": "Flûte" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "violin",
+        "questionSong": "song45.mp3",
+        "difficult": "easy",
+        "questionTime": 20
+      }
+    ]
+  },
+  {
+    "challengeName": "Défi Informatique",
+    "numberOfQuestions": "5",
+    "difficulty": "medium",
+    "latestDateAppears": "2025-10-01",
+    "questions": [
+      {
+        "questionTitle": "Que signifie HTML ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Hyper Text Markup Language" },
+          { "id": 1, "reponse": "High Text Machine Language" },
+          { "id": 2, "reponse": "Hyperlinks and Text Markup Language" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "html",
+        "questionSong": "song46.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Que signifie CSS ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Cascading Style Sheets" },
+          { "id": 1, "reponse": "Computer Style Sheets" },
+          { "id": 2, "reponse": "Creative Style System" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "css",
+        "questionSong": "song47.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Quel langage est côté serveur ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Python" },
+          { "id": 1, "reponse": "HTML" },
+          { "id": 2, "reponse": "CSS" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "python",
+        "questionSong": "song48.mp3",
+        "difficult": "medium",
+        "questionTime": 30
+      },
+      {
+        "questionTitle": "Quel langage est utilisé pour le style des pages web ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "CSS" },
+          { "id": 1, "reponse": "Python" },
+          { "id": 2, "reponse": "Java" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "css_icon",
+        "questionSong": "song49.mp3",
+        "difficult": "medium",
+        "questionTime": 25
+      },
+      {
+        "questionTitle": "Que signifie SQL ?",
+        "answerOptions": [
+          { "id": 0, "reponse": "Structured Query Language" },
+          { "id": 1, "reponse": "Simple Query Language" },
+          { "id": 2, "reponse": "Stylish Question Language" }
+        ],
+        "answerCorrectIndex": 0,
+        "questionImage": "sql",
+        "questionSong": "song50.mp3",
+        "difficult": "medium",
+        "questionTime": 30
       }
     ]
   }
