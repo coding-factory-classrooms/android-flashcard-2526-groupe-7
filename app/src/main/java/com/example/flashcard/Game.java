@@ -127,6 +127,8 @@ public class Game extends AppCompatActivity {
         if (timer.equals("on"))
         {
             startTimer(timerDuration);
+            TextView tv = findViewById(R.id.timeTextView);
+            tv.setVisibility(View.VISIBLE);
         }
 
         //Logic for leaving button
