@@ -84,16 +84,9 @@ public class Game extends AppCompatActivity {
 
         timer = srcIntent.getStringExtra("timer");
 
+        startTimer(15);
 
-        RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if ("on".equals(timer)) {
-                    startTimer(15);
-                }
-            }
-        };
-        optionsGroup.setOnCheckedChangeListener(listener);
+
 
         //optionsGroup.setOnCheckedChangeListener(listener);
 
