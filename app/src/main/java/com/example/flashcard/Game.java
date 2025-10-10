@@ -267,7 +267,7 @@ public class Game extends AppCompatActivity {
                 updateTimerDisplay();
                 if (remainingTime ==4 ){
                     timerHandler.postDelayed(this, 1000);
-                    startPulsingRedOverlay();
+                    startPulsingRedOverlay();git
                     playSound();
                 }else if (remainingTime > -1) {
                     timerHandler.postDelayed(this, 1000);
