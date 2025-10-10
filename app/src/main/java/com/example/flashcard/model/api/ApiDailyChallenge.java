@@ -1,13 +1,16 @@
 package com.example.flashcard.model.api;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.flashcard.model.DailyChallenge;
 import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.model.callback.DailyChallengeCallback;
+import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.example.flashcard.utils.DateComparaison;
 import com.google.gson.Gson;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +29,7 @@ public class ApiDailyChallenge implements IApiDailyChallenge{
 
 
     @Override
-    public void fetchApiAllDailyChallenge(String difficulty, DailyChallengeCallback callback) {
+    public void fetchApiAllDailyChallenge(Context context, String difficulty, DailyChallengeCallback callback) {
 
         Retrofit retrofit =new Retrofit.Builder()
                 .baseUrl("https://students.gryt.tech/api/L2/")
@@ -58,21 +61,32 @@ public class ApiDailyChallenge implements IApiDailyChallenge{
                     List<DailyChallengeApiModel> filteredChallenges = new ArrayList<>();
 
                     for(DailyChallenge challenge : challenges){
+
+                        Date latestDate = null;
+                        String dateStr = challenge.getLatestDateAppears();
+                        if (dateStr != null) {
+                            try {
+                                latestDate = sdf.parse(dateStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         // If the daily challenge never appears before then add it
                         if(challenge.getLatestDateAppears() == null ){
                             filteredChallenges.add(new DailyChallengeApiModel(false, challenge));
                         }
-                        else if(DateComparaison.isAtLeastOneMonthApart(todayDate, challenge.getLatestDateAppears())){
+                        else if(DateComparaison.isAtLeastOneMonthApart(todayDate, latestDate)){
                             filteredChallenges.add(new DailyChallengeApiModel(false, challenge));
-                        }
-                        else if(DateComparaison.isSameDay(todayDate, challenge.getLatestDateAppears())){
-                            filteredChallenges.add(new DailyChallengeApiModel(true, challenge));
                         }
                     }
 
                     Collections.shuffle(filteredChallenges, random);
 
                     List<DailyChallengeApiModel> selectedFilteredDailyChallenges = filteredChallenges.subList(0, Math.min(2, filteredChallenges.size()));
+
+                    JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
+                    jsonDailyChallenge.writeDailyChallenge(context, selectedFilteredDailyChallenges);
 
                     callback.onSuccess(selectedFilteredDailyChallenges);
                 }

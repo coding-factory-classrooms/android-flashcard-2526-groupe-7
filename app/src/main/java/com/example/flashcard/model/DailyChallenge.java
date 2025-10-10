@@ -9,7 +9,7 @@ public class DailyChallenge {
     private String numberOfQuestions;
     private String difficulty;
     private List<Question> questions;
-    private Date latestDateAppears;
+    private String latestDateAppears;
 
     public String getChallengeName() {
         return challengeName;
@@ -27,7 +27,11 @@ public class DailyChallenge {
         return questions;
     }
 
-    public Date getLatestDateAppears() {
+    public String getLatestDateAppears() {
         return latestDateAppears;
+    }
+
+    public void setLatestDateAppears(String latestDateAppears) {
+        this.latestDateAppears = latestDateAppears;
     }
 }

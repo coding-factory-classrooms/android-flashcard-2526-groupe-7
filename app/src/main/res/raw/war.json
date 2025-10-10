@@ -4,9 +4,11 @@
       "answerOptions": [
         { "id": 0, "reponse": "Le tsar Nicolas II" },
         { "id": 1, "reponse": "L'archiduc François-Ferdinand" },
-        { "id": 2, "reponse": "Le prince héritier Guillaume" }
+        { "id": 2, "reponse": "Le prince héritier Guillaume" },
+        { "id": 3, "reponse": "Le good héritier Guillaume" },
+        { "id": 4, "reponse": "Le prince héritier Guillaume" }
       ],
-      "answerCorrectIndex": 1,
+      "answerCorrectIndex": 3,
       "questionImage": "bgopen",
       "questionSong": "Null",
       "difficult": "Facile",

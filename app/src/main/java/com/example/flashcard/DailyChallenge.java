@@ -65,26 +65,17 @@ public class DailyChallenge extends AppCompatActivity {
 
         Log.i("TAG", String.valueOf(isNewDay));
 
-        if(true){
-            apiDailyChallenge.fetchApiAllDailyChallenge("", new DailyChallengeCallback() {
+        List<DailyChallengeApiModel> testDailychallenges =
+                dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
+
+        if(isNewDay || dailyChallenges == null){
+            apiDailyChallenge.fetchApiAllDailyChallenge(context,"", new DailyChallengeCallback() {
                 @Override
                 public void onSuccess(List<DailyChallengeApiModel> challengeApis) {
                     dailyChallenges = challengeApis;
                     Log.i("API", "API QUESTIONS");
-                    DailyChallengeAdapter adapter = new DailyChallengeAdapter(dailyChallenges);
 
-                    RecyclerView recyclerView = findViewById(R.id.dailyChallengeRecyclerView);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    adapter.setOnClickListener((position, dailyChallengeApi) -> {
-                        Intent intent = new Intent(context, Game.class);
-                        intent.putExtra("difficult", dailyChallengeApi.getDailyChallenge().getDifficulty());
-                        intent.putExtra("nbQuestion", Integer.valueOf(dailyChallengeApi.getDailyChallenge().getNumberOfQuestions()));
-                        intent.putExtra("isDailyChallenge", true);
-                        intent.putExtra("dailyChallengeQuestions", (Serializable) dailyChallengeApi.getDailyChallenge().getQuestions());
-                        startActivity(intent);
-                    });
-
-                    recyclerView.setAdapter(adapter);
+                    createRecyclerView();
                 }
 
                 @Override
@@ -92,11 +83,30 @@ public class DailyChallenge extends AppCompatActivity {
                     Log.e("API", "Erreur API", t);
                 }
             });
-
         }
         else {
             dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
+            createRecyclerView();
         }
 
+    }
+
+    public void createRecyclerView(){
+
+        DailyChallengeAdapter adapter = new DailyChallengeAdapter(dailyChallenges);
+
+        RecyclerView recyclerView = findViewById(R.id.dailyChallengeRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setOnClickListener((position, dailyChallengeApi) -> {
+            Intent intent = new Intent(this, Game.class);
+            intent.putExtra("difficult", dailyChallengeApi.getDailyChallenge().getDifficulty());
+            intent.putExtra("nbQuestion", Integer.valueOf(dailyChallengeApi.getDailyChallenge().getNumberOfQuestions()));
+            intent.putExtra("isDailyChallenge", true);
+            intent.putExtra("questions", (Serializable) dailyChallengeApi.getDailyChallenge().getQuestions());
+            intent.putExtra("quizIndex", position);
+            startActivity(intent);
+        });
+
+        recyclerView.setAdapter(adapter);
     }
 }

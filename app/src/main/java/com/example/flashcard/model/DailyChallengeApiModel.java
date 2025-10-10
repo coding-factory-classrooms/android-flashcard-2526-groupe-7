@@ -16,4 +16,8 @@ public class DailyChallengeApiModel {
     public DailyChallenge getDailyChallenge() {
         return dailyChallenge;
     }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
 }

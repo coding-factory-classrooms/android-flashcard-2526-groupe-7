@@ -13,7 +13,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.flashcard.model.Question;
+import com.example.flashcard.model.api.ApiQuestion;
+import com.example.flashcard.model.callback.QuestionCallback;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class LevelSelector extends AppCompatActivity {
+
+
+    List<Question> questionsOfquiz = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,23 @@ public class LevelSelector extends AppCompatActivity {
                 finish();
             }
         });
+
+        ApiQuestion apiQuestion = new ApiQuestion();
+
+        Log.i("GAME", "APPEL API");
+
+        apiQuestion.fetchApiQuestion(nameQuestionnary, new QuestionCallback() {
+            @Override
+            public void onSuccess(List<Question> all_questions) {
+                questionsOfquiz = all_questions;
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("Game", String.valueOf(t));
+            }
+        });
+
         play.setOnClickListener (view -> {
             int selectId = radioGroup.getCheckedRadioButtonId();
             int selectedQuestionsId = radioGroupQuestions.getCheckedRadioButtonId();
@@ -81,6 +109,8 @@ public class LevelSelector extends AppCompatActivity {
             intent.putExtra("nbQuestion", questions);
             intent.putExtra("name",nameQuestionnary);
             intent.putExtra("time",timer);
+            intent.putExtra("questions", (Serializable) questionsOfquiz);
+
             startActivity(intent);
         });
     }

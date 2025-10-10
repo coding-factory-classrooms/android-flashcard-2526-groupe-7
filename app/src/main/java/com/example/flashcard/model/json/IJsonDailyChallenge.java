@@ -10,7 +10,6 @@ import java.util.List;
 public interface IJsonDailyChallenge {
 
     public final String jsonDailyChallengeFileName = "daily_challenges.json";
-    public List<DailyChallengeApiModel> readApiDailyChallenges(Context context, int numberToPick);
 
     public List<DailyChallengeApiModel> readLocalDailyChallenges(Context context);
 

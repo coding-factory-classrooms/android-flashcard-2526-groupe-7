@@ -1,5 +1,6 @@
 package com.example.flashcard.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcard.model.Question;
 import com.example.flashcard.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         Question question = questionList.get(position);
+        Log.i("TAG", "onBindViewHolder: " + new Gson().toJson(question));
         holder.textViewQuestion.setText(question.getQuestiontTitle());
     }
 

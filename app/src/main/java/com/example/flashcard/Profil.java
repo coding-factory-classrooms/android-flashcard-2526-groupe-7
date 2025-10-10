@@ -28,33 +28,5 @@ public class Profil extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // New instance of json level
-        JsonLevel jsonlevel = new JsonLevel();
-
-        // fetch data level from level.json
-        Level level = jsonlevel.readLevel(this);
-
-        // Define on click to display user info
-        findViewById(R.id.dialogUserInfoButton).setOnClickListener(v -> {
-            // new instance of bottom sheet dialog
-            BottomSheetDialog dialog = new BottomSheetDialog(this);
-            dialog.setContentView(R.layout.dialog_user_info);
-
-            TextView levelTextView = dialog.findViewById(R.id.levelTextView);
-            levelTextView.setText("Niveau " +  String.valueOf(level.getLevel()));
-
-            TextView xpTextView = dialog.findViewById(R.id.xpTextView);
-            xpTextView.setText(level.getStringXpToFixed());
-
-            TextView goalXpTextView = dialog.findViewById(R.id.goalXpTextView);
-            goalXpTextView.setText(level.getStringGoalXpToFixed());
-
-            LinearProgressIndicator progressBar = dialog.findViewById(R.id.progressBar);
-            progressBar.setProgress(level.getProgress());
-
-            // show the dialog
-            dialog.show();
-        });
     }
 }

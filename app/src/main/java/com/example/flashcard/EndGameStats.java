@@ -10,12 +10,19 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.model.Level;
 import com.example.flashcard.model.Question;
+import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.example.flashcard.model.json.JsonLevel;
+import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EndGameStats extends AppCompatActivity {
     List<Question> errorQuestionsList = null;
@@ -30,11 +37,15 @@ public class EndGameStats extends AppCompatActivity {
         int score;
         String difficulty;
         int xpToAdd;
+        boolean isDailyChallenge;
+        int quizIndex;
 
         Intent srcIntent = getIntent();
         numberOfQuestions = srcIntent.getIntExtra("nbQuestion",0);
         score = srcIntent.getIntExtra("score",0);
         difficulty = srcIntent.getStringExtra("difficult");
+        isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
+        quizIndex = srcIntent.getIntExtra("quizIndex", 0);
         Object questionObject  = srcIntent.getSerializableExtra("errorQuestion");
 
         if (questionObject instanceof List<?>) {
@@ -71,6 +82,25 @@ public class EndGameStats extends AppCompatActivity {
             xpToAdd = 60;
         }else {
             xpToAdd = 0;
+        }
+
+
+        Log.i("End Game", String.valueOf(isDailyChallenge));
+        if(isDailyChallenge){
+            JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
+            List<DailyChallengeApiModel> dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
+
+            Log.i("End Game", "Daily challenges debut: " + new Gson().toJson(dailyChallenges));
+
+            DailyChallengeApiModel dailyChallenge = dailyChallenges.get(quizIndex);
+
+            // Modify the correct quiz in the list
+            dailyChallenge.setCompleted(true);
+
+            Log.i("End Game", "Daily challenge: " + new Gson().toJson(dailyChallenge));
+            Log.i("End Game", "Daily challenges apres: " + new Gson().toJson(dailyChallenges));
+
+            jsonDailyChallenge.writeDailyChallenge(this, dailyChallenges);
         }
 
 

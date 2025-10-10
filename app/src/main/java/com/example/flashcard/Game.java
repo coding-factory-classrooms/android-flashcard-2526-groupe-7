@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,7 +26,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flashcard.model.AnswerOption;
-import com.example.flashcard.model.json.JsonQuestion;
 import com.example.flashcard.model.Question;
 import com.google.gson.Gson;
 
@@ -45,6 +42,7 @@ public class Game extends AppCompatActivity {
     private TextView questionText;
     private TextView scoreText;
     private RadioGroup optionsGroup;
+    private RadioButton opt1, opt2, opt3;
     private Button validateButton;
     private ImageButton leaveButton;
     List<Question> ErrorQuestions;
@@ -55,6 +53,7 @@ public class Game extends AppCompatActivity {
     private int correctOptionId;
     private boolean replay;
     private boolean isDailyChallenge;
+    private int quizIndex;
     private boolean oneQuestion;
     private String timer;
     private int remainingTime = 0;
@@ -96,7 +95,9 @@ public class Game extends AppCompatActivity {
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
         replay = srcIntent.getBooleanExtra("replay",false);
         isDailyChallenge = srcIntent.getBooleanExtra("isDailyChallenge", false);
-        Object dailyChallengeQuestions = srcIntent.getSerializableExtra("dailyChallengeQuestions");
+        quizIndex = srcIntent.getIntExtra("quizIndex", 0);
+        Object questionsFromQuiz = srcIntent.getSerializableExtra("questions");
+
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
         timer = srcIntent.getStringExtra("time");
 
@@ -137,24 +138,21 @@ public class Game extends AppCompatActivity {
             else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        } else if (isDailyChallenge){
-            if(dailyChallengeQuestions instanceof List<?>){
-                questions = (List<Question>) dailyChallengeQuestions;
-                Log.i("Questions", new Gson().toJson(questions));
+        } else{
+            if(questionsFromQuiz instanceof List<?>){
+                questions = (List<Question>) questionsFromQuiz;
+                maxOption = 3;
             }else{
                 Log.e("Error","Error during error question list recuperation");
             }
-        } else {
-            //Logic for read Json and load question
-            JsonQuestion jsonQuestion = new JsonQuestion();
-            questions = jsonQuestion.readQuestion(this, nameQuestionnary);
+        }
 
-            // Shuffle question for rng
-            Collections.shuffle(questions);
+        // Shuffle question for rng
+        Collections.shuffle(questions);
 
             //Take numberQuestion question only
             questions = new ArrayList<>(questions.subList(0,nbQuestion));
-        }
+
 
         //Show first question
         showQuestion();
@@ -327,7 +325,10 @@ public class Game extends AppCompatActivity {
             intent.putExtra("score",goodAnswer);
             intent.putExtra("nbQuestion",nbQuestion);
             intent.putExtra("difficult",difficultQuestionnary);
+            intent.putExtra("isDailyChallenge", isDailyChallenge);
             intent.putExtra("errorQuestion", (Serializable) ErrorQuestions);
+            Log.i("TAG", "Advance: " + new Gson().toJson(questions));
+            intent.putExtra("quizIndex", quizIndex);
             startActivity(intent);
         }
     }
