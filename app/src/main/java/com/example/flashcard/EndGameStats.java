@@ -75,6 +75,7 @@ public class EndGameStats extends AppCompatActivity {
                     intent.putExtra("name", "replay");
                     intent.putExtra("replay", true);
                     intent.putExtra("replayQuestion", (Serializable) errorQuestionsList);
+                    intent.putExtra("timer","off");
                     startActivity(intent);
                     view.getContext().startActivity(intent);
                 }
