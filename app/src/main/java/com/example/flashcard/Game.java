@@ -65,11 +65,12 @@ public class Game extends AppCompatActivity {
     private boolean timerRunning = false;
     private int maxOption;
 
-
+    private int timerDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_game);
         //Setup all components
@@ -84,7 +85,6 @@ public class Game extends AppCompatActivity {
 
         timer = srcIntent.getStringExtra("timer");
 
-        startTimer(15);
 
 
 
@@ -113,7 +113,19 @@ public class Game extends AppCompatActivity {
         }else {
             maxOption =0;
         }
+        if ("easy".equals(difficultQuestionnary)){
+            timerDuration = 15;
+        } else if ("medium".equals(difficultQuestionnary)) {
+            timerDuration = 10;
+        } else if ("hard".equals(difficultQuestionnary)) {
+            timerDuration = 7;
+        } else if ("hardcore".equals(difficultQuestionnary)){
+            timerDuration = 5;
+        }else {
+            timerDuration =10;
+        }
 
+        startTimer(timerDuration);
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
@@ -359,7 +371,7 @@ public class Game extends AppCompatActivity {
             showQuestion();
             if ("on".equals(timer)) {
                 stopTimer();
-                startTimer(15);
+                startTimer(timerDuration);
             }
 
         } else {
