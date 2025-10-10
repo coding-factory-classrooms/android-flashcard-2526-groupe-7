@@ -124,8 +124,10 @@ public class Game extends AppCompatActivity {
         }else {
             timerDuration =10;
         }
-
-        startTimer(timerDuration);
+        if (timer.equals("on"))
+        {
+            startTimer(timerDuration);
+        }
 
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
