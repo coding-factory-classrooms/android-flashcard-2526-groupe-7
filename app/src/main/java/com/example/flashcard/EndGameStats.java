@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.model.Level;
 import com.example.flashcard.model.Question;
+import com.example.flashcard.model.Statistic;
 import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.example.flashcard.model.json.JsonLevel;
+import com.example.flashcard.model.json.JsonStatistic;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -85,23 +87,23 @@ public class EndGameStats extends AppCompatActivity {
         }
 
 
-        Log.i("End Game", String.valueOf(isDailyChallenge));
         if(isDailyChallenge){
             JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
             List<DailyChallengeApiModel> dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
-
-            Log.i("End Game", "Daily challenges debut: " + new Gson().toJson(dailyChallenges));
 
             DailyChallengeApiModel dailyChallenge = dailyChallenges.get(quizIndex);
 
             // Modify the correct quiz in the list
             dailyChallenge.setCompleted(true);
 
-            Log.i("End Game", "Daily challenge: " + new Gson().toJson(dailyChallenge));
-            Log.i("End Game", "Daily challenges apres: " + new Gson().toJson(dailyChallenges));
-
             jsonDailyChallenge.writeDailyChallenge(this, dailyChallenges);
         }
+
+        JsonStatistic jsonStatistic = new JsonStatistic();
+
+        int wrong_answers = numberOfQuestions - score;
+
+        jsonStatistic.writeStatistic(this, new Statistic(1, score, wrong_answers, 1.30f, 1.30f));
 
 
         // Replace score text
