@@ -9,7 +9,7 @@
         { "id": 4, "reponse": "Le prince héritier Guillaume" }
       ],
       "answerCorrectIndex": 3,
-      "questionImage": "bgopen",
+      "questionImage": "assasinat_question_1",
       "questionSong": "Null",
       "difficult": "Facile",
       "questionTime": 15
@@ -22,7 +22,7 @@
         { "id": 2, "reponse": "Le Japon" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "triple_entente_question_2",
       "questionSong": "Null",
       "difficult": "Moyenne",
       "questionTime": 15
@@ -35,7 +35,7 @@
         { "id": 2, "reponse": "À Ypres" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "bataille_verdun_question_3",
       "questionSong": "Null",
       "difficult": "Difficile",
       "questionTime": 15
@@ -48,7 +48,7 @@
         { "id": 2, "reponse": "Guerre aérienne" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "guerre_defensive_question_4",
       "questionSong": "Null",
       "difficult": "Moyenne",
       "questionTime": 15
@@ -61,7 +61,7 @@
         { "id": 2, "reponse": "Le sarin" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "question_5_toxique",
       "questionSong": "Null",
       "difficult": "Difficile",
       "questionTime": 15
@@ -74,7 +74,7 @@
         { "id": 2, "reponse": "Le traité de Saint-Germain" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "vers_question_6",
       "questionSong": "Null",
       "difficult": "Facile",
       "questionTime": 15
@@ -87,7 +87,7 @@
         { "id": 2, "reponse": "Le naufrage du Lusitania" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "zimmerman_telegram_question_7",
       "questionSong": "Null",
       "difficult": "Moyenne",
       "questionTime": 15
@@ -100,7 +100,7 @@
         { "id": 2, "reponse": "L'Empire ottoman" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "triple-entente-question_8",
       "questionSong": "Null",
       "difficult": "Facile",
       "questionTime": 15
@@ -113,7 +113,7 @@
         { "id": 2, "reponse": "Les Tirailleurs" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "poilus_question_9",
       "questionSong": "Null",
       "difficult": "Facile",
       "questionTime": 15
@@ -126,7 +126,7 @@
         { "id": 2, "reponse": "Le Britannic" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "lusitiana_question_10",
       "questionSong": "Null",
       "difficult": "Moyenne",
       "questionTime": 15
@@ -139,7 +139,7 @@
         { "id": 2, "reponse": "La Reichswehr" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "armee_alemande_question_11",
       "questionSong": "Null",
       "difficult": "Difficile",
       "questionTime": 15
@@ -152,7 +152,7 @@
         { "id": 2, "reponse": "Ferdinand Foch" }
       ],
       "answerCorrectIndex": 1,
-      "questionImage": "bgopen",
+      "questionImage": "portait_question 12",
       "questionSong": "Null",
       "difficult": "Moyenne",
       "questionTime": 15
@@ -165,7 +165,7 @@
         { "id": 2, "reponse": "La ligne Hindenburg" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "ligne-maginot_question_13",
       "questionSong": "Null",
       "difficult": "Difficile",
       "questionTime": 15
@@ -178,11 +178,25 @@
         { "id": 2, "reponse": "La chute de l'Empire ottoman" }
       ],
       "answerCorrectIndex": 0,
-      "questionImage": "bgopen",
+      "questionImage": "question_15_armistice",
       "questionSong": "Null",
       "difficult": "Facile",
       "questionTime": 15
-    }
+    },
+
+  {
+    "questionTitle": "Sur quel front les tranchées étaient-elles principalement situées pendant la Première Guerre mondiale ?",
+    "answerOptions": [
+      { "id": 0, "reponse": "Le front de l’Ouest" },
+      { "id": 1, "reponse": "Le front de l’Est" },
+      { "id": 2, "reponse": "Le front du Sud" }
+    ],
+    "answerCorrectIndex": 0,
+    "questionImage": "question_15",
+    "questionSong": "Null",
+    "difficult": "Facile",
+    "questionTime": 15
+  }
   ]
 
 
