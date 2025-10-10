@@ -58,7 +58,7 @@ public class Game extends AppCompatActivity {
     private boolean isDailyChallenge;
     private int quizIndex;
     private boolean oneQuestion;
-    private String timer;
+    private String timer ;
     private int remainingTime = 0;
     private TextView timeTextView;
     private Handler timerHandler = new Handler();
@@ -86,9 +86,6 @@ public class Game extends AppCompatActivity {
 
         timer = srcIntent.getStringExtra("timer");
 
-
-
-
         //optionsGroup.setOnCheckedChangeListener(listener);
 
 
@@ -101,7 +98,7 @@ public class Game extends AppCompatActivity {
         Object questionsFromQuiz = srcIntent.getSerializableExtra("questions");
 
         oneQuestion = srcIntent.getBooleanExtra("oneQuestionBool",false);
-        timer = srcIntent.getStringExtra("time");
+        timer = srcIntent.getStringExtra("timer");
 
         if ("easy".equals(difficultQuestionnary)){
             maxOption = 3;
@@ -113,7 +110,7 @@ public class Game extends AppCompatActivity {
             maxOption = 3;
         }else {
             maxOption =0;
-        }
+      }
         if ("easy".equals(difficultQuestionnary)){
             timerDuration = 15;
         } else if ("medium".equals(difficultQuestionnary)) {
@@ -123,8 +120,9 @@ public class Game extends AppCompatActivity {
         } else if ("hardcore".equals(difficultQuestionnary)){
             timerDuration = 5;
         }else {
-            timerDuration =10;
-        }
+          timerDuration =10;
+      }
+        Log.d("timer",timer);
         if (timer.equals("on"))
         {
             startTimer(timerDuration);

@@ -66,11 +66,12 @@ public class AllQuestions extends AppCompatActivity implements QuestionAdapter.O
 
     public void onItemClick(List<Question> question, View view) {
         Intent intent = new Intent(view.getContext(), Game.class);
-        intent.putExtra("difficult", "");
+        intent.putExtra("difficult", "easy");
         intent.putExtra("nbQuestion", 1);
         intent.putExtra("name","oneQuestion");
         intent.putExtra("oneQuestionBool",true);
         intent.putExtra("oneQuestion", (Serializable) question);
+        intent.putExtra("timer","off");
         startActivity(intent);
     }
 

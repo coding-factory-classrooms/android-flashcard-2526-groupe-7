@@ -107,6 +107,7 @@ public class DailyChallenge extends AppCompatActivity {
             intent.putExtra("isDailyChallenge", true);
             intent.putExtra("questions", (Serializable) dailyChallengeApi.getDailyChallenge().getQuestions());
             intent.putExtra("quizIndex", position);
+            intent.putExtra("timer","off");
             startActivity(intent);
         });
 
