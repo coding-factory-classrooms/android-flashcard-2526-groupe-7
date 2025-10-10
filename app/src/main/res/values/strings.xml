@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Flashcard</string>
+    <string name="app_name">MamaQuizz</string>
+    <string name="devgroup">g7</string>
 </resources>

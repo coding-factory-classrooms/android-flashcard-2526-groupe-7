@@ -99,7 +99,7 @@ public class LevelSelector extends AppCompatActivity {
             questions = 15;
         }
 
-        String timer = "";
+        String timer = "off";
         if (selectedTimerId == R.id.timerRadio){
             timer = "on";
             }
@@ -111,6 +111,7 @@ public class LevelSelector extends AppCompatActivity {
             intent.putExtra("time",timer);
             intent.putExtra("questions", (Serializable) questionsOfquiz);
 
+            intent.putExtra("timer",timer);
             startActivity(intent);
         });
     }

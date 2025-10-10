@@ -1,5 +1,7 @@
 package com.example.flashcard;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -64,9 +66,11 @@ public class Game extends AppCompatActivity {
     private int maxOption;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_game);
         //Setup all components
         questionText = findViewById(R.id.questionTextTextView);
@@ -76,6 +80,9 @@ public class Game extends AppCompatActivity {
         leaveButton = findViewById(R.id.backButton);
         timeTextView = findViewById(R.id.timeTextView);
         this.ErrorQuestions = new ArrayList<>();
+        Intent srcIntent = getIntent();
+
+        timer = srcIntent.getStringExtra("timer");
 
 
         RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
@@ -88,8 +95,9 @@ public class Game extends AppCompatActivity {
         };
         optionsGroup.setOnCheckedChangeListener(listener);
 
+        //optionsGroup.setOnCheckedChangeListener(listener);
 
-        Intent srcIntent = getIntent();
+
         String nameQuestionnary = srcIntent.getStringExtra("name");
         difficultQuestionnary = srcIntent.getStringExtra("difficult");
         nbQuestion = srcIntent.getIntExtra("nbQuestion",0);
@@ -113,6 +121,7 @@ public class Game extends AppCompatActivity {
             maxOption =0;
         }
 
+
         //Logic for leaving button
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +130,7 @@ public class Game extends AppCompatActivity {
                 finish();
             }
         });
+        redOverlay = findViewById(R.id.red_overlay);
 
         if(replay){
             Object questionObject  = srcIntent.getSerializableExtra("replayQuestion");
@@ -159,6 +169,7 @@ public class Game extends AppCompatActivity {
 
         // Logic for validate button
         validateButton.setOnClickListener(v -> {
+            stopTimer();
             int checkedId = optionsGroup.getCheckedRadioButtonId();
             int selectedIndex = -1;
             int selectedOptionId = -1;
@@ -213,6 +224,26 @@ public class Game extends AppCompatActivity {
         });
     }
 
+    private  TextView timerText;
+    private boolean pulsing = false;
+    private View  redOverlay;
+    private ObjectAnimator pulseAnimator ;
+
+    private void startPulsingRedOverlay() {
+        redOverlay.setVisibility(View.VISIBLE);
+        pulseAnimator = ObjectAnimator.ofFloat(redOverlay, "alpha", 0f, 0.5f, 0f) ;
+        pulseAnimator.setDuration(1000);
+        pulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        pulseAnimator.setRepeatMode(ValueAnimator.RESTART);
+        pulseAnimator.start();
+    }
+
+    private void stopPulsingRedOverlay() {
+        pulseAnimator.cancel();
+        pulseAnimator = null;
+        redOverlay.setAlpha(0f);
+    }
+
     //Function to start the timer (15 seconds here)
     private void startTimer(int seconds) {
         remainingTime = seconds;
@@ -224,31 +255,58 @@ public class Game extends AppCompatActivity {
             public void run() {
                 remainingTime--;
                 updateTimerDisplay();
-
-                if (remainingTime > 0) {
-                    timerHandler.postDelayed(this, 1500);
+                if (remainingTime ==4 ){
+                    timerHandler.postDelayed(this, 1000);
+                    startPulsingRedOverlay();
+                }else if (remainingTime > -1) {
+                    timerHandler.postDelayed(this, 1000);
                 } else {
                     timerRunning = false;
                     validateButton.setEnabled(false);
-                    new Handler().postDelayed(() -> Advance(), 1500);
+                    new Handler().postDelayed(() -> Advance(), 1000);
+                    showTempsEcoulePopup();
+                    stopPulsingRedOverlay();
+
                 }
             }
         };
-        timerHandler.postDelayed(timerRunnable, 1000);
+            timerHandler.postDelayed(timerRunnable, 1000);
     }
 
     private void stopTimer() {
         timerRunning = false;
         timerHandler.removeCallbacks(timerRunnable);
     }
-
     private void updateTimerDisplay() {
         int minutes = remainingTime / 60;
         int seconds = remainingTime % 60;
         String timeFormatted = String.format("%d:%02d", minutes, seconds);
         timeTextView.setText(timeFormatted);
     }
+    public void showTempsEcoulePopup() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
 
+        View popupView = inflater.inflate(R.layout.popup_temps_ecoule, null);
+        popupView.startAnimation(fadeIn);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setTouchable(false);
+        popupWindow.setFocusable(false);
+        popupWindow.showAtLocation(popupView, Gravity.TOP, 0, 0);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.dismiss();
+            }
+        }, 1000);
+    }
     public void showGoodAnswerPopup() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade);
@@ -273,7 +331,6 @@ public class Game extends AppCompatActivity {
             }
         }, 1500);
     }
-
     public void showWrongAnswerPopup(String correctAnswer, Runnable afterDismiss) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -303,11 +360,15 @@ public class Game extends AppCompatActivity {
         });
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
-
     private void Advance() {
         currentIndex++;
         if (currentIndex < questions.size()) {
             showQuestion();
+            if ("on".equals(timer)) {
+                stopTimer();
+                startTimer(15);
+            }
+
         } else {
             //Logic for finish
             questionText.setText("Quiz terminé !");

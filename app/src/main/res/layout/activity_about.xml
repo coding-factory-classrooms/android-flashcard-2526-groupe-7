@@ -24,6 +24,22 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/DevGroup"
+        android:layout_width="202dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="@font/sora"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/Credits"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Version" />
+
+    <TextView
         android:id="@+id/Credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
