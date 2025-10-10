@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -267,8 +268,11 @@ public class Game extends AppCompatActivity {
                 if (remainingTime ==4 ){
                     timerHandler.postDelayed(this, 1000);
                     startPulsingRedOverlay();
+                    playSound();
                 }else if (remainingTime > -1) {
                     timerHandler.postDelayed(this, 1000);
+                    playSound();
+
                 } else {
                     timerRunning = false;
                     validateButton.setEnabled(false);
@@ -282,6 +286,12 @@ public class Game extends AppCompatActivity {
             timerHandler.postDelayed(timerRunnable, 1000);
     }
 
+    void playSound() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.bip); // Replace "sound" with your file name (no extension)
+        mediaPlayer.start();
+
+
+    }
     private void stopTimer() {
         timerRunning = false;
         timerHandler.removeCallbacks(timerRunnable);
