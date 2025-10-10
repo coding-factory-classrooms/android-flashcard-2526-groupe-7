@@ -39,8 +39,10 @@ public class Statistics extends AppCompatActivity {
             }
         });
 
+        // Get statistics from local json
         Statistic statistic = jsonStatistic.readStatistic(this);
 
+        // Replace all stats values
         TextView totalGamesValue = findViewById(R.id.totalGamesValue);
         totalGamesValue.setText(String.valueOf(statistic.getTotalGamesPlayed()));
 

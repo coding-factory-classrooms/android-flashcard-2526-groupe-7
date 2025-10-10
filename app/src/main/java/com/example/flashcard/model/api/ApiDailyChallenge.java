@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiDailyChallenge implements IApiDailyChallenge{
 
 
+    // Fetch all daily challenge to be displayed today
     @Override
     public void fetchApiAllDailyChallenge(Context context, String difficulty, DailyChallengeCallback callback) {
 

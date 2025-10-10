@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiQuiz implements IApiQuiz{
 
+    // Fetch all quiz api
     @Override
     public void fetchAllApiQuiz(QuizCallback callback) {
         Retrofit retrofit = new Retrofit.Builder()

@@ -21,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiQuestion implements IApiQuestion{
 
+
+    // Fetch all questions from a quiz
     @Override
     public void fetchApiQuestion(String quizName, QuestionCallback callback) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -47,6 +49,7 @@ public class ApiQuestion implements IApiQuestion{
         });
     }
 
+    // Fetch all questions from all quiz
     @Override
     public void fetchApiAllQuestionsFromQuiz(QuestionCallback callback) {
         ApiQuiz apiQuiz = new ApiQuiz();

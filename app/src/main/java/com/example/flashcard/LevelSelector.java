@@ -60,6 +60,7 @@ public class LevelSelector extends AppCompatActivity {
 
         Log.i("GAME", "APPEL API");
 
+        // Fetch questions data for game
         apiQuestion.fetchApiQuestion(nameQuestionnary, new QuestionCallback() {
             @Override
             public void onSuccess(List<Question> all_questions) {

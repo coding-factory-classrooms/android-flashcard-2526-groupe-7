@@ -3,6 +3,7 @@ package com.example.flashcard.model;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.flashcard.Statistics;
 import com.example.flashcard.model.json.JsonStatistic;
 
 public class Statistic implements IStatistic{
@@ -22,20 +23,24 @@ public class Statistic implements IStatistic{
 
     @Override
     public void updateStatistic(Context context, QuizStatistic quizStatistic) {
-        totalGamesPlayed ++;
-        totalCorrectAnswers += quizStatistic.getScore();
-        int wrongAnswers = quizStatistic.getTotalQuestions() - quizStatistic.getScore();
-        totalWrongAnswers += wrongAnswers;
-        totalTimePlayed += quizStatistic.getTimeElapsed();
-
-        averageTimeGame = totalTimePlayed / totalGamesPlayed;
-
         JsonStatistic jsonStatistic = new JsonStatistic();
+
+        Statistic statistic = jsonStatistic.readStatistic(context);
+
+        statistic.totalGamesPlayed ++;
+        statistic.totalCorrectAnswers += quizStatistic.getScore();
+        int wrongAnswers = quizStatistic.getTotalQuestions() - quizStatistic.getScore();
+        statistic.totalWrongAnswers += wrongAnswers;
+        statistic.totalTimePlayed += quizStatistic.getTimeElapsed();
+
+        statistic.averageTimeGame = totalTimePlayed / totalGamesPlayed;
+
 
         Log.i("TAG", String.valueOf(totalWrongAnswers));
 
-        jsonStatistic.writeStatistic(context, new Statistic(totalGamesPlayed, totalCorrectAnswers, totalWrongAnswers, totalTimePlayed, averageTimeGame));
+        jsonStatistic.writeStatistic(context, statistic);
     }
+
 
     public int getTotalCorrectAnswers() {
         return totalCorrectAnswers;
