@@ -42,6 +42,7 @@ public class DailyChallenge extends AppCompatActivity {
             return insets;
         });
 
+        // call fetch function
         fetchDailyChallenges(this);
 
         Log.i("TAG", new Gson().toJson(dailyChallenges));
@@ -56,6 +57,7 @@ public class DailyChallenge extends AppCompatActivity {
 
     }
 
+    // Fetch daily challenges data from either local storage or api
     public void fetchDailyChallenges(Context context){
         SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         Boolean isNewDay = preferences.getBoolean("isNewday", true);
@@ -91,6 +93,7 @@ public class DailyChallenge extends AppCompatActivity {
 
     }
 
+    // Create recycler view with daily challenges adapter
     public void createRecyclerView(){
 
         DailyChallengeAdapter adapter = new DailyChallengeAdapter(dailyChallenges);

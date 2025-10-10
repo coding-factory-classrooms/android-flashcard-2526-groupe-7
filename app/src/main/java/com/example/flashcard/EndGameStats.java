@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.flashcard.model.DailyChallengeApiModel;
 import com.example.flashcard.model.Level;
 import com.example.flashcard.model.Question;
+import com.example.flashcard.model.QuizStatistic;
 import com.example.flashcard.model.Statistic;
 import com.example.flashcard.model.json.JsonDailyChallenge;
 import com.example.flashcard.model.json.JsonLevel;
@@ -42,6 +43,8 @@ public class EndGameStats extends AppCompatActivity {
         boolean isDailyChallenge;
         int quizIndex;
 
+
+        // Fetch all data from game screen
         Intent srcIntent = getIntent();
         numberOfQuestions = srcIntent.getIntExtra("nbQuestion",0);
         score = srcIntent.getIntExtra("score",0);
@@ -50,12 +53,14 @@ public class EndGameStats extends AppCompatActivity {
         quizIndex = srcIntent.getIntExtra("quizIndex", 0);
         Object questionObject  = srcIntent.getSerializableExtra("errorQuestion");
 
+        // Initialise error questions list
         if (questionObject instanceof List<?>) {
             errorQuestionsList = (List<Question>) questionObject;
         }else{
             Log.e("Error","Error during error question list recuperation");
         }
 
+        // On click buttons
         findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(MainActivity.class));
         findViewById(R.id.retryErrorButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +81,7 @@ public class EndGameStats extends AppCompatActivity {
             }
         });
 
+        // add xp based on difficulty
         if(difficulty.equals("easy")){
             xpToAdd = 20;
         } else if (difficulty.equals("medium")) {
@@ -87,6 +93,7 @@ public class EndGameStats extends AppCompatActivity {
         }
 
 
+        // If daily challenge then mark challenge completed
         if(isDailyChallenge){
             JsonDailyChallenge jsonDailyChallenge = new JsonDailyChallenge();
             List<DailyChallengeApiModel> dailyChallenges = jsonDailyChallenge.readLocalDailyChallenges(this);
@@ -99,12 +106,11 @@ public class EndGameStats extends AppCompatActivity {
             jsonDailyChallenge.writeDailyChallenge(this, dailyChallenges);
         }
 
-        JsonStatistic jsonStatistic = new JsonStatistic();
-
         int wrong_answers = numberOfQuestions - score;
 
-        jsonStatistic.writeStatistic(this, new Statistic(1, score, wrong_answers, 1.30f, 1.30f));
+        Statistic statistic = new Statistic(1, score, wrong_answers, 1.30f, 1.30f);
 
+        statistic.updateStatistic(this, new QuizStatistic(1.35f, score, numberOfQuestions));
 
         // Replace score text
         TextView scoreTextView = findViewById(R.id.scoreTextView);

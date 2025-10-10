@@ -37,6 +37,8 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
 
         fetchAllThemes(this);
     }
+
+    // Add on click for theme
     public void onItemClick(String quizzName) {
         Log.d("quizzname :",quizzName);
         Intent intent = new Intent(this, LevelSelector.class);
@@ -44,6 +46,7 @@ public class ThemeSelector extends AppCompatActivity implements quizzAdapter.OnI
         startActivity(intent);
     }
 
+    // Fetch all themes and display them
     public void fetchAllThemes(Context context){
         ApiQuiz apiQuiz = new ApiQuiz();
         apiQuiz.fetchAllApiQuiz(new QuizCallback() {

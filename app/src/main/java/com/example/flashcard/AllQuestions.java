@@ -40,6 +40,7 @@ public class AllQuestions extends AppCompatActivity implements QuestionAdapter.O
 
 
 
+        // Fetch all questions from all quiz and display them
         ApiQuestion apiQuestion = new ApiQuestion();
 
         apiQuestion.fetchApiAllQuestionsFromQuiz(new QuestionCallback() {
